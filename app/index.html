@@ -233,7 +233,7 @@ textarea.io{width:100%;min-height:110px;font-family:var(--mono);font-size:12px;b
     <button class="navbtn" data-view="cheatsheet"><svg viewBox="0 0 24 24"><path d="M6 3h9l5 5v13H6zM14 3v6h6M9 13h6M9 17h6"/></svg>Cheat sheet</button>
     <div class="spacer"></div>
     <div class="railbar"><i id="railbar" style="width:0%"></i></div>
-    <div class="foot"><span class="pct" id="railpct">0%</span> of sections read<br><span id="railexams">No exams yet</span></div>
+    <div class="foot"><span class="pct" id="railpct">0%</span> of sections read<br><span id="railexams">No exams yet</span><br><span id="railsync">Saved in this browser only</span></div>
   </nav>
 
   <main>
@@ -491,10 +491,58 @@ const EXAM_MIN = 105;
 
 /* ---------- state ---------- */
 const KEY = "sie-study-hub-v1";
-let S = {read:{}, qlog:{}, exams:[], lastView:"dashboard", lastChapter:1};
+let S = {read:{}, qlog:{}, exams:[], lastView:"dashboard", lastChapter:1, inExam:null, updatedAt:0};
 function load(){ try{ const raw = localStorage.getItem(KEY); if(raw){ S = Object.assign(S, JSON.parse(raw)); } }catch(e){} }
-function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} refreshRail(); }
+function save(){ S.updatedAt = Date.now(); try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} refreshRail(); cloudQueue(); }
 load();
+
+/* ---------- account sync (claude.ai db; falls back to this browser only) ---------- */
+let cloudRef = null, cloudTimer = null, cloudBusy = false, cloudAgain = false, cloudState = "local";
+function cloudQueue(){ if(!cloudRef) return; clearTimeout(cloudTimer); cloudTimer = setTimeout(cloudWrite, 1500); }
+async function cloudWrite(){
+  if(!cloudRef) return;
+  if(cloudBusy){ cloudAgain = true; return; }
+  cloudBusy = true; clearTimeout(cloudTimer);
+  try{ await cloudRef.set({state: JSON.stringify(S), updatedAt: S.updatedAt}); setSync("cloud"); }
+  catch(e){ const code = e && e.code; if(code==="unavailable"||code==="resource_exhausted"){ setSync("retry"); cloudAgain = true; } else setSync("local"); }
+  cloudBusy = false;
+  if(cloudAgain){ cloudAgain = false; setTimeout(cloudWrite, 2000 + Math.random()*1000); }
+}
+function setSync(s){ cloudState = s; const el = $("#railsync"); if(el) el.textContent = {cloud:"Saved to your account", retry:"Saving… (will retry)", local:"Saved in this browser only", loading:"Connecting to your account…"}[s]; }
+// combine two progress records so nothing done on either side is lost
+function mergeState(a, b){
+  const out = Object.assign({}, a, b.updatedAt > a.updatedAt ? b : {});
+  out.read = Object.assign({}, a.read, b.read); for(const k in a.read) if(a.read[k]) out.read[k] = true;
+  out.qlog = Object.assign({}, a.qlog); for(const k in b.qlog){ const x = out.qlog[k], y = b.qlog[k]; if(!x || (y.r+y.w) > (x.r+x.w)) out.qlog[k] = y; }
+  const key = e => [e.date, e.n, e.right, e.secs].join("|"), seen = new Set(); out.exams = [];
+  for(const e of [...(a.exams||[]), ...(b.exams||[])]){ const k = key(e); if(!seen.has(k)){ seen.add(k); out.exams.push(e); } }
+  out.exams.sort((x,y) => (x.ts||0) - (y.ts||0));
+  const ia = a.inExam, ib = b.inExam; out.inExam = ia && ib ? ((ib.savedAt||0) > (ia.savedAt||0) ? ib : ia) : (ia || ib || null);
+  out.updatedAt = Math.max(a.updatedAt||0, b.updatedAt||0);
+  return out;
+}
+async function cloudInit(){
+  if(!window.claude || !window.claude.use){ setSync("local"); return; }
+  setSync("loading");
+  try{
+    const [db, user] = await Promise.all([claude.use("db"), claude.use("user")]);
+    const uid = db && user ? await user.id() : null;
+    if(!uid){ setSync("local"); return; }
+    const ref = db.doc("data/users/" + uid + "/progress");
+    const snap = await ref.get();
+    let remote = null; if(snap.exists){ try{ remote = JSON.parse(snap.data().state); }catch(e){} }
+    cloudRef = ref;
+    if(remote){
+      const before = JSON.stringify(S);
+      S = mergeState(S, Object.assign({read:{},qlog:{},exams:[],updatedAt:0}, remote));
+      try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){}
+      if(JSON.stringify(S) !== snap.data().state) await cloudWrite(); else setSync("cloud");
+      if(JSON.stringify(S) !== before && !activeExam){ refreshRail(); go(S.inExam ? "exams" : (S.lastView||"dashboard"), {force:true}); toast("Progress loaded from your account"); }
+    } else {
+      await cloudWrite();
+    }
+  }catch(e){ cloudRef = null; setSync("local"); }
+}
 
 const $ = (sel, el=document) => el.querySelector(sel);
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]));
@@ -508,7 +556,7 @@ function logAnswer(q, correct){ const l = S.qlog[q.id] || (S.qlog[q.id]={r:0,w:0
 function refreshRail(){
   const d = Object.keys(S.read).filter(k=>S.read[k]).length, t = allSections.length, p = Math.round(100*d/t);
   $("#railbar").style.width = p+"%"; $("#railpct").textContent = p+"%";
-  const ex = S.exams; $("#railexams").textContent = ex.length ? `${ex.length} exam${ex.length>1?"s":""} · last ${ex[ex.length-1].pct}%` : "No exams yet";
+  setSync(cloudState); const ex = S.exams; $("#railexams").textContent = ex.length ? `${ex.length} exam${ex.length>1?"s":""} · last ${ex[ex.length-1].pct}%` : "No exams yet";
 }
 
 /* ---------- routing ---------- */
@@ -565,7 +613,7 @@ function renderDashboard(){
       <thead><tr><th>Chapter</th><th>Reading</th><th>Accuracy</th><th>Status</th><th></th></tr></thead>
       <tbody>${CHAPTERS.map(c=>{const r=chRead(c.num),a=accuracy(c.num),p=Math.round(100*r.done/r.total);return `<tr class="chrow"><td>${c.num}. ${esc(c.name)}</td><td><div style="display:flex;align-items:center;gap:8px"><div class="bar" style="flex:1"><i style="width:${p}%"></i></div><span class="num muted" style="font-size:12px;width:52px">${r.done}/${r.total}</span></div></td><td>${a.pct!==null?`<span class="num">${a.pct}%</span> <span class="muted" style="font-size:12px">(${a.n})</span>`:'<span class="muted">–</span>'}</td><td>${statusChip(c.num)}</td><td style="white-space:nowrap"><button class="btn sm" data-read="${c.num}">Read</button> <button class="btn sm" data-quiz="${c.num}">Quiz</button></td></tr>`}).join("")}</tbody></table></div></div>
     ${ex.length?`<div class="card" style="margin-bottom:14px"><h2>Exam log</h2><div class="tablewrap"><table><thead><tr><th>Date</th><th>Type</th><th>Score</th><th>Time used</th><th>By FINRA section</th></tr></thead><tbody>${[...ex].reverse().map(e=>`<tr><td class="num">${esc(e.date)}</td><td>${e.n} questions</td><td><span class="chip ${e.pct>=70?"good":"bad"}">${e.pct}%</span> <span class="muted num" style="font-size:12px">${e.right}/${e.n}</span></td><td class="num">${fmtTime(e.secs)}</td><td class="muted" style="font-size:12px">${[1,2,3,4].map(f=>e.fs&&e.fs[f]?`S${f} ${e.fs[f].r}/${e.fs[f].n}`:"").filter(Boolean).join(" · ")}</td></tr>`).join("")}</tbody></table></div></div>`:""}
-    <div class="card"><h2>Your progress data</h2><p class="hint">Progress is saved in this browser. Copy the JSON to move it to another device or to hand to Claude Code; paste it back here to restore.</p>
+    <div class="card"><h2>Your progress data</h2><p class="hint">Progress saves automatically to your Claude account when this page is open on claude.ai, and always to this browser. Copy the JSON to move it to another device or to hand to Claude Code; paste it back here to restore.</p>
       <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px"><button class="btn sm" id="exp">Show export</button><button class="btn sm" id="imp">Import from text below</button><button class="btn sm danger" id="reset">Reset all progress</button></div>
       <div id="resetconfirm" class="inlineconfirm" hidden>This erases reading progress, quiz history and exam scores. <button class="btn sm danger" id="reset-yes">Yes, erase</button><button class="btn sm" id="reset-no">Cancel</button></div>
       <textarea class="io" id="io" placeholder="Export appears here, or paste a previous export to import." aria-label="Progress data"></textarea></div>
@@ -693,16 +741,27 @@ function buildExam(n){
 }
 function renderExams(){
   const ex = S.exams;
-  view.innerHTML = `<div class="pad"><div class="grid2">
+  const ie = S.inExam;
+  view.innerHTML = `<div class="pad">${ie?`<div class="card" style="margin-bottom:14px;display:flex;gap:14px;align-items:center;flex-wrap:wrap"><span class="chip warn">In progress</span><span class="grow">You have an unfinished ${ie.ids.length}-question exam: ${ie.ans.filter(a=>a!==null).length} answered, ${fmtTime(Math.max(0,ie.left))} left on the clock.</span><button class="btn primary" id="resume">Resume exam</button><button class="btn sm danger" id="discard">Discard</button></div>`:""}<div class="grid2">
     <div class="card"><h2>Full-length practice exam</h2><p class="hint">75 questions in 105 minutes, mirroring the real SIE: 12 on capital markets, 33 on products, 23 on trading/accounts/prohibited activities, 7 on the regulatory framework. No feedback until you submit. Flag questions to revisit. Passing is 70%.</p><button class="btn primary" id="full">Start full exam</button></div>
     <div class="card"><h2>Short exam</h2><p class="hint">25 questions, 35 minutes, same section weighting. Good for a daily check-in.</p><button class="btn" id="short">Start short exam</button></div></div>
     <div class="card"><h2>History</h2>${ex.length?`<div class="tablewrap"><table><thead><tr><th>#</th><th>Date</th><th>Questions</th><th>Score</th><th>Time</th></tr></thead><tbody>${ex.map((e,i)=>`<tr><td class="num">${i+1}</td><td class="num">${esc(e.date)}</td><td>${e.n}</td><td><span class="chip ${e.pct>=70?"good":"bad"}">${e.pct}%</span></td><td class="num">${fmtTime(e.secs)}</td></tr>`).join("")}</tbody></table></div>`:'<div class="empty">No exams yet. The question pool has '+QUESTIONS.length+' questions, so each exam is a fresh random draw.</div>'}</div></div>`;
+  if(ie){ $("#resume").onclick = () => startExam(ie.ids.length, ie.secs, ie); $("#discard").onclick = () => { S.inExam = null; save(); renderExams(); }; }
   $("#full").onclick = () => startExam(75, EXAM_MIN*60);
   $("#short").onclick = () => startExam(25, 35*60);
 }
-function startExam(n, secs){
-  const qs = buildExam(n); const ans = new Array(qs.length).fill(null), flags = new Set(); let i=0, left=secs, timer=null; const t0 = Date.now();
+function startExam(n, secs, resume){
+  const byId = new Map(QUESTIONS.map(q => [q.id, q]));
+  const qs = resume ? resume.ids.map(id => byId.get(id)).filter(Boolean) : buildExam(n);
+  const ans = resume ? resume.ans.slice(0, qs.length) : new Array(qs.length).fill(null), flags = new Set(resume ? resume.flags : []);
+  let i = resume ? Math.min(resume.i, qs.length-1) : 0, left = resume ? resume.left : secs, timer = null;
+  // the clock only runs while the exam is open, so closing the page pauses it
   activeExam = {qs};
+  const persist = () => { S.inExam = {ids: qs.map(q=>q.id), ans: ans.slice(), flags: [...flags], i, left: Math.max(0,left), secs, savedAt: Date.now()}; save(); };
+  const onHide = () => { if(document.visibilityState === "hidden" && activeExam){ persist(); cloudWrite(); } };
+  document.addEventListener("visibilitychange", onHide); window.addEventListener("pagehide", onHide);
+  const stopExam = () => { clearInterval(timer); activeExam = null; document.removeEventListener("visibilitychange", onHide); window.removeEventListener("pagehide", onHide); };
+  persist();
   const tick = () => { left--; const t=$("#timer"); if(t){ t.textContent = fmtTime(Math.max(0,left)); t.classList.toggle("low", left<300); } if(left<=0){ clearInterval(timer); finish(true); } };
   timer = setInterval(tick, 1000);
   const render = () => {
@@ -714,25 +773,25 @@ function startExam(n, secs){
       <div id="subconfirm" class="inlineconfirm" hidden style="margin-top:12px"><span id="subtext"></span><button class="btn sm primary" id="sub-yes">Submit</button><button class="btn sm" id="sub-no">Keep working</button></div></div>
       <div class="navgrid" id="navgrid">${qs.map((_,k)=>`<button class="${ans[k]!==null?"ans":""} ${flags.has(k)?"flag":""} ${k===i?"cur":""}" data-j="${k}">${k+1}</button>`).join("")}</div>
       <div class="qfoot"><span class="muted" style="font-size:13px">Grey = answered · amber = flagged</span><span class="grow"></span><button class="btn sm" id="submit2">Submit exam</button></div></div>`;
-    view.querySelectorAll(".opt").forEach(b => b.onclick = () => { ans[i]=+b.dataset.k; view.querySelectorAll(".opt").forEach(x=>x.classList.toggle("sel",x===b)); const g=$("#navgrid").children[i]; g.classList.add("ans"); });
-    const p=$("#prev"); if(p) p.onclick = () => { i--; render(); };
-    const nx=$("#next"); if(nx) nx.onclick = () => { i++; render(); };
-    $("#flag").onclick = () => { flags.has(i)?flags.delete(i):flags.add(i); render(); };
-    view.querySelectorAll("#navgrid button").forEach(b => b.onclick = () => { i=+b.dataset.j; render(); });
+    view.querySelectorAll(".opt").forEach(b => b.onclick = () => { ans[i]=+b.dataset.k; view.querySelectorAll(".opt").forEach(x=>x.classList.toggle("sel",x===b)); const g=$("#navgrid").children[i]; g.classList.add("ans"); persist(); });
+    const p=$("#prev"); if(p) p.onclick = () => { i--; persist(); render(); };
+    const nx=$("#next"); if(nx) nx.onclick = () => { i++; persist(); render(); };
+    $("#flag").onclick = () => { flags.has(i)?flags.delete(i):flags.add(i); persist(); render(); };
+    view.querySelectorAll("#navgrid button").forEach(b => b.onclick = () => { i=+b.dataset.j; persist(); render(); });
     const askSubmit = () => { const un = ans.filter(a=>a===null).length; $("#subtext").textContent = un ? `${un} unanswered question${un>1?"s":""} will count as wrong. Submit anyway?` : "Submit and see your score?"; $("#subconfirm").hidden=false; $("#subconfirm").scrollIntoView({block:"nearest"}); };
     const s1=$("#submit"); if(s1) s1.onclick = askSubmit; $("#submit2").onclick = askSubmit;
     $("#sub-no").onclick = () => $("#subconfirm").hidden = true; $("#sub-yes").onclick = () => finish(false);
-    $("#leave-no").onclick = () => $("#leavebar").hidden = true; $("#leave-yes").onclick = () => { clearInterval(timer); activeExam=null; go($("#leavebar").dataset.to||"dashboard",{force:true}); };
+    $("#leave-no").onclick = () => $("#leavebar").hidden = true; $("#leave-yes").onclick = () => { stopExam(); S.inExam = null; save(); go($("#leavebar").dataset.to||"dashboard",{force:true}); };
     view.scrollTop = 0;
   };
   const finish = (timedOut) => {
-    clearInterval(timer); activeExam = null;
-    const secsUsed = Math.min(secs, Math.round((Date.now()-t0)/1000));
+    stopExam(); S.inExam = null;
+    const secsUsed = Math.min(secs, Math.max(0, secs - left));
     let right=0; const fs={}, ch={};
     qs.forEach((q,k) => { const ok = ans[k]===q.a; if(ok) right++; logAnswer(q, ok); fs[q.fs]=fs[q.fs]||{r:0,n:0}; fs[q.fs].n++; if(ok) fs[q.fs].r++; ch[q.ch]=ch[q.ch]||{r:0,n:0}; ch[q.ch].n++; if(ok) ch[q.ch].r++; });
     const pct = Math.round(100*right/qs.length);
     const d = new Date(), date = d.toLocaleDateString(undefined,{month:"short",day:"numeric"})+" "+d.toLocaleTimeString(undefined,{hour:"numeric",minute:"2-digit"});
-    S.exams.push({date, n:qs.length, right, pct, secs:secsUsed, fs, ch}); save();
+    S.exams.push({ts: Date.now(), date, n:qs.length, right, pct, secs:secsUsed, fs, ch}); save();
     let showWrong = false;
     const renderResults = () => {
       const list = qs.map((q,k)=>({q,k,ok:ans[k]===q.a})).filter(x => !showWrong || !x.ok);
@@ -749,6 +808,7 @@ function startExam(n, secs){
     };
     renderResults();
   };
+  if(left<=0){ finish(true); return; }
   render();
 }
 
@@ -758,7 +818,8 @@ function renderCheat(){ view.innerHTML = ""; view.appendChild($("#tpl-cheat").co
 /* ---------- boot ---------- */
 refreshRail();
 const h = location.hash.replace("#","");
-go(VIEWS[h] ? h : (S.lastView || "dashboard"), {force:true});
+go(S.inExam ? "exams" : VIEWS[h] ? h : (S.lastView || "dashboard"), {force:true});
+cloudInit();
 </script>
 
 </body>
