@@ -12,7 +12,20 @@
 "4 million"
 ],
 "a": 2,
-"e": "Outstanding = issued \u2212 treasury = 6M \u2212 1M = 5 million. Treasury stock carries no vote and receives no dividends."
+"e": "Outstanding = issued − treasury = 6M − 1M = 5 million. Treasury stock carries no vote and receives no dividends.",
+"k": "Outstanding shares = issued shares − treasury shares.",
+"w": [
+"That's authorized shares, the charter maximum, not what's outstanding.",
+"That's issued shares; it ignores the 1M bought back into treasury.",
+"",
+"Subtracts treasury from authorized minus issued incorrectly; no step gives 4M."
+],
+"m": "Treasury stock: no vote, no dividend, not outstanding.",
+"steps": [
+"Issued = 6M",
+"Treasury = 1M",
+"Outstanding = 6M − 1M = 5M"
+]
 },
 {
 "id": 2,
@@ -27,7 +40,19 @@
 "800 votes, but no more than 200 for any one candidate"
 ],
 "a": 1,
-"e": "Cumulative voting gives shares \u00d7 seats = 800 votes that can be distributed in any way, including all on one candidate. This benefits small shareholders. Statutory voting would be 200 votes per seat."
+"e": "Cumulative voting gives shares × seats = 800 votes that can be distributed in any way, including all on one candidate. This benefits small shareholders. Statutory voting would be 200 votes per seat.",
+"k": "Cumulative voting: total votes = shares × seats, spread any way, even all on one candidate.",
+"w": [
+"That describes statutory voting, not cumulative.",
+"",
+"Divides shares across seats; neither voting method works that way.",
+"Cumulative voting has no per-candidate cap; all 800 can go to one."
+],
+"m": "Cumulative helps the little guy concentrate votes.",
+"steps": [
+"Votes = 200 shares × 4 seats",
+"= 800 votes, allocated freely"
+]
 },
 {
 "id": 3,
@@ -42,7 +67,15 @@
 "Warrants cannot be traded separately from the bond they accompany"
 ],
 "a": 1,
-"e": "Warrants are long-term (often years), issued with an exercise price above the current market, and typically attached to bond or preferred offerings as sweeteners. Rights are short-term, priced below market, and given to existing shareholders."
+"e": "Warrants are long-term (often years), issued with an exercise price above the current market, and typically attached to bond or preferred offerings as sweeteners. Rights are short-term, priced below market, and given to existing shareholders.",
+"k": "Warrants: long-term, exercise price above market. Rights: short-term, price below market, for existing holders.",
+"w": [
+"Short-term and below-market describe a stock right, not a warrant.",
+"",
+"Preemptive rights produce stock rights, not warrants; warrants often sweeten new offerings.",
+"Warrants are usually detachable and trade separately from the bond."
+],
+"m": "Rights are short and cheap; warrants are long and pricey."
 },
 {
 "id": 4,
@@ -57,7 +90,15 @@
 "Friday, June 6"
 ],
 "a": 1,
-"e": "Corporate securities settle T+1 \u2014 one business day after the trade date. Wednesday, June 4. The Reg T payment deadline would be S+2 (Friday)."
+"e": "Corporate securities settle T+1 — one business day after the trade date. Wednesday, June 4. The Reg T payment deadline would be S+2 (Friday).",
+"k": "Regular-way corporate stock trades settle T+1, one business day after trade date.",
+"w": [
+"That's the trade date itself — a cash settlement, not regular way.",
+"",
+"That's T+2, the old settlement standard.",
+"That's T+3; closer to the Reg T payment deadline, not settlement."
+],
+"m": "Regular way = T+1 for stocks, corporates, munis."
 },
 {
 "id": 5,
@@ -72,7 +113,15 @@
 "Friday, March 21"
 ],
 "a": 1,
-"e": "Under T+1 settlement the ex-dividend date is the same day as the record date (March 20). To be a holder of record, the purchase must settle by March 20, so the trade must occur by March 19 \u2014 the last day before the ex-date."
+"e": "Under T+1 settlement the ex-dividend date is the same day as the record date (March 20). To be a holder of record, the purchase must settle by March 20, so the trade must occur by March 19 — the last day before the ex-date.",
+"k": "Under T+1, ex-date equals record date; buy by the business day before the record date.",
+"w": [
+"Two days early works but isn't the LAST possible day.",
+"",
+"March 20 is the ex-date; buyers that day don't get the dividend.",
+"After the record date; the seller keeps the dividend."
+],
+"m": "Buy before the ex-date to get the dividend."
 },
 {
 "id": 6,
@@ -87,7 +136,15 @@
 "The current market value minus the margin deposit"
 ],
 "a": 2,
-"e": "A short seller must eventually buy the stock back, and there is no ceiling on how high a stock can rise, so the loss potential is unlimited. Maximum gain is the sale proceeds (stock goes to zero)."
+"e": "A short seller must eventually buy the stock back, and there is no ceiling on how high a stock can rise, so the loss potential is unlimited. Maximum gain is the sale proceeds (stock goes to zero).",
+"k": "Short sellers face unlimited loss; their maximum gain is the sale proceeds.",
+"w": [
+"Sale proceeds are the short seller's maximum GAIN, not loss.",
+"Losses can far exceed the margin deposit as the stock rises.",
+"",
+"Made-up formula; a short's loss isn't capped by any fixed amount."
+],
+"m": "No ceiling on a stock's price means no ceiling on short losses."
 },
 {
 "id": 7,
@@ -102,7 +159,15 @@
 "Political risk in the foreign country"
 ],
 "a": 2,
-"e": "ADRs are priced in US dollars and pay dividends in US dollars (converted by the depositary bank). The holder still bears currency risk because the conversion rate affects the dollar value."
+"e": "ADRs are priced in US dollars and pay dividends in US dollars (converted by the depositary bank). The holder still bears currency risk because the conversion rate affects the dollar value.",
+"k": "ADRs trade and pay dividends in US dollars, but holders still bear currency and political risk.",
+"w": [
+"ADR holders do bear currency risk via dollar conversion of foreign values.",
+"The ADR tracks the foreign shares, so market risk remains.",
+"",
+"Political risk in the issuer's home country still affects the ADR."
+],
+"m": "ADR: dollar-paid, not currency-risk-free."
 },
 {
 "id": 8,
@@ -117,7 +182,20 @@
 "600 shares at $45"
 ],
 "a": 0,
-"e": "3-for-2: shares \u00d7 3/2 = 450; price \u00d7 2/3 = $60. Total value stays $27,000. Ownership percentage is unchanged."
+"e": "3-for-2: shares × 3/2 = 450; price × 2/3 = $60. Total value stays $27,000. Ownership percentage is unchanged.",
+"k": "Stock split: new shares = old × ratio; new price = old ÷ ratio; total value unchanged.",
+"w": [
+"",
+"That's a reverse split (2-for-3), cutting shares and raising price.",
+"Price must drop; total value can't jump from $27,000 to $40,500.",
+"That's a 2-for-1 split, not 3-for-2."
+],
+"m": "Value before = value after: always check shares × price.",
+"steps": [
+"Shares = 300 × 3/2 = 450",
+"Price = $90 × 2/3 = $60",
+"Check: 450 × $60 = $27,000 = 300 × $90"
+]
 },
 {
 "id": 9,
@@ -132,7 +210,20 @@
 "12"
 ],
 "a": 1,
-"e": "EPS = ($8M \u2212 $2M) \u00f7 3M = $2.00. P/E = $40 \u00f7 $2 = 20."
+"e": "EPS = ($8M − $2M) ÷ 3M = $2.00. P/E = $40 ÷ $2 = 20.",
+"k": "EPS = (net income − preferred dividends) ÷ common shares; P/E = price ÷ EPS.",
+"w": [
+"Forgot to subtract preferred dividends: EPS $2.67 gives P/E 15.",
+"",
+"Divides price by share count (40 ÷ 3), not by EPS.",
+"No correct EPS yields 12; recheck the EPS step."
+],
+"m": "Preferred dividends come out before common EPS.",
+"steps": [
+"Earnings to common = $8M − $2M = $6M",
+"EPS = $6M ÷ 3M = $2.00",
+"P/E = $40 ÷ $2 = 20"
+]
 },
 {
 "id": 10,
@@ -147,7 +238,15 @@
 "45 calendar days"
 ],
 "a": 1,
-"e": "SEC rules require tender offers to stay open at least 20 business days. Investors may only tender shares they actually own (net long)."
+"e": "SEC rules require tender offers to stay open at least 20 business days. Investors may only tender shares they actually own (net long).",
+"k": "Tender offers must stay open at least 20 business days.",
+"w": [
+"Too short; the minimum is 20 business days.",
+"",
+"Wrong unit and number; the rule counts business days, not calendar.",
+"Too long; 20 business days is the minimum."
+],
+"m": "Tender = 20 business days; tender only shares you own (net long)."
 },
 {
 "id": 11,
@@ -159,10 +258,23 @@
 "$6",
 "$12",
 "$18",
-"Nothing \u2014 the missed dividends are forfeited"
+"Nothing — the missed dividends are forfeited"
 ],
 "a": 2,
-"e": "Cumulative preferred accumulates dividends in arrears: two missed years ($12) plus the current year ($6) = $18 per share must be paid before any common dividend."
+"e": "Cumulative preferred accumulates dividends in arrears: two missed years ($12) plus the current year ($6) = $18 per share must be paid before any common dividend.",
+"k": "Cumulative preferred: pay all arrears plus current dividend before any common dividend.",
+"w": [
+"Only the current year; ignores the two missed years in arrears.",
+"Covers only the arrears; forgets this year's $6.",
+"",
+"Forfeiture applies to noncumulative preferred, not cumulative."
+],
+"m": "Cumulative = missed dividends pile up.",
+"steps": [
+"Arrears = 2 × $6 = $12",
+"Current year = $6",
+"Total = $12 + $6 = $18 per share"
+]
 },
 {
 "id": 12,
@@ -177,7 +289,15 @@
 "Rise only if the issuer is highly rated"
 ],
 "a": 1,
-"e": "Preferred pays a fixed dividend, so like a bond its price moves inversely to interest rates. Adjustable-rate preferred is the exception because its dividend resets."
+"e": "Preferred pays a fixed dividend, so like a bond its price moves inversely to interest rates. Adjustable-rate preferred is the exception because its dividend resets.",
+"k": "Fixed-rate preferred prices move inversely to interest rates, like bonds.",
+"w": [
+"Backwards; rising rates push fixed-income prices down.",
+"",
+"Fixed dividends become less attractive, so price must adjust.",
+"Credit quality doesn't reverse the inverse rate-price relationship."
+],
+"m": "Rates up, fixed-income prices down."
 },
 {
 "id": 13,
@@ -192,7 +312,15 @@
 "Convertible"
 ],
 "a": 2,
-"e": "Issuers call preferred (and bonds) when rates fall so they can reissue at a lower dividend rate. Investors are compensated with a higher stated dividend on callable issues."
+"e": "Issuers call preferred (and bonds) when rates fall so they can reissue at a lower dividend rate. Investors are compensated with a higher stated dividend on callable issues.",
+"k": "Issuers call callable preferred when rates fall to refinance at a lower dividend.",
+"w": [
+"Cumulative concerns missed dividends, not redemption.",
+"Participating concerns extra dividends, not redemption.",
+"",
+"Conversion is the holder's choice, not an issuer redemption."
+],
+"m": "Rates fall, issuers call."
 },
 {
 "id": 14,
@@ -207,7 +335,18 @@
 "$5.50"
 ],
 "a": 1,
-"e": "Conversion ratio = $100 \u00f7 $20 = 5 shares. Parity for the common = $110 \u00f7 5 = $22."
+"e": "Conversion ratio = $100 ÷ $20 = 5 shares. Parity for the common = $110 ÷ 5 = $22.",
+"k": "Conversion ratio = par ÷ conversion price; common parity = preferred price ÷ conversion ratio.",
+"w": [
+"That's the conversion price, which uses par, not market price.",
+"",
+"Not based on the 5-share ratio; parity divides market price by 5.",
+"Divides $110 by 20 instead of by the 5-share ratio."
+],
+"steps": [
+"Conversion ratio = $100 ÷ $20 = 5 shares",
+"Common parity = $110 ÷ 5 = $22"
+]
 },
 {
 "id": 15,
@@ -222,7 +361,15 @@
 "A municipal pension fund"
 ],
 "a": 0,
-"e": "Corporations can exclude a large portion of dividends received from other domestic corporations (the dividends-received deduction), making preferred especially attractive to corporate investors."
+"e": "Corporations can exclude a large portion of dividends received from other domestic corporations (the dividends-received deduction), making preferred especially attractive to corporate investors.",
+"k": "Corporations get a dividends-received deduction, excluding much of dividends from other domestic corporations.",
+"w": [
+"",
+"Low-bracket individuals gain little from favorable tax treatment.",
+"IRA earnings are already tax-deferred; no added benefit.",
+"Pension funds are tax-exempt, so the deduction is useless."
+],
+"m": "DRD: corporations love preferred."
 },
 {
 "id": 16,
@@ -237,7 +384,15 @@
 "Callable preferred"
 ],
 "a": 2,
-"e": "Because the dividend on adjustable-rate preferred resets with market rates, its price stays close to par and it is far less sensitive to rate changes."
+"e": "Because the dividend on adjustable-rate preferred resets with market rates, its price stays close to par and it is far less sensitive to rate changes.",
+"k": "Adjustable-rate preferred resets its dividend with market rates, so its price stays near par.",
+"w": [
+"Fixed dividend makes straight preferred rate-sensitive.",
+"Cumulative still pays a fixed rate; rate risk remains.",
+"",
+"Callable is fixed-rate and adds call risk."
+],
+"m": "Floating dividend, stable price."
 },
 {
 "id": 17,
@@ -252,7 +407,15 @@
 "A legal right to receive dividends each year"
 ],
 "a": 1,
-"e": "Preferred is 'preferred' for dividends and in liquidation (after creditors, before common). It generally has no voting rights, no maturity, and dividends are still not a legal obligation."
+"e": "Preferred is 'preferred' for dividends and in liquidation (after creditors, before common). It generally has no voting rights, no maturity, and dividends are still not a legal obligation.",
+"k": "Preferred has priority over common for dividends and liquidation, but usually no vote.",
+"w": [
+"Common, not preferred, has voting rights and more growth potential.",
+"",
+"Preferred has no maturity and generally no preemptive rights.",
+"No stock dividend is a legal obligation; the board must declare it."
+],
+"m": "Preferred: first in line, no vote."
 },
 {
 "id": 18,
@@ -267,7 +430,15 @@
 "Callable"
 ],
 "a": 1,
-"e": "Participating preferred receives its fixed dividend plus a share of additional dividends when the company does well."
+"e": "Participating preferred receives its fixed dividend plus a share of additional dividends when the company does well.",
+"k": "Participating preferred can receive extra dividends beyond its stated rate in profitable years.",
+"w": [
+"Cumulative recovers missed dividends but never pays above the stated rate.",
+"",
+"Convertible gives upside through conversion, not extra dividends.",
+"Callable lets the issuer redeem; it adds no dividend."
+],
+"m": "Participating = shares in the profits."
 },
 {
 "id": 19,
@@ -282,7 +453,19 @@
 "8.75%"
 ],
 "a": 1,
-"e": "Annual dividend = 7% \u00d7 $100 = $7. Current yield = $7 \u00f7 $87.50 = 8.0%."
+"e": "Annual dividend = 7% × $100 = $7. Current yield = $7 ÷ $87.50 = 8.0%.",
+"k": "Current yield = annual dividend ÷ current market price.",
+"w": [
+"That's the nominal (stated) rate, based on par.",
+"",
+"Multiplies 7% by the price instead of dividing the dividend by price.",
+"Mistakes the price figure for a yield; $7 ÷ $87.50 is 8%."
+],
+"m": "Price below par: current yield above stated rate.",
+"steps": [
+"Annual dividend = 7% × $100 = $7",
+"Current yield = $7 ÷ $87.50 = 8.0%"
+]
 },
 {
 "id": 20,
@@ -297,7 +480,15 @@
 "lower; it has no liquidation preference"
 ],
 "a": 1,
-"e": "Investor-friendly features (convertibility, cumulative, participating) let the issuer pay a lower dividend; issuer-friendly features (callability) require a higher dividend."
+"e": "Investor-friendly features (convertibility, cumulative, participating) let the issuer pay a lower dividend; issuer-friendly features (callability) require a higher dividend.",
+"k": "Investor-friendly features lower the dividend; issuer-friendly features like callability raise it.",
+"w": [
+"Call risk isn't a convertible trait; it raises dividends on callable issues.",
+"",
+"Wrong direction; convertibility lowers the dividend, and subordination isn't the reason.",
+"Right direction, wrong reason; convertible preferred keeps its liquidation preference."
+],
+"m": "Feature helps investor: issuer pays less."
 },
 {
 "id": 21,
@@ -312,7 +503,19 @@
 "$1,023.00"
 ],
 "a": 1,
-"e": "102 3/8 = 102.375% of $1,000 par = $1,023.75. Corporates are quoted in eighths; each point is $10."
+"e": "102 3/8 = 102.375% of $1,000 par = $1,023.75. Corporates are quoted in eighths; each point is $10.",
+"k": "Bond quotes are percent of $1,000 par; 1 point = $10, 1/8 point = $1.25.",
+"w": [
+"Treats 3/8 as .38 of a dollar instead of 3/8 of a point.",
+"",
+"Treats the fraction as 0.375 of a dollar, not a point.",
+"Drops the 3/8 fraction ($3.75) entirely."
+],
+"m": "Each point is $10; each eighth is $1.25.",
+"steps": [
+"102 3/8 = 102.375% of par",
+"102.375% × $1,000 = $1,023.75"
+]
 },
 {
 "id": 22,
@@ -327,7 +530,15 @@
 "YTM, YTC, CY, nominal"
 ],
 "a": 1,
-"e": "For a premium bond, nominal > current yield > YTM > YTC. The investor paid more than par and loses the premium, so the 'all-in' yields are lower than the coupon."
+"e": "For a premium bond, nominal > current yield > YTM > YTC. The investor paid more than par and loses the premium, so the 'all-in' yields are lower than the coupon.",
+"k": "Premium bond yields, highest to lowest: nominal, current, YTM, YTC.",
+"w": [
+"That's the discount bond order, reversed.",
+"",
+"Current yield is below nominal for a premium bond.",
+"Mixes orders; YTM and YTC are the lowest for a premium bond."
+],
+"m": "Premium: yields fall as you read N-CY-YTM-YTC left to right."
 },
 {
 "id": 23,
@@ -342,7 +553,15 @@
 "A 30-year zero-coupon bond"
 ],
 "a": 3,
-"e": "Price volatility increases with longer maturity and lower coupon. A long-term zero-coupon bond has the highest duration and is the most sensitive to rate changes."
+"e": "Price volatility increases with longer maturity and lower coupon. A long-term zero-coupon bond has the highest duration and is the most sensitive to rate changes.",
+"k": "Longer maturity and lower coupon mean greater price sensitivity; long zeros are most volatile.",
+"w": [
+"Short maturity: least price change.",
+"Moderate maturity; still less sensitive than 30-year issues.",
+"Long maturity, but coupons reduce sensitivity versus a zero.",
+""
+],
+"m": "Long and low coupon = most volatile."
 },
 {
 "id": 24,
@@ -357,7 +576,15 @@
 "B"
 ],
 "a": 1,
-"e": "BBB (S&P/Fitch) or Baa (Moody's) is the lowest investment-grade tier. Anything below is speculative/high-yield ('junk')."
+"e": "BBB (S&P/Fitch) or Baa (Moody's) is the lowest investment-grade tier. Anything below is speculative/high-yield ('junk').",
+"k": "BBB (S&P/Fitch) or Baa (Moody's) is the lowest investment-grade rating.",
+"w": [
+"A is investment grade but not the lowest tier.",
+"",
+"BB is the top of speculative (junk) grade.",
+"B is speculative grade."
+],
+"m": "Top four tiers: AAA, AA, A, BBB."
 },
 {
 "id": 25,
@@ -372,7 +599,15 @@
 "A 12-year callable municipal bond"
 ],
 "a": 1,
-"e": "Zero-coupon bonds pay no interim interest, so there is nothing to reinvest; the investor locks in a known maturity value. The annual accretion is taxed unless it's a muni or held in a tax-deferred account."
+"e": "Zero-coupon bonds pay no interim interest, so there is nothing to reinvest; the investor locks in a known maturity value. The annual accretion is taxed unless it's a muni or held in a tax-deferred account.",
+"k": "Zero-coupon bonds eliminate reinvestment risk and lock in a known maturity value.",
+"w": [
+"Coupons must be reinvested at unknown future rates.",
+"",
+"Funds have no maturity value and carry reinvestment and market risk.",
+"Callable adds call risk and coupons bring reinvestment risk."
+],
+"m": "Known future amount, no reinvestment: think zero."
 },
 {
 "id": 26,
@@ -387,7 +622,15 @@
 "The bond trades at a premium"
 ],
 "a": 1,
-"e": "A put lets the holder sell the bond back at par. When rates rise, bond prices fall, so the holder puts the bond at par and reinvests at the higher rates."
+"e": "A put lets the holder sell the bond back at par. When rates rise, bond prices fall, so the holder puts the bond at par and reinvests at the higher rates.",
+"k": "Holders put bonds back at par when rates rise and bond prices fall.",
+"w": [
+"Falling rates raise bond prices; holders keep the bond.",
+"",
+"An upgrade raises the price, so there's no reason to put at par.",
+"At a premium, selling at par would lose money."
+],
+"m": "Puts protect the holder when rates rise."
 },
 {
 "id": 27,
@@ -402,7 +645,20 @@
 "107"
 ],
 "a": 0,
-"e": "Corporate bonds use 30/360: January (30) + February (30) + March (30) + April 1\u201315 (15) = 105 days. Accrued interest runs up to but not including settlement."
+"e": "Corporate bonds use 30/360: January (30) + February (30) + March (30) + April 1–15 (15) = 105 days. Accrued interest runs up to but not including settlement.",
+"k": "Corporate accrued interest uses 30/360, counting up to but not including settlement date.",
+"w": [
+"",
+"Includes settlement day; accrual stops the day before settlement.",
+"Undercounts; April 1–15 is 15 days.",
+"Overcounts; likely used actual days or included settlement."
+],
+"m": "Every month is 30 days for corporates and munis.",
+"steps": [
+"Jan + Feb + Mar = 3 × 30 = 90 days",
+"April 1–15 = 15 days (settlement day excluded)",
+"Total = 90 + 15 = 105 days"
+]
 },
 {
 "id": 28,
@@ -417,7 +673,15 @@
 "All maturities yield approximately the same"
 ],
 "a": 1,
-"e": "An inverted (negative) yield curve has short-term yields above long-term yields, usually from Fed tightening, and historically signals a coming recession."
+"e": "An inverted (negative) yield curve has short-term yields above long-term yields, usually from Fed tightening, and historically signals a coming recession.",
+"k": "Inverted yield curve: short-term rates exceed long-term rates; often signals recession.",
+"w": [
+"That's a normal (positive) yield curve.",
+"",
+"That's a credit spread, not the yield curve's shape.",
+"That's a flat yield curve."
+],
+"m": "Inverted = upside down: short pays more than long."
 },
 {
 "id": 29,
@@ -432,7 +696,15 @@
 "Its yield to call is always higher than its yield to maturity"
 ],
 "a": 2,
-"e": "Callability benefits the issuer (called when rates fall), so investors demand a higher coupon. For a premium bond YTC is lower than YTM."
+"e": "Callability benefits the issuer (called when rates fall), so investors demand a higher coupon. For a premium bond YTC is lower than YTM.",
+"k": "Callable bonds pay higher coupons to compensate investors for call risk.",
+"w": [
+"Backwards; call risk requires a higher coupon.",
+"Issuers call when rates fall, not rise.",
+"",
+"For a premium bond, YTC is lower than YTM."
+],
+"m": "Issuer-friendly feature costs the issuer a higher coupon."
 },
 {
 "id": 30,
@@ -447,7 +719,15 @@
 "RTRS"
 ],
 "a": 1,
-"e": "FINRA's TRACE (Trade Reporting and Compliance Engine) captures corporate bond trades. Municipal trades go to the MSRB's RTRS, displayed on EMMA."
+"e": "FINRA's TRACE (Trade Reporting and Compliance Engine) captures corporate bond trades. Municipal trades go to the MSRB's RTRS, displayed on EMMA.",
+"k": "Corporate bond trades are reported to FINRA's TRACE.",
+"w": [
+"EMMA is the MSRB's municipal disclosure site.",
+"",
+"The Consolidated Tape reports exchange-listed stock trades.",
+"RTRS is the MSRB's municipal trade reporting system."
+],
+"m": "TRACE tracks corporates; RTRS/EMMA cover munis."
 },
 {
 "id": 31,
@@ -462,7 +742,15 @@
 "Money market funds cannot buy longer maturities"
 ],
 "a": 1,
-"e": "The Securities Act of 1933 exempts short-term debt with a maturity of 270 days or less from registration, so issuers cap commercial paper at 270 days."
+"e": "The Securities Act of 1933 exempts short-term debt with a maturity of 270 days or less from registration, so issuers cap commercial paper at 270 days.",
+"k": "Debt maturing in 270 days or less is exempt from SEC registration under the 1933 Act.",
+"w": [
+"Commercial paper is generally unsecured; bank guarantees aren't the reason.",
+"",
+"No Fed rule caps corporate borrowing at 270 days.",
+"Money funds' limits aren't what set the 270-day cap."
+],
+"m": "270 days: no registration needed."
 },
 {
 "id": 32,
@@ -477,7 +765,15 @@
 "Debenture"
 ],
 "a": 2,
-"e": "Equipment trust certificates are backed by movable equipment held by a trustee; mortgage bonds by real property; collateral trust bonds by securities; debentures are unsecured."
+"e": "Equipment trust certificates are backed by movable equipment held by a trustee; mortgage bonds by real property; collateral trust bonds by securities; debentures are unsecured.",
+"k": "Equipment trust certificates are secured by movable equipment like railcars and aircraft.",
+"w": [
+"Mortgage bonds are backed by real property.",
+"Collateral trust bonds are backed by securities held by a trustee.",
+"",
+"Debentures are unsecured."
+],
+"m": "Equipment trust = things that move."
 },
 {
 "id": 33,
@@ -492,7 +788,18 @@
 "$900"
 ],
 "a": 1,
-"e": "Conversion ratio = 1,000 \u00f7 40 = 25 shares. Parity = 25 \u00d7 $45 = $1,125."
+"e": "Conversion ratio = 1,000 ÷ 40 = 25 shares. Parity = 25 × $45 = $1,125.",
+"k": "Conversion ratio = par ÷ conversion price; bond parity = ratio × stock price.",
+"w": [
+"That's par, not parity at the current stock price.",
+"",
+"Not ratio × price; 25 shares × $45 is exactly $1,125.",
+"Inverts the ratio; stock above conversion price puts parity above par."
+],
+"steps": [
+"Conversion ratio = $1,000 ÷ $40 = 25 shares",
+"Parity = 25 × $45 = $1,125"
+]
 },
 {
 "id": 34,
@@ -507,7 +814,15 @@
 "General creditors"
 ],
 "a": 2,
-"e": "Order: secured creditors \u2192 general (unsecured) creditors \u2192 subordinated debentures \u2192 preferred \u2192 common."
+"e": "Order: secured creditors → general (unsecured) creditors → subordinated debentures → preferred → common.",
+"k": "Liquidation order: secured creditors, general creditors, subordinated debt, preferred, then common.",
+"w": [
+"Subordinated debentures rank behind general creditors.",
+"Preferred stock is equity, paid after all creditors.",
+"",
+"General creditors are paid after secured creditors."
+],
+"m": "Secured first, common last."
 },
 {
 "id": 35,
@@ -522,7 +837,15 @@
 "Margin lending to broker-dealers"
 ],
 "a": 1,
-"e": "BAs are bank-guaranteed time drafts used in international trade; they trade at a discount with maturities up to 270 days."
+"e": "BAs are bank-guaranteed time drafts used in international trade; they trade at a discount with maturities up to 270 days.",
+"k": "Banker's acceptances are bank-guaranteed time drafts used to finance import/export trade.",
+"w": [
+"Payroll is not a BA's purpose.",
+"",
+"Municipalities use notes and bonds, not BAs.",
+"Broker-dealer financing uses call loans, not BAs."
+],
+"m": "BA = international trade."
 },
 {
 "id": 36,
@@ -537,7 +860,15 @@
 "Brady bonds"
 ],
 "a": 1,
-"e": "Eurodollar bonds are USD-denominated bonds issued outside the US; they're unregistered and usually pay interest annually. A Yankee bond is a foreign issuer's dollar bond sold and registered in the US."
+"e": "Eurodollar bonds are USD-denominated bonds issued outside the US; they're unregistered and usually pay interest annually. A Yankee bond is a foreign issuer's dollar bond sold and registered in the US.",
+"k": "Eurodollar bonds: USD-denominated, issued outside the US, not SEC-registered.",
+"w": [
+"Yankee bonds are foreign issuers' USD bonds sold and registered in the US.",
+"",
+"Treasury receipts are broker-created zeros backed by Treasuries.",
+"Brady bonds are restructured emerging-market sovereign debt."
+],
+"m": "Eurodollar: dollars abroad. Yankee: foreigners here."
 },
 {
 "id": 37,
@@ -552,7 +883,15 @@
 "An equipment trust certificate"
 ],
 "a": 1,
-"e": "Income bonds pay interest only if the company earns enough, so they trade flat. Bonds in default also trade flat."
+"e": "Income bonds pay interest only if the company earns enough, so they trade flat. Bonds in default also trade flat.",
+"k": "Income (adjustment) bonds and defaulted bonds trade flat, without accrued interest.",
+"w": [
+"Secured bonds pay regular interest and trade with accrued interest.",
+"",
+"Convertibles pay regular interest and trade with accrued interest.",
+"ETCs pay regular interest and trade with accrued interest."
+],
+"m": "Interest not reliably paid? It trades flat."
 },
 {
 "id": 38,
@@ -567,7 +906,15 @@
 "Pays interest monthly"
 ],
 "a": 1,
-"e": "Negotiable (jumbo) CDs are $100,000+ and can be traded before maturity, so there's no early-withdrawal penalty but the holder faces interest-rate risk. FDIC coverage still applies up to $250,000."
+"e": "Negotiable (jumbo) CDs are $100,000+ and can be traded before maturity, so there's no early-withdrawal penalty but the holder faces interest-rate risk. FDIC coverage still applies up to $250,000.",
+"k": "Negotiable CDs ($100,000+) can be traded in the secondary market before maturity.",
+"w": [
+"Still FDIC insured up to $250,000.",
+"",
+"Negotiable CDs have a $100,000 minimum, not $1,000.",
+"Payment frequency isn't the distinguishing feature."
+],
+"m": "Negotiable = sell it, don't cash it in early."
 },
 {
 "id": 39,
@@ -582,7 +929,15 @@
 "Issuing additional common stock"
 ],
 "a": 1,
-"e": "If the bond is called at a price below its conversion value, holders will convert rather than accept the call price \u2014 eliminating the issuer's debt."
+"e": "If the bond is called at a price below its conversion value, holders will convert rather than accept the call price — eliminating the issuer's debt.",
+"k": "Calling convertibles when conversion value exceeds the call price forces holders to convert.",
+"w": [
+"Lowering conversion price makes conversion more attractive, but issuers can't force it that way.",
+"",
+"Suspending interest is default, not forced conversion.",
+"Issuing new stock dilutes but doesn't compel bondholders to convert."
+],
+"m": "Forced conversion = call when stock is above parity."
 },
 {
 "id": 40,
@@ -597,7 +952,15 @@
 "Interest is tax-free to the bondholder"
 ],
 "a": 0,
-"e": "Interest expense reduces taxable income; dividends are paid from after-tax profits. This makes debt a cheaper source of capital, but it adds leverage and a fixed obligation."
+"e": "Interest expense reduces taxable income; dividends are paid from after-tax profits. This makes debt a cheaper source of capital, but it adds leverage and a fixed obligation.",
+"k": "Bond interest is tax-deductible to the issuer; dividends come from after-tax income.",
+"w": [
+"",
+"Interest is a legal obligation; missing it is default.",
+"Bondholders are creditors with no voting rights.",
+"Corporate bond interest is taxable to holders."
+],
+"m": "Debt is cheaper capital: interest is deductible."
 },
 {
 "id": 41,
@@ -612,7 +975,19 @@
 "4.20%"
 ],
 "a": 1,
-"e": "Tax-equivalent yield = 4.2% \u00f7 (1 \u2212 0.35) = 4.2% \u00f7 0.65 = 6.46%."
+"e": "Tax-equivalent yield = 4.2% ÷ (1 − 0.35) = 4.2% ÷ 0.65 = 6.46%.",
+"k": "Tax-equivalent yield = muni yield ÷ (1 − tax bracket).",
+"w": [
+"Multiplied 4.2% by 1.35 instead of dividing by 0.65.",
+"",
+"That's the after-tax yield of a 4.2% taxable bond, the reverse calculation.",
+"Ignores the muni's tax advantage; a taxable bond must yield more."
+],
+"m": "Going muni to corporate: divide. Corporate to muni: multiply.",
+"steps": [
+"1 − 0.35 = 0.65",
+"4.2% ÷ 0.65 = 6.46%"
+]
 },
 {
 "id": 42,
@@ -627,7 +1002,15 @@
 "They are exempt from federal taxation"
 ],
 "a": 1,
-"e": "G.O. bonds pledge the issuer's taxing power, so they typically need voter approval and are subject to debt limits. Revenue bonds rely on a project's revenue and a feasibility study."
+"e": "G.O. bonds pledge the issuer's taxing power, so they typically need voter approval and are subject to debt limits. Revenue bonds rely on a project's revenue and a feasibility study.",
+"k": "G.O. bonds are backed by taxing power, so they need voter approval and face debt limits.",
+"w": [
+"User fees from a project back revenue bonds, not G.O.s.",
+"",
+"Feasibility studies are a revenue bond requirement.",
+"Both G.O. and revenue bond interest is generally federally tax-exempt."
+],
+"m": "G.O. = taxes = voters; Revenue = project = feasibility study."
 },
 {
 "id": 43,
@@ -642,7 +1025,15 @@
 "Grant anticipation notes"
 ],
 "a": 2,
-"e": "BANs are interim financing paid off by a future bond sale. TANs come from future taxes; RANs from future non-tax revenue; GANs from expected grants."
+"e": "BANs are interim financing paid off by a future bond sale. TANs come from future taxes; RANs from future non-tax revenue; GANs from expected grants.",
+"k": "BANs are repaid from a future bond sale; TANs, RANs, GANs from taxes, revenues, grants.",
+"w": [
+"TANs are repaid from upcoming tax collections, not a bond sale.",
+"RANs are repaid from expected non-tax revenues.",
+"",
+"GANs are repaid from expected federal or state grants."
+],
+"m": "The first letter names the repayment source."
 },
 {
 "id": 44,
@@ -657,7 +1048,15 @@
 "Pre-refunded bonds"
 ],
 "a": 2,
-"e": "Private activity bonds \u2014 those that primarily benefit a private entity, such as industrial development bonds \u2014 are AMT preference items."
+"e": "Private activity bonds — those that primarily benefit a private entity, such as industrial development bonds — are AMT preference items.",
+"k": "Private activity bond interest is a preference item that may be subject to the AMT.",
+"w": [
+"G.O. bonds fund public purposes; their interest isn't an AMT item.",
+"Public housing bonds serve a public purpose and aren't AMT preference items.",
+"",
+"Pre-refunded status affects safety, not AMT treatment."
+],
+"m": "Private benefit = possible AMT."
 },
 {
 "id": 45,
@@ -672,7 +1071,15 @@
 "Insuring municipal bonds against default"
 ],
 "a": 1,
-"e": "The MSRB writes rules for broker-dealers, bank dealers and municipal advisors but has no enforcement power and no jurisdiction over issuers."
+"e": "The MSRB writes rules for broker-dealers, bank dealers and municipal advisors but has no enforcement power and no jurisdiction over issuers.",
+"k": "MSRB writes rules for muni dealers and advisors; FINRA, SEC and bank regulators enforce them.",
+"w": [
+"MSRB has no authority over issuers and no enforcement power.",
+"",
+"Munis are exempt from SEC registration; MSRB registers nothing with the SEC.",
+"Bond insurers (private companies) insure munis, not the MSRB."
+],
+"m": "MSRB makes rules but can't enforce them or touch issuers."
 },
 {
 "id": 46,
@@ -687,7 +1094,15 @@
 "Unaffected, because she can vote for the candidate"
 ],
 "a": 1,
-"e": "The de minimis exception is $250 per election for candidates the MFP can vote for. A $500 contribution exceeds it and triggers the two-year ban on negotiated business with that issuer."
+"e": "The de minimis exception is $250 per election for candidates the MFP can vote for. A $500 contribution exceeds it and triggers the two-year ban on negotiated business with that issuer.",
+"k": "G-37: MFP may give $250 per election to candidates she can vote for; more triggers a two-year ban.",
+"w": [
+"G-37's consequence is a business ban, not a fine equal to the gift.",
+"",
+"EMMA disclosure doesn't cure an over-limit contribution.",
+"Voting eligibility only allows up to $250; $500 exceeds the de minimis."
+],
+"m": "Over $250 means two years without negotiated business."
 },
 {
 "id": 47,
@@ -702,7 +1117,15 @@
 "A joint account of a retired couple in a high bracket"
 ],
 "a": 2,
-"e": "Muni interest is already tax-exempt; inside a tax-deferred IRA the benefit is wasted and withdrawals become taxable ordinary income. Munis yield less than taxable bonds, so the investor loses."
+"e": "Muni interest is already tax-exempt; inside a tax-deferred IRA the benefit is wasted and withdrawals become taxable ordinary income. Munis yield less than taxable bonds, so the investor loses.",
+"k": "Tax-exempt munis don't belong in tax-deferred accounts like IRAs; the tax benefit is wasted.",
+"w": [
+"High-income taxable accounts benefit most from muni tax exemption.",
+"Corporate accounts can benefit from tax-exempt interest; no IRA conflict here.",
+"",
+"High-bracket taxable investors are classic muni buyers."
+],
+"m": "Never put a tax shelter inside another tax shelter."
 },
 {
 "id": 48,
@@ -717,7 +1140,14 @@
 "The issuer may borrow 1.8 times its current debt"
 ],
 "a": 1,
-"e": "Coverage ratio = net revenue available \u00f7 annual debt service. 1.8 means revenue covers debt service 1.8 times \u2014 higher is safer."
+"e": "Coverage ratio = net revenue available ÷ annual debt service. 1.8 means revenue covers debt service 1.8 times — higher is safer.",
+"k": "Debt service coverage = net revenue ÷ annual debt service (principal + interest); higher is safer.",
+"w": [
+"Reversed: revenue is 1.8 times debt service, not the other way.",
+"",
+"Coverage ratios have nothing to do with credit rating notches.",
+"It measures ability to pay current debt, not borrowing capacity."
+]
 },
 {
 "id": 49,
@@ -732,7 +1162,15 @@
 "Fully taxable"
 ],
 "a": 2,
-"e": "Bonds of US territories (Puerto Rico, Guam, USVI) are triple tax-exempt for investors in every state."
+"e": "Bonds of US territories (Puerto Rico, Guam, USVI) are triple tax-exempt for investors in every state.",
+"k": "US territory bonds (Puerto Rico, Guam, USVI) are triple tax-exempt for residents of any state.",
+"w": [
+"Territory bond interest is federally tax-exempt too.",
+"Territory bonds also escape state and local tax in every state.",
+"",
+"Territory munis are exempt at all levels, not taxable."
+],
+"m": "Territories: tax-free everywhere."
 },
 {
 "id": 50,
@@ -747,7 +1185,15 @@
 "A private placement under Regulation D"
 ],
 "a": 1,
-"e": "G.O. issues typically publish a notice of sale and award the bonds to the syndicate with the lowest NIC/TIC. Revenue bonds are usually negotiated."
+"e": "G.O. issues typically publish a notice of sale and award the bonds to the syndicate with the lowest NIC/TIC. Revenue bonds are usually negotiated.",
+"k": "G.O. bonds are usually awarded by competitive bid to the syndicate with the lowest interest cost.",
+"w": [
+"Negotiated underwritings are typical for revenue bonds.",
+"",
+"Muni deals are generally firm commitment, not best efforts.",
+"Reg D private placements don't describe typical public G.O. issues."
+],
+"m": "G.O. = competitive; Revenue = negotiated."
 },
 {
 "id": 51,
@@ -762,7 +1208,15 @@
 "Taxable at all levels"
 ],
 "a": 1,
-"e": "Treasury interest is subject to federal income tax but exempt from state and local tax \u2014 the opposite of municipal bonds."
+"e": "Treasury interest is subject to federal income tax but exempt from state and local tax — the opposite of municipal bonds.",
+"k": "Treasury interest is federally taxable but exempt from state and local tax.",
+"w": [
+"Reversed: that describes munis, not Treasuries.",
+"",
+"Treasuries are federally taxable; only territory munis are exempt everywhere.",
+"States cannot tax Treasury interest."
+],
+"m": "Treasuries are the mirror image of munis."
 },
 {
 "id": 52,
@@ -777,7 +1231,19 @@
 "$998.24"
 ],
 "a": 1,
-"e": "Treasury notes and bonds are quoted in 32nds: 98.24 = 98 24/32 = 98.75% of $1,000 = $987.50."
+"e": "Treasury notes and bonds are quoted in 32nds: 98.24 = 98 24/32 = 98.75% of $1,000 = $987.50.",
+"k": "Treasury notes and bonds are quoted in 32nds: the number after the point = n/32.",
+"w": [
+"Treated .24 as a decimal instead of 24/32.",
+"",
+"Miscalculated the fraction; 24/32 is 0.75, not 0.275.",
+"Read 98.24 as 99.824%, ignoring the 32nds convention."
+],
+"m": "Treasury decimals are 32nds, not cents.",
+"steps": [
+"24/32 = 0.75, so price = 98.75% of par",
+"98.75% × $1,000 = $987.50"
+]
 },
 {
 "id": 53,
@@ -792,7 +1258,15 @@
 "Federal Home Loan Banks"
 ],
 "a": 2,
-"e": "Only GNMA pass-throughs carry the direct full-faith-and-credit backing of the US government. Fannie and Freddie are GSEs with implied support."
+"e": "Only GNMA pass-throughs carry the direct full-faith-and-credit backing of the US government. Fannie and Freddie are GSEs with implied support.",
+"k": "Only Ginnie Mae (GNMA) carries the full faith and credit of the US government.",
+"w": [
+"Fannie Mae is a GSE with implied, not explicit, government backing.",
+"Freddie Mac is a GSE with implied, not explicit, government backing.",
+"",
+"FHLB debt is GSE debt without full faith and credit."
+],
+"m": "Ginnie is the government's own."
 },
 {
 "id": 54,
@@ -807,7 +1281,15 @@
 "The Fed sells Treasuries"
 ],
 "a": 1,
-"e": "When rates fall, homeowners refinance, returning principal early that must be reinvested at lower rates. Rising rates cause extension risk instead."
+"e": "When rates fall, homeowners refinance, returning principal early that must be reinvested at lower rates. Rising rates cause extension risk instead.",
+"k": "Falling rates cause prepayment risk in MBS; rising rates cause extension risk.",
+"w": [
+"Rising rates slow prepayments, causing extension risk instead.",
+"",
+"Housing prices aren't the main driver of refinancing-based prepayment.",
+"Fed selling Treasuries tends to push rates up, slowing prepayments."
+],
+"m": "Rates fall, homeowners refinance, principal returns early."
 },
 {
 "id": 55,
@@ -822,7 +1304,15 @@
 "Raise reserve requirements"
 ],
 "a": 2,
-"e": "Buying securities injects money into the banking system, increasing reserves and pushing interest rates down (easy money). Selling, raising rates or raising reserve requirements tighten."
+"e": "Buying securities injects money into the banking system, increasing reserves and pushing interest rates down (easy money). Selling, raising rates or raising reserve requirements tighten.",
+"k": "The FOMC loosens by buying Treasuries in the open market, adding money to banks.",
+"w": [
+"Selling Treasuries drains reserves and tightens money.",
+"Raising the discount rate tightens credit.",
+"",
+"Raising reserve requirements reduces lendable money, a tightening move."
+],
+"m": "Fed buys = money flows in = easier money."
 },
 {
 "id": 56,
@@ -837,7 +1327,15 @@
 "Broker call rate"
 ],
 "a": 2,
-"e": "The fed funds rate is bank-to-bank overnight. The discount rate is what the Fed charges banks; prime is what banks charge top customers; broker call is what banks charge broker-dealers for margin loans."
+"e": "The fed funds rate is bank-to-bank overnight. The discount rate is what the Fed charges banks; prime is what banks charge top customers; broker call is what banks charge broker-dealers for margin loans.",
+"k": "Fed funds rate is what banks charge each other overnight on excess reserves.",
+"w": [
+"The Fed charges banks the discount rate.",
+"Prime is what banks charge their best corporate customers.",
+"",
+"Broker call rate is banks lending to broker-dealers for margin."
+],
+"m": "Fed funds: bank to bank, overnight."
 },
 {
 "id": 57,
@@ -852,7 +1350,15 @@
 "Corporate profits"
 ],
 "a": 2,
-"e": "Building permits/housing starts, the stock market, M2, new orders and initial jobless claims lead the economy. Unemployment rate, CPI and corporate profits lag."
+"e": "Building permits/housing starts, the stock market, M2, new orders and initial jobless claims lead the economy. Unemployment rate, CPI and corporate profits lag.",
+"k": "Building permits, stock prices, M2, new orders and jobless claims lead; unemployment, CPI, profits lag.",
+"w": [
+"Unemployment rate is a lagging indicator.",
+"CPI is a lagging indicator per the guide.",
+"",
+"Corporate profits are a lagging indicator."
+],
+"m": "You get the permit before the economy builds."
 },
 {
 "id": 58,
@@ -867,7 +1373,15 @@
 "The Treasury Department acting alone"
 ],
 "a": 2,
-"e": "Fiscal policy \u2014 taxation and government spending \u2014 comes from Congress and the President. The Fed controls monetary policy."
+"e": "Fiscal policy — taxation and government spending — comes from Congress and the President. The Fed controls monetary policy.",
+"k": "Fiscal policy (taxes and spending) is set by Congress and the President.",
+"w": [
+"The Fed sets monetary policy, not fiscal policy.",
+"The FOMC conducts open market operations, a monetary tool.",
+"",
+"Treasury carries out borrowing but doesn't set fiscal policy alone."
+],
+"m": "Fiscal = fiscal year budget = Congress and President."
 },
 {
 "id": 59,
@@ -882,7 +1396,15 @@
 "Series EE bonds"
 ],
 "a": 2,
-"e": "Treasury Inflation-Protected Securities adjust principal with CPI; the fixed coupon rate is applied to the adjusted principal."
+"e": "Treasury Inflation-Protected Securities adjust principal with CPI; the fixed coupon rate is applied to the adjusted principal.",
+"k": "TIPS principal adjusts with CPI; the fixed coupon rate applies to the adjusted principal.",
+"w": [
+"STRIPS are zero-coupon Treasuries with no inflation adjustment.",
+"T-bills are short-term discount securities with no CPI adjustment.",
+"",
+"Series EE bonds earn a fixed rate; Series I bonds are the inflation savings bonds."
+],
+"m": "TIPS: Inflation Protected, principal moves with CPI."
 },
 {
 "id": 60,
@@ -897,7 +1419,15 @@
 "Foreign investors holding US bonds"
 ],
 "a": 2,
-"e": "A weak dollar makes US goods cheaper abroad, helping exporters; it hurts importers and consumers of foreign goods, and reduces the home-currency value of US assets held by foreigners."
+"e": "A weak dollar makes US goods cheaper abroad, helping exporters; it hurts importers and consumers of foreign goods, and reduces the home-currency value of US assets held by foreigners.",
+"k": "A weak dollar helps US exporters and hurts importers and US buyers of foreign goods.",
+"w": [
+"Importers pay more for foreign goods when the dollar weakens.",
+"Foreign goods cost US consumers more with a weak dollar.",
+"",
+"Foreign holders' US assets lose value in their home currency."
+],
+"m": "Weak dollar: exports cheap abroad, imports pricey at home."
 },
 {
 "id": 61,
@@ -912,7 +1442,19 @@
 "$17.30"
 ],
 "a": 1,
-"e": "POP = NAV \u00f7 (1 \u2212 0.07) = 18.60 \u00f7 0.93 = $20.00. The sales charge is a percentage of the POP."
+"e": "POP = NAV ÷ (1 − 0.07) = 18.60 ÷ 0.93 = $20.00. The sales charge is a percentage of the POP.",
+"k": "POP = NAV ÷ (1 − sales charge %); the load is a percent of POP.",
+"w": [
+"Added 7% of NAV; load is based on POP, not NAV.",
+"",
+"Not a valid result of either method.",
+"Subtracted the load; POP is always higher than NAV."
+],
+"m": "Sales charge is a percent of what the customer pays.",
+"steps": [
+"1 − 0.07 = 0.93",
+"$18.60 ÷ 0.93 = $20.00"
+]
 },
 {
 "id": 62,
@@ -927,7 +1469,15 @@
 "The customer is legally obligated to complete the purchases"
 ],
 "a": 0,
-"e": "An LOI can be backdated 90 days, gives the reduced charge immediately, counts only new money (not appreciation), and is not binding \u2014 unmet LOIs trigger a retroactive charge on escrowed shares."
+"e": "An LOI can be backdated 90 days, gives the reduced charge immediately, counts only new money (not appreciation), and is not binding — unmet LOIs trigger a retroactive charge on escrowed shares.",
+"k": "LOI: 13 months, backdate up to 90 days, non-binding, new money only, reduced charge immediately.",
+"w": [
+"",
+"Appreciation doesn't count toward an LOI; only new purchases do.",
+"The reduced charge applies immediately to all purchases under the LOI.",
+"LOIs are non-binding; failure just triggers the higher charge from escrow."
+],
+"m": "LOI looks back 90 days, forward 13 months."
 },
 {
 "id": 63,
@@ -942,7 +1492,15 @@
 "Class B, converting to A later"
 ],
 "a": 0,
-"e": "Large amounts qualify for breakpoints (possibly a 0% load at $1 million) and long holding periods favor the low 12b-1 fee of Class A. Class B has no breakpoints; Class C's level load never converts."
+"e": "Large amounts qualify for breakpoints (possibly a 0% load at $1 million) and long holding periods favor the low 12b-1 fee of Class A. Class B has no breakpoints; Class C's level load never converts.",
+"k": "Large purchases and long holding periods favor Class A shares (breakpoints, low 12b-1).",
+"w": [
+"",
+"Class B has no breakpoints, so a $750,000 investor loses discounts.",
+"Class C's ongoing level load is costly over 15 years.",
+"B shares still lack breakpoints and carry higher fees before converting."
+],
+"m": "Big money, long horizon: A shares."
 },
 {
 "id": 64,
@@ -957,7 +1515,15 @@
 "100% of net investment income"
 ],
 "a": 2,
-"e": "The 90% conduit rule: distribute at least 90% of net investment income and the fund is taxed only on what it retains."
+"e": "The 90% conduit rule: distribute at least 90% of net investment income and the fund is taxed only on what it retains.",
+"k": "Subchapter M: a fund distributing at least 90% of net investment income is taxed only on retained income.",
+"w": [
+"50% is too low; the conduit rule requires 90%.",
+"75% is the diversification test number, not the distribution rule.",
+"",
+"100% isn't required; 90% is the threshold."
+],
+"m": "90% out, fund is a conduit."
 },
 {
 "id": 65,
@@ -972,14 +1538,22 @@
 "It must redeem shares within seven days"
 ],
 "a": 1,
-"e": "Closed-end funds trade in the secondary market at prices set by supply and demand, so they can trade above or below NAV. They don't issue new shares continuously or redeem shares."
+"e": "Closed-end funds trade in the secondary market at prices set by supply and demand, so they can trade above or below NAV. They don't issue new shares continuously or redeem shares.",
+"k": "Closed-end funds trade on exchanges at market prices, so they can sell above or below NAV.",
+"w": [
+"NAV plus sales charge pricing describes open-end funds.",
+"",
+"Open-end funds issue shares continuously; closed-end funds have fixed shares.",
+"Seven-day redemption is an open-end requirement; closed-end funds don't redeem."
+],
+"m": "Closed-end = fixed shares, market price."
 },
 {
 "id": 66,
 "ch": 7,
 "sec": "7.5.2",
 "fs": 2,
-"q": "A leveraged ETF that seeks 3\u00d7 the daily return of an index is LEAST suitable for:",
+"q": "A leveraged ETF that seeks 3× the daily return of an index is LEAST suitable for:",
 "o": [
 "A day trader",
 "A buy-and-hold retirement investor",
@@ -987,7 +1561,15 @@
 "A sophisticated speculator with a one-day outlook"
 ],
 "a": 1,
-"e": "Leveraged and inverse ETFs reset daily; over longer periods compounding causes returns to diverge from 3\u00d7 the index, especially in volatile markets. They're designed for short-term trading."
+"e": "Leveraged and inverse ETFs reset daily; over longer periods compounding causes returns to diverge from 3× the index, especially in volatile markets. They're designed for short-term trading.",
+"k": "Leveraged and inverse ETFs reset daily and suit short-term trading, not buy-and-hold.",
+"w": [
+"Day traders are the intended users of daily-reset ETFs.",
+"",
+"Hedge funds are sophisticated and may use them for short-term positioning.",
+"A one-day outlook matches the daily reset design."
+],
+"m": "Daily reset = daily use."
 },
 {
 "id": 67,
@@ -1002,7 +1584,15 @@
 "Pays a front-end sales charge"
 ],
 "a": 1,
-"e": "An ETN is an unsecured debt obligation of a bank; there is no portfolio. If the bank fails, the ETN can become worthless regardless of the index."
+"e": "An ETN is an unsecured debt obligation of a bank; there is no portfolio. If the bank fails, the ETN can become worthless regardless of the index.",
+"k": "An ETN is unsecured bank debt; holders bear the issuer's credit risk.",
+"w": [
+"ETNs hold no stocks, so they pay no underlying dividends.",
+"",
+"ETNs trade on exchanges; there's no fund to redeem through.",
+"Both ETFs and ETNs trade with commissions, not front-end loads."
+],
+"m": "ETN: the N is for Note, as in debt."
 },
 {
 "id": 68,
@@ -1017,7 +1607,15 @@
 "Cannot hold bonds"
 ],
 "a": 1,
-"e": "UITs hold a fixed portfolio with no active management or board; units are redeemable, and the trust terminates on a set date."
+"e": "UITs hold a fixed portfolio with no active management or board; units are redeemable, and the trust terminates on a set date.",
+"k": "UITs hold a fixed, unmanaged portfolio with no board or adviser and terminate on a set date.",
+"w": [
+"UITs have no board of directors; mutual funds do.",
+"",
+"UIT units are redeemable with the trust, not exchange-listed.",
+"UITs commonly hold bonds; many are fixed-income trusts."
+],
+"m": "UIT: set it and leave it."
 },
 {
 "id": 69,
@@ -1032,7 +1630,18 @@
 "Fall about 3%"
 ],
 "a": 0,
-"e": "Beta measures movement relative to the market (beta 1.0). A beta of 1.3 implies about 1.3 \u00d7 10% = 13%."
+"e": "Beta measures movement relative to the market (beta 1.0). A beta of 1.3 implies about 1.3 × 10% = 13%.",
+"k": "Expected move = beta × market move; beta above 1 means more volatile than the market.",
+"w": [
+"",
+"Divided by beta instead of multiplying.",
+"That's a beta of 1.0, matching the market exactly.",
+"Positive beta moves the same direction as the market."
+],
+"steps": [
+"Expected return = 1.3 × 10%",
+"= 13% rise"
+]
 },
 {
 "id": 70,
@@ -1047,7 +1656,15 @@
 "Taxed as long-term gains regardless of type"
 ],
 "a": 1,
-"e": "Distributions are taxable whether reinvested or not; reinvested amounts increase the investor's cost basis to avoid double taxation on sale."
+"e": "Distributions are taxable whether reinvested or not; reinvested amounts increase the investor's cost basis to avoid double taxation on sale.",
+"k": "Fund distributions are taxable when paid, even if reinvested; reinvested amounts raise cost basis.",
+"w": [
+"Reinvestment doesn't defer tax; it's taxed in the year paid.",
+"",
+"Taxable whether taken in cash or reinvested.",
+"Dividends are taxed as dividends; only capital gains distributions are long-term."
+],
+"m": "Reinvested still means received."
 },
 {
 "id": 71,
@@ -1062,7 +1679,15 @@
 "5%; 25%"
 ],
 "a": 1,
-"e": "The 75-5-10 test: 75% of assets diversified, no more than 5% in one issuer, no more than 10% of an issuer's voting shares."
+"e": "The 75-5-10 test: 75% of assets diversified, no more than 5% in one issuer, no more than 10% of an issuer's voting shares.",
+"k": "Diversified fund test (75-5-10): 75% of assets, max 5% in one issuer, max 10% of its voting stock.",
+"w": [
+"Reversed the 5% and 10% figures.",
+"",
+"25% isn't part of the per-issuer test.",
+"Owning up to 25% of an issuer's voting stock is too much."
+],
+"m": "75-5-10."
 },
 {
 "id": 72,
@@ -1077,7 +1702,15 @@
 "Acceptable because each purchase is below the breakpoint"
 ],
 "a": 1,
-"e": "Splitting purchases to keep each below a breakpoint (or selling just under one) to earn higher commissions is a prohibited breakpoint sale."
+"e": "Splitting purchases to keep each below a breakpoint (or selling just under one) to earn higher commissions is a prohibited breakpoint sale.",
+"k": "Recommending purchases just under a breakpoint, or splitting them across families, is a prohibited breakpoint sale.",
+"w": [
+"Diversification doesn't justify costing the customer a breakpoint.",
+"",
+"A waiver can't make a prohibited practice acceptable.",
+"Staying below the breakpoint is exactly the violation."
+],
+"m": "Split to dodge a breakpoint = violation."
 },
 {
 "id": 73,
@@ -1092,7 +1725,15 @@
 "Its dividends are always taxed as qualified dividends"
 ],
 "a": 1,
-"e": "REITs distribute 90%+ of income and hold 75%+ in real estate to avoid corporate tax. They pass through income but NOT losses, are not 1940 Act companies, and dividends are generally ordinary income."
+"e": "REITs distribute 90%+ of income and hold 75%+ in real estate to avoid corporate tax. They pass through income but NOT losses, are not 1940 Act companies, and dividends are generally ordinary income.",
+"k": "REITs avoid corporate tax by distributing at least 90% of taxable income; losses don't pass through.",
+"w": [
+"REITs pass through income but not losses.",
+"",
+"REITs are not regulated as investment companies under the 1940 Act.",
+"REIT dividends are generally ordinary income, not qualified dividends."
+],
+"m": "REITs pass income, not losses."
 },
 {
 "id": 74,
@@ -1107,7 +1748,14 @@
 "Unit investment trusts"
 ],
 "a": 1,
-"e": "Hedge funds are privately offered limited partnerships sold under Reg D to accredited investors, exempt from the 1940 Act, with lock-ups and limited disclosure."
+"e": "Hedge funds are privately offered limited partnerships sold under Reg D to accredited investors, exempt from the 1940 Act, with lock-ups and limited disclosure.",
+"k": "Hedge funds are private placements under Reg D sold to accredited investors.",
+"w": [
+"Hedge funds avoid registered public offerings and prospectus delivery.",
+"",
+"Exchange-listed closed-end funds are registered investment companies, unlike hedge funds.",
+"UITs are registered investment companies with fixed portfolios."
+]
 },
 {
 "id": 75,
@@ -1122,7 +1770,15 @@
 "All partners equally"
 ],
 "a": 1,
-"e": "The general partner manages the business and has unlimited liability; limited partners are liable only for their investment as long as they stay passive."
+"e": "The general partner manages the business and has unlimited liability; limited partners are liable only for their investment as long as they stay passive.",
+"k": "The general partner has unlimited liability; limited partners risk only their investment.",
+"w": [
+"Limited partners' liability is limited to their investment.",
+"",
+"A subscription agent isn't a partner and bears no partnership liability.",
+"Liability isn't shared equally; only the GP's is unlimited."
+],
+"m": "General partner = general liability."
 },
 {
 "id": 76,
@@ -1137,7 +1793,15 @@
 "Reinvestment risk"
 ],
 "a": 1,
-"e": "DPP interests have no real secondary market; transfers usually need GP approval and holding periods are long. Illiquidity is the primary risk."
+"e": "DPP interests have no real secondary market; transfers usually need GP approval and holding periods are long. Illiquidity is the primary risk.",
+"k": "Illiquidity is the main risk of DPPs; no real secondary market and GP approval for transfers.",
+"w": [
+"Interest-rate risk isn't the main concern for DPPs.",
+"",
+"Most DPPs hold domestic assets, so currency risk is minor.",
+"Reinvestment risk is a bond concern, not the main DPP risk."
+],
+"m": "DPPs are easy to get into, hard to get out of."
 },
 {
 "id": 77,
@@ -1152,7 +1816,15 @@
 "Capital gains on stock"
 ],
 "a": 2,
-"e": "DPP losses are passive losses, which may offset only passive income (other DPPs, rental activities), never earned or portfolio income."
+"e": "DPP losses are passive losses, which may offset only passive income (other DPPs, rental activities), never earned or portfolio income.",
+"k": "Passive losses from DPPs can offset only passive income.",
+"w": [
+"Wages are earned income; passive losses can't offset them.",
+"Interest and dividends are portfolio income, not passive.",
+"",
+"Capital gains on stock are portfolio income, not passive."
+],
+"m": "Passive offsets passive only."
 },
 {
 "id": 78,
@@ -1167,7 +1839,15 @@
 "Combination program"
 ],
 "a": 2,
-"e": "Exploratory programs drill in unproven areas \u2014 the highest chance of dry holes but the largest potential reward. Income programs buy producing wells (lowest risk)."
+"e": "Exploratory programs drill in unproven areas — the highest chance of dry holes but the largest potential reward. Income programs buy producing wells (lowest risk).",
+"k": "Exploratory (wildcat) oil and gas programs carry the highest risk; income programs the lowest.",
+"w": [
+"Income programs buy producing wells, the lowest risk.",
+"Developmental programs drill near proven reserves, moderate risk.",
+"",
+"Combination programs blend types to reduce risk."
+],
+"m": "Wildcat = wild risk."
 },
 {
 "id": 79,
@@ -1182,7 +1862,15 @@
 "The lock-up period"
 ],
 "a": 1,
-"e": "With a high-water mark, the manager earns the incentive fee only when the fund's value exceeds its previous peak, preventing fees on recovered losses."
+"e": "With a high-water mark, the manager earns the incentive fee only when the fund's value exceeds its previous peak, preventing fees on recovered losses.",
+"k": "High-water mark: performance fees are charged only on gains above the fund's previous peak.",
+"w": [
+"Leverage limits aren't called a high-water mark.",
+"",
+"Minimum investment is a separate term.",
+"Lock-up period restricts withdrawals, unrelated to fees."
+],
+"m": "No incentive fee for just recovering losses."
 },
 {
 "id": 80,
@@ -1197,7 +1885,15 @@
 "No SEC registration"
 ],
 "a": 1,
-"e": "Non-traded REITs are SEC-registered but don't trade on exchanges; redemption programs are limited, and upfront commissions and fees are high."
+"e": "Non-traded REITs are SEC-registered but don't trade on exchanges; redemption programs are limited, and upfront commissions and fees are high.",
+"k": "Non-traded REITs are SEC-registered but illiquid, with high upfront fees.",
+"w": [
+"Reversed: non-traded REITs are less liquid and costlier.",
+"",
+"Liquidity is lower and tax treatment is the same as listed REITs.",
+"Non-traded REITs are registered with the SEC."
+],
+"m": "Non-traded = no exchange exit."
 },
 {
 "id": 81,
@@ -1212,7 +1908,19 @@
 "$50; $4"
 ],
 "a": 1,
-"e": "Call breakeven = strike + premium = 54. Maximum loss for any option buyer = premium = 4 \u00d7 100 = $400. Maximum gain is unlimited."
+"e": "Call breakeven = strike + premium = 54. Maximum loss for any option buyer = premium = 4 × 100 = $400. Maximum gain is unlimited.",
+"k": "Long call: breakeven = strike + premium; max loss = premium paid × 100.",
+"w": [
+"$46 is strike minus premium, the put breakeven.",
+"",
+"Unlimited is the call buyer's max GAIN, not loss.",
+"Breakeven isn't the strike, and loss is in dollars: 4 × 100 = $400."
+],
+"m": "Calls Up: add premium. Puts Down: subtract premium.",
+"steps": [
+"Breakeven = 50 + 4 = 54",
+"Max loss = premium = 4 × 100 = $400"
+]
 },
 {
 "id": 82,
@@ -1227,7 +1935,15 @@
 "Unlimited"
 ],
 "a": 3,
-"e": "A naked call writer must deliver stock they don't own; since a stock can rise without limit, the loss is unlimited. This is the riskiest basic option position."
+"e": "A naked call writer must deliver stock they don't own; since a stock can rise without limit, the loss is unlimited. This is the riskiest basic option position.",
+"k": "Naked call writers face unlimited loss because the stock price has no ceiling.",
+"w": [
+"The premium is the writer's max GAIN, not loss.",
+"Strike minus premium is a put writer's max loss.",
+"Strike plus premium is the call breakeven, not a loss limit.",
+""
+],
+"m": "Naked call = riskiest basic option position on the exam."
 },
 {
 "id": 83,
@@ -1242,7 +1958,19 @@
 "The put is at the money"
 ],
 "a": 2,
-"e": "A put is in the money only when the stock is below the strike. At $62 vs. a 55 strike, the put is out of the money; the entire premium is time value."
+"e": "A put is in the money only when the stock is below the strike. At $62 vs. a 55 strike, the put is out of the money; the entire premium is time value.",
+"k": "Puts are in the money only when market price is below strike; premium = intrinsic + time value.",
+"w": [
+"A put with stock above strike is out of the money, not in.",
+"Intrinsic value is zero here; the 1 point is all time value.",
+"",
+"At the money requires stock price equal to the strike (55)."
+],
+"m": "Put intrinsic = strike − market, never below zero.",
+"steps": [
+"Put intrinsic = 55 − 62 → negative, so 0",
+"Time value = premium 1 − intrinsic 0 = 1"
+]
 },
 {
 "id": 84,
@@ -1257,7 +1985,15 @@
 "Write a put"
 ],
 "a": 2,
-"e": "A protective put locks in a minimum sale price (the strike) at the cost of the premium while leaving the upside intact. Writing a call provides only limited downside protection and caps the upside."
+"e": "A protective put locks in a minimum sale price (the strike) at the cost of the premium while leaving the upside intact. Writing a call provides only limited downside protection and caps the upside.",
+"k": "Long stock is hedged by buying a put: floor at the strike, upside kept, cost is the premium.",
+"w": [
+"Writing a call caps upside and only cushions losses by the premium.",
+"Buying a call adds bullish exposure; it doesn't protect a long stock position.",
+"",
+"Writing a put is bullish and adds more downside risk."
+],
+"m": "Own it? Protect it with a put."
 },
 {
 "id": 85,
@@ -1272,7 +2008,19 @@
 "Unlimited"
 ],
 "a": 2,
-"e": "Covered call max gain = (strike \u2212 cost) + premium = (45 \u2212 42) + 2 = 5 points = $500. The stock is called away at 45."
+"e": "Covered call max gain = (strike − cost) + premium = (45 − 42) + 2 = 5 points = $500. The stock is called away at 45.",
+"k": "Covered call max gain = (strike − stock cost) + premium, × 100.",
+"w": [
+"$200 is only the premium; ignores the gain from 42 to 45.",
+"$300 is only stock appreciation to the strike; ignores the premium.",
+"",
+"Writing the call caps upside; shares get called away at 45."
+],
+"steps": [
+"Stock gain to strike: 45 − 42 = 3",
+"Add premium: 3 + 2 = 5 points",
+"5 × 100 = $500"
+]
 },
 {
 "id": 86,
@@ -1287,7 +2035,20 @@
 "1 XYZ 80 call for 200 shares"
 ],
 "a": 1,
-"e": "Even splits multiply the number of contracts and divide the strike; each contract still covers 100 shares. Uneven splits instead change the shares per contract."
+"e": "Even splits multiply the number of contracts and divide the strike; each contract still covers 100 shares. Uneven splits instead change the shares per contract.",
+"k": "Even splits: multiply contracts and divide strike by the ratio; each contract stays 100 shares.",
+"w": [
+"One contract for 200 shares is how uneven splits are handled, not 2-for-1.",
+"",
+"The strike must be reduced; 2 calls at 80 doubles the value.",
+"Strike must drop to keep total value constant; this is the uneven-split style with wrong strike."
+],
+"m": "Even split: more contracts. Uneven split: more shares per contract.",
+"steps": [
+"Contracts: 1 × 2 = 2",
+"Strike: 80 ÷ 2 = 40",
+"Check: 2 × 100 × 40 = 1 × 100 × 80 = $8,000"
+]
 },
 {
 "id": 87,
@@ -1302,7 +2063,15 @@
 "They settle T+2"
 ],
 "a": 1,
-"e": "Index options settle in cash (the in-the-money amount \u00d7 $100) the next business day; most are European style."
+"e": "Index options settle in cash (the in-the-money amount × $100) the next business day; most are European style.",
+"k": "Index options are cash settled (ITM amount × $100), next business day; most are European style.",
+"w": [
+"No stock is delivered; you can't deliver an index.",
+"",
+"Most broad-based index options are European style; few (OEX) are American.",
+"Options settle T+1, and index exercise settles next business day."
+],
+"m": "Index options: cash, not shares."
 },
 {
 "id": 88,
@@ -1317,7 +2086,15 @@
 "The underlying corporation"
 ],
 "a": 2,
-"e": "The OCC is the issuer and guarantor of all listed options, standing between every buyer and seller."
+"e": "The OCC is the issuer and guarantor of all listed options, standing between every buyer and seller.",
+"k": "The Options Clearing Corporation (OCC) issues and guarantees all listed options.",
+"w": [
+"Cboe is an exchange where options trade, not the issuer.",
+"FINRA regulates member firms; it doesn't issue options.",
+"",
+"The company whose stock underlies the option has no role in issuing it."
+],
+"m": "OCC stands between every buyer and seller."
 },
 {
 "id": 89,
@@ -1332,7 +2109,18 @@
 "Unlimited"
 ],
 "a": 1,
-"e": "Put writer max loss = (strike \u2212 premium) \u00d7 100 = (30 \u2212 3) \u00d7 100 = $2,700; the stock can only fall to zero."
+"e": "Put writer max loss = (strike − premium) × 100 = (30 − 3) × 100 = $2,700; the stock can only fall to zero.",
+"k": "Short put max loss = (strike − premium) × 100; stock can only fall to zero.",
+"w": [
+"$300 is the premium, the writer's max GAIN.",
+"",
+"$3,000 ignores the premium the writer collected.",
+"Unlimited loss belongs to naked call writers; stock can't go below zero."
+],
+"steps": [
+"Strike − premium = 30 − 3 = 27",
+"27 × 100 = $2,700"
+]
 },
 {
 "id": 90,
@@ -1347,7 +2135,15 @@
 "Write a put"
 ],
 "a": 1,
-"e": "A long put profits from a decline with loss limited to the premium. Short sales and naked calls have unlimited risk; writing a put is bullish."
+"e": "A long put profits from a decline with loss limited to the premium. Short sales and naked calls have unlimited risk; writing a put is bullish.",
+"k": "Buying a put is bearish with risk limited to the premium paid.",
+"w": [
+"Short selling is bearish but carries unlimited risk.",
+"",
+"Writing a call is bearish but naked call risk is unlimited.",
+"Writing a put is a bullish position."
+],
+"m": "Bearish + limited risk = long put."
 },
 {
 "id": 91,
@@ -1362,7 +2158,20 @@
 "Carry forward the entire $8,000"
 ],
 "a": 1,
-"e": "Net loss = $8,000. Up to $3,000 of net capital loss is deductible against ordinary income each year; the remaining $5,000 carries forward."
+"e": "Net loss = $8,000. Up to $3,000 of net capital loss is deductible against ordinary income each year; the remaining $5,000 carries forward.",
+"k": "Net capital losses offset ordinary income up to $3,000 per year; excess carries forward indefinitely.",
+"w": [
+"Ordinary income deduction is capped at $3,000 per year.",
+"",
+"Losses first net against gains; only $8,000 net remains, capped at $3,000.",
+"Up to $3,000 can be used this year; you don't have to defer it all."
+],
+"m": "Net first, then $3,000 cap, rest rolls forward.",
+"steps": [
+"Net: $12,000 gain − $20,000 loss = −$8,000",
+"Deduct $3,000 against ordinary income",
+"Carry forward $8,000 − $3,000 = $5,000"
+]
 },
 {
 "id": 92,
@@ -1377,7 +2186,15 @@
 "The loss is converted to a long-term loss"
 ],
 "a": 1,
-"e": "Buying the same or a substantially identical security \u2014 including options or convertibles on it \u2014 within 30 days before or after a loss sale is a wash sale; the loss is added to the new position's basis."
+"e": "Buying the same or a substantially identical security — including options or convertibles on it — within 30 days before or after a loss sale is a wash sale; the loss is added to the new position's basis.",
+"k": "Buying the same or substantially identical security (including calls) within 30 days of a loss sale disallows the loss.",
+"w": [
+"Call options count as substantially identical; the loss is disallowed.",
+"",
+"Wash sale disallows the loss outright (adds to basis); no XYZ-only offset rule.",
+"Wash sales don't recharacterize the loss as long-term; it's disallowed and added to basis."
+],
+"m": "61-day window: 30 before, sale day, 30 after."
 },
 {
 "id": 93,
@@ -1389,10 +2206,23 @@
 "$500 short-term",
 "$3,500 short-term",
 "$3,500 long-term (if the father held it more than a year)",
-"$0 \u2014 gifts are not taxable to the recipient"
+"$0 — gifts are not taxable to the recipient"
 ],
 "a": 2,
-"e": "Gifted securities carry over the donor's basis ($20) and holding period. Gain = $55 \u2212 $20 = $35 \u00d7 100 = $3,500, long-term if the combined holding period exceeds a year."
+"e": "Gifted securities carry over the donor's basis ($20) and holding period. Gain = $55 − $20 = $35 × 100 = $3,500, long-term if the combined holding period exceeds a year.",
+"k": "Gifted stock (at a gain) carries over the donor's cost basis and holding period.",
+"w": [
+"Uses $50 gift-date value as basis; gifts carry over donor's $20 basis.",
+"Holding period also carries over, so it can be long-term.",
+"",
+"No tax at gift, but the recipient owes tax on gain when selling."
+],
+"m": "Gift = carryover basis. Inherit = step-up.",
+"steps": [
+"Basis = donor's $20",
+"Gain per share = 55 − 20 = 35",
+"35 × 100 = $3,500, long-term via tacked holding period"
+]
 },
 {
 "id": 94,
@@ -1407,7 +2237,15 @@
 "$0"
 ],
 "a": 1,
-"e": "Inherited securities receive a stepped-up basis to the fair market value at death, and the holding period is automatically long-term."
+"e": "Inherited securities receive a stepped-up basis to the fair market value at death, and the holding period is automatically long-term.",
+"k": "Inherited securities get a stepped-up basis to fair market value at date of death; always long-term.",
+"w": [
+"$10,000 is the decedent's basis, which applies to gifts, not inheritances.",
+"",
+"There is no averaging of original cost and date-of-death value.",
+"Basis is never zero; it steps up to the value at death."
+],
+"m": "Inheritance: step up to death value, automatically long-term."
 },
 {
 "id": 95,
@@ -1422,7 +2260,15 @@
 "Exempt from federal tax"
 ],
 "a": 1,
-"e": "Original issue discount accretes annually and is taxed as 'phantom' interest income. Municipal zeros are the exception (tax-exempt). Hold corporate zeros in tax-deferred accounts."
+"e": "Original issue discount accretes annually and is taxed as 'phantom' interest income. Municipal zeros are the exception (tax-exempt). Hold corporate zeros in tax-deferred accounts.",
+"k": "Corporate zero-coupon accretion is taxed annually as interest income, even with no cash received.",
+"w": [
+"Tax isn't deferred to maturity; OID is taxed each year.",
+"",
+"Accretion is interest income, not a capital gain.",
+"Only municipal zeros are federally tax-exempt, not corporate."
+],
+"m": "Corporate zeros = phantom income; hold in IRAs."
 },
 {
 "id": 96,
@@ -1437,7 +2283,14 @@
 "The investor's state rate only"
 ],
 "a": 1,
-"e": "Qualified dividends (from US corporations, with the holding period met) are taxed at the 0/15/20% long-term capital gains rates. REIT and money-market dividends are ordinary."
+"e": "Qualified dividends (from US corporations, with the holding period met) are taxed at the 0/15/20% long-term capital gains rates. REIT and money-market dividends are ordinary.",
+"k": "Qualified dividends are taxed at long-term capital gains rates (0/15/20%).",
+"w": [
+"Ordinary rates apply to nonqualified dividends (REITs, money markets), not qualified.",
+"",
+"28% is the collectibles rate, not dividends.",
+"Dividends are subject to federal tax, not just state."
+]
 },
 {
 "id": 97,
@@ -1452,7 +2305,15 @@
 "Any taxable income"
 ],
 "a": 2,
-"e": "IRA contributions require earned income (wages, salary, self-employment). Interest, dividends, capital gains, pensions and rental income don't qualify."
+"e": "IRA contributions require earned income (wages, salary, self-employment). Interest, dividends, capital gains, pensions and rental income don't qualify.",
+"k": "IRA contributions require earned income: wages, salary, bonuses, self-employment income.",
+"w": [
+"Portfolio income (interest, dividends, gains) is not earned income.",
+"Passive income (rentals, limited partnerships) doesn't qualify.",
+"",
+"Taxable income alone isn't enough; it must be earned."
+],
+"m": "No job income, no IRA contribution (spousal IRA aside)."
 },
 {
 "id": 98,
@@ -1467,7 +2328,15 @@
 "More than 18 months"
 ],
 "a": 2,
-"e": "More than one year (one year and a day). One year or less is short-term, taxed as ordinary income."
+"e": "More than one year (one year and a day). One year or less is short-term, taxed as ordinary income.",
+"k": "Long-term capital gain requires holding MORE than one year; one year or less is short-term.",
+"w": [
+"Six months has no role in current capital gains rules.",
+"Exactly one year is still short-term; must exceed one year.",
+"",
+"18 months is an outdated/irrelevant threshold."
+],
+"m": "One year and a day."
 },
 {
 "id": 99,
@@ -1482,7 +2351,14 @@
 "Close the account within 30 days"
 ],
 "a": 1,
-"e": "Without a taxpayer ID (Form W-9), the IRS requires backup withholding at 24%."
+"e": "Without a taxpayer ID (Form W-9), the IRS requires backup withholding at 24%.",
+"k": "No taxpayer ID (W-9) means the firm must apply 24% backup withholding.",
+"w": [
+"Trading isn't barred; the remedy is backup withholding.",
+"",
+"No SEC report is required for a missing SSN.",
+"There's no rule forcing closure within 30 days."
+]
 },
 {
 "id": 100,
@@ -1497,7 +2373,14 @@
 "Last-in, first-out"
 ],
 "a": 2,
-"e": "FIFO is the default; specific identification lets the investor choose lots; average cost is allowed for mutual funds."
+"e": "FIFO is the default; specific identification lets the investor choose lots; average cost is allowed for mutual funds.",
+"k": "If no lots are identified, the IRS default is first-in, first-out (FIFO).",
+"w": [
+"Average cost is an election mainly for mutual funds, not the default.",
+"Highest cost first must be chosen via specific identification.",
+"",
+"LIFO is not the IRS default."
+]
 },
 {
 "id": 101,
@@ -1512,7 +2395,15 @@
 "Trustees under the Trust Indenture Act"
 ],
 "a": 1,
-"e": "Firm commitment = underwriters buy the entire issue and resell it; unsold shares are their problem. Best efforts = agents; issuer bears the risk."
+"e": "Firm commitment = underwriters buy the entire issue and resell it; unsold shares are their problem. Best efforts = agents; issuer bears the risk.",
+"k": "Firm commitment: underwriters act as principals, buy the whole issue, and bear the risk of unsold shares.",
+"w": [
+"Agents with no risk describes best efforts, not firm commitment.",
+"",
+"Escrow arrangements belong to all-or-none/min-max best efforts deals.",
+"Trustees under the Trust Indenture Act protect bondholders; unrelated to underwriting."
+],
+"m": "Firm commitment = firm buys it."
 },
 {
 "id": 102,
@@ -1527,7 +2418,15 @@
 "Guarantee allocations to favored customers"
 ],
 "a": 1,
-"e": "During the cooling-off period (at least 20 days) the red herring may be distributed, tombstone ads run, and non-binding indications of interest collected. No sales, orders, money or sales literature."
+"e": "During the cooling-off period (at least 20 days) the red herring may be distributed, tombstone ads run, and non-binding indications of interest collected. No sales, orders, money or sales literature.",
+"k": "Cooling-off period: red herring and indications of interest only; no sales, orders, or money.",
+"w": [
+"No orders or payments can be accepted until the registration is effective.",
+"",
+"Sales literature is prohibited in the cooling-off period.",
+"Allocations can't be guaranteed; indications of interest are non-binding."
+],
+"m": "Red herring yes; orders and money no."
 },
 {
 "id": 103,
@@ -1542,7 +2441,15 @@
 "Guarantees the offering price"
 ],
 "a": 2,
-"e": "The SEC reviews for completeness only; it never approves or passes on the merits or accuracy. Saying the SEC 'approved' an issue is a violation."
+"e": "The SEC reviews for completeness only; it never approves or passes on the merits or accuracy. Saying the SEC 'approved' an issue is a violation.",
+"k": "SEC effectiveness means the filing is complete; the SEC never approves merits or verifies accuracy.",
+"w": [
+"The SEC never approves securities or judges investment quality.",
+"The SEC doesn't verify the accuracy of prospectus statements.",
+"",
+"The SEC never guarantees offering prices."
+],
+"m": "SEC clears; it never approves."
 },
 {
 "id": 104,
@@ -1557,7 +2464,15 @@
 "An unlimited number of any investors if the offering is under $5 million"
 ],
 "a": 1,
-"e": "506(b): unlimited accredited investors plus up to 35 sophisticated non-accredited investors, unlimited dollar amount, no general solicitation."
+"e": "506(b): unlimited accredited investors plus up to 35 sophisticated non-accredited investors, unlimited dollar amount, no general solicitation.",
+"k": "Rule 506(b): unlimited accredited investors plus up to 35 non-accredited; no general solicitation.",
+"w": [
+"The 35 cap applies to non-accredited, not accredited, investors.",
+"",
+"QIB-only resales describe Rule 144A, not 506(b).",
+"Reg D 506(b) has no dollar cap and limits non-accredited purchasers."
+],
+"m": "506(b): 35 non-accredited max."
 },
 {
 "id": 105,
@@ -1572,7 +2487,15 @@
 "$1 million including primary residence; $150,000"
 ],
 "a": 1,
-"e": "Net worth over $1 million excluding the primary residence, or income over $200,000 individually / $300,000 with a spouse."
+"e": "Net worth over $1 million excluding the primary residence, or income over $200,000 individually / $300,000 with a spouse.",
+"k": "Accredited individual: net worth over $1M excluding home, or income over $200K ($300K joint) for two years.",
+"w": [
+"Both thresholds are too low.",
+"",
+"$5M and $250K are not the individual accredited thresholds.",
+"Primary residence is excluded from net worth; income test is $200K."
+],
+"m": "1-2-3: $1M net worth, $200K single, $300K joint."
 },
 {
 "id": 106,
@@ -1587,7 +2510,20 @@
 "There is no limit for officers"
 ],
 "a": 1,
-"e": "The limit is the greater of 1% of outstanding (500,000) or the four-week average weekly volume (600,000) \u2014 so 600,000 shares."
+"e": "The limit is the greater of 1% of outstanding (500,000) or the four-week average weekly volume (600,000) — so 600,000 shares.",
+"k": "Rule 144 volume limit per 90 days: greater of 1% of outstanding shares or 4-week average weekly volume.",
+"w": [
+"500,000 is 1% of outstanding, but the larger figure applies.",
+"",
+"50,000 is 0.1% of outstanding; a miscalculation.",
+"Officers (affiliates) are exactly who the volume limits restrict."
+],
+"m": "Rule 144: take the GREATER of the two.",
+"steps": [
+"1% of 50,000,000 = 500,000",
+"4-week average weekly volume = 600,000",
+"Greater of the two = 600,000 shares"
+]
 },
 {
 "id": 107,
@@ -1602,7 +2538,14 @@
 "A finder in the offering"
 ],
 "a": 2,
-"e": "Restricted persons include FINRA members, their employees, immediate family members, finders and certain fiduciaries. The schoolteacher is not restricted."
+"e": "Restricted persons include FINRA members, their employees, immediate family members, finders and certain fiduciaries. The schoolteacher is not restricted.",
+"k": "Rule 5130 bars restricted persons (BD employees, their immediate family, finders) from buying IPOs.",
+"w": [
+"Employees of any broker-dealer are restricted persons.",
+"Immediate family of a member firm employee is restricted.",
+"",
+"Finders in the offering are restricted persons."
+]
 },
 {
 "id": 108,
@@ -1617,7 +2560,15 @@
 "A closed-end fund share"
 ],
 "a": 2,
-"e": "Exempt securities include US government and municipal securities, bank securities, commercial paper \u2264 270 days, non-profit issues, and insurance/fixed annuities. Variable annuities are securities that must be registered."
+"e": "Exempt securities include US government and municipal securities, bank securities, commercial paper ≤ 270 days, non-profit issues, and insurance/fixed annuities. Variable annuities are securities that must be registered.",
+"k": "Exempt from '33 Act registration: US government, municipal, bank securities, commercial paper ≤270 days, nonprofits.",
+"w": [
+"Variable annuities are securities and must be registered.",
+"Corporate debentures must be registered.",
+"",
+"Closed-end fund shares are investment company securities requiring registration."
+],
+"m": "Exempt security ≠ exempt from antifraud rules."
 },
 {
 "id": 109,
@@ -1632,7 +2583,15 @@
 "The exchange"
 ],
 "a": 1,
-"e": "A secondary offering is a registered sale of existing shares by current holders (insiders, VCs). The issuer receives nothing. In a primary offering the issuer receives the proceeds."
+"e": "A secondary offering is a registered sale of existing shares by current holders (insiders, VCs). The issuer receives nothing. In a primary offering the issuer receives the proceeds.",
+"k": "Secondary offering proceeds go to the selling shareholders; primary offering proceeds go to the issuer.",
+"w": [
+"The issuer gets proceeds only in a primary offering.",
+"",
+"Underwriters earn a spread, not the offering proceeds.",
+"Exchanges don't receive offering proceeds."
+],
+"m": "Secondary = existing shares; sellers get paid."
 },
 {
 "id": 110,
@@ -1647,7 +2606,15 @@
 "Any investor after a six-month holding period"
 ],
 "a": 1,
-"e": "Rule 144A creates a liquid institutional market: restricted securities can be freely resold to QIBs (institutions managing $100 million+ in securities)."
+"e": "Rule 144A creates a liquid institutional market: restricted securities can be freely resold to QIBs (institutions managing $100 million+ in securities).",
+"k": "Rule 144A allows restricted securities to be resold to QIBs owning/managing $100 million+ in securities.",
+"w": [
+"Accredited individuals aren't QIBs; 144A is institutional only.",
+"",
+"In-state sales describe the Rule 147 intrastate exemption.",
+"Holding periods are Rule 144 concepts, not 144A."
+],
+"m": "144A = A for institutions only, $100M QIBs."
 },
 {
 "id": 111,
@@ -1662,14 +2629,22 @@
 "A fiduciary"
 ],
 "a": 1,
-"e": "Selling from inventory is a principal (dealer) transaction compensated by a markup. The capacity must be disclosed; a firm can't charge both a markup and a commission on one trade."
+"e": "Selling from inventory is a principal (dealer) transaction compensated by a markup. The capacity must be disclosed; a firm can't charge both a markup and a commission on one trade.",
+"k": "Selling from inventory is a principal trade with a markup; capacity must be disclosed on confirmation.",
+"w": [
+"Agency trades charge commissions; inventory sales are principal trades.",
+"",
+"Market making for the issuer isn't the disclosure required here.",
+"Trade confirmations disclose agent or principal capacity, not fiduciary status."
+],
+"m": "Principal = markup; agent = commission. Never both on one trade."
 },
 {
 "id": 112,
 "ch": 12,
 "sec": "12.3",
 "fs": 1,
-"q": "A market maker quotes XYZ at 25.10 \u2013 25.20. A customer entering a market order to buy will pay:",
+"q": "A market maker quotes XYZ at 25.10 – 25.20. A customer entering a market order to buy will pay:",
 "o": [
 "$25.10",
 "$25.20",
@@ -1677,7 +2652,15 @@
 "The last sale price"
 ],
 "a": 1,
-"e": "Customers buy at the ask (offer) and sell at the bid. The spread is the market maker's profit."
+"e": "Customers buy at the ask (offer) and sell at the bid. The spread is the market maker's profit.",
+"k": "Customers buy at the ask (offer) and sell at the bid.",
+"w": [
+"$25.10 is the bid, where customers sell.",
+"",
+"Market orders don't fill at the midpoint of the spread.",
+"Market orders fill at the current quote, not the last sale."
+],
+"m": "Buy high (ask), sell low (bid)."
 },
 {
 "id": 113,
@@ -1692,7 +2675,14 @@
 "Fourth market"
 ],
 "a": 2,
-"e": "First = listed on exchange; second = unlisted OTC; third = listed securities traded OTC; fourth = institution-to-institution via ECNs."
+"e": "First = listed on exchange; second = unlisted OTC; third = listed securities traded OTC; fourth = institution-to-institution via ECNs.",
+"k": "Third market: exchange-listed securities traded over-the-counter.",
+"w": [
+"First market is exchange trading of listed securities.",
+"Second market is OTC trading of unlisted securities.",
+"",
+"Fourth market is institution-to-institution trading via ECNs."
+]
 },
 {
 "id": 114,
@@ -1707,7 +2697,15 @@
 "Buy limit at 55"
 ],
 "a": 2,
-"e": "A sell stop is placed below the market; if ABC trades at or below 55 it becomes a market order to sell. Sell limits go above the market."
+"e": "A sell stop is placed below the market; if ABC trades at or below 55 it becomes a market order to sell. Sell limits go above the market.",
+"k": "Sell stops are placed below market to limit losses or protect gains on long positions.",
+"w": [
+"Buy stops protect short positions, not long stock.",
+"Sell limits are placed above market; 55 would fill immediately.",
+"",
+"Buying more shares at 55 adds exposure instead of limiting loss."
+],
+"m": "Long stock? Sell stop below."
 },
 {
 "id": 115,
@@ -1722,7 +2720,15 @@
 "It cannot be entered as a GTC order"
 ],
 "a": 1,
-"e": "Once triggered, a stop-limit becomes a limit order; if the price falls through the limit the order sits unfilled, leaving the investor unprotected."
+"e": "Once triggered, a stop-limit becomes a limit order; if the price falls through the limit the order sits unfilled, leaving the investor unprotected.",
+"k": "Stop-limit orders become limit orders once triggered; a price gap can leave them unfilled.",
+"w": [
+"That's the risk of a plain stop order, not a stop-limit.",
+"",
+"Stop-limit orders don't require a margin account.",
+"Stop-limit orders can be entered as GTC."
+],
+"m": "Stop guarantees execution, not price; stop-limit the reverse."
 },
 {
 "id": 116,
@@ -1737,7 +2743,15 @@
 "Sell stop and sell limit"
 ],
 "a": 0,
-"e": "BLiSS: Buy Limits and Sell Stops go below the market. SLoBS: Sell Limits and Buy Stops go above."
+"e": "BLiSS: Buy Limits and Sell Stops go below the market. SLoBS: Sell Limits and Buy Stops go above.",
+"k": "Buy limits and sell stops go below market; sell limits and buy stops go above.",
+"w": [
+"",
+"Buy stops and sell limits go above the market.",
+"Buy stops go above; only buy limits go below.",
+"Sell limits go above; only sell stops go below."
+],
+"m": "BLiSS: Buy Limit, Sell Stop below."
 },
 {
 "id": 117,
@@ -1752,7 +2766,15 @@
 "A market-on-close order"
 ],
 "a": 1,
-"e": "The customer specified security, action and amount; leaving only time and price to the rep is not discretion. It's a not-held order, good for the day."
+"e": "The customer specified security, action and amount; leaving only time and price to the rep is not discretion. It's a not-held order, good for the day.",
+"k": "Choosing only time and price is not discretion; it's a not-held order, valid only that day.",
+"w": [
+"Customer chose security, action and amount; no written authorization needed.",
+"",
+"No principal approval is required for a not-held order.",
+"Market-on-close executes at the close; this gives the rep timing discretion."
+],
+"m": "Time and price only = not discretionary."
 },
 {
 "id": 118,
@@ -1767,7 +2789,15 @@
 "Give the Federal Reserve authority over margin"
 ],
 "a": 2,
-"e": "Registration of new issues and the prospectus requirement come from the Securities Act of 1933. The 1934 Act regulates the secondary market, created the SEC, and covers BDs, exchanges, margin and anti-fraud."
+"e": "Registration of new issues and the prospectus requirement come from the Securities Act of 1933. The 1934 Act regulates the secondary market, created the SEC, and covers BDs, exchanges, margin and anti-fraud.",
+"k": "The 1933 Act governs new-issue registration and prospectuses; the 1934 Act regulates secondary trading.",
+"w": [
+"The 1934 Act created the SEC.",
+"The 1934 Act requires broker-dealer registration.",
+"",
+"The 1934 Act gave the Fed margin authority (Reg T)."
+],
+"m": "'33 = new issues (paper act). '34 = trading (people/places)."
 },
 {
 "id": 119,
@@ -1782,7 +2812,15 @@
 "20%"
 ],
 "a": 3,
-"e": "Level 1 (7%) and Level 2 (13%) trigger 15-minute halts (before 3:25 pm); Level 3 (20%) closes the market for the day."
+"e": "Level 1 (7%) and Level 2 (13%) trigger 15-minute halts (before 3:25 pm); Level 3 (20%) closes the market for the day.",
+"k": "Market-wide circuit breakers: 7% and 13% S&P drops halt 15 minutes; 20% closes trading for the day.",
+"w": [
+"7% is Level 1, a 15-minute halt.",
+"10% is the Rule 201 short-sale trigger for individual stocks.",
+"13% is Level 2, a 15-minute halt.",
+""
+],
+"m": "7, 13, 20: pause, pause, done for the day."
 },
 {
 "id": 120,
@@ -1797,7 +2835,14 @@
 "May accept the payment only for institutional orders"
 ],
 "a": 1,
-"e": "Payment for order flow is legal but must be disclosed, and it never overrides the duty of best execution."
+"e": "Payment for order flow is legal but must be disclosed, and it never overrides the duty of best execution.",
+"k": "Payment for order flow is legal if disclosed; it never overrides the duty of best execution.",
+"w": [
+"Best execution still applies; price can't be ignored for payment.",
+"",
+"Payment for order flow isn't prohibited.",
+"There's no institutional-only restriction on order flow payments."
+]
 },
 {
 "id": 121,
@@ -1812,7 +2857,15 @@
 "A principal's approval"
 ],
 "a": 2,
-"e": "A customer signature isn't required for a cash account (it is for margin and options accounts). Name, address, DOB, TIN, rep name and principal approval are required."
+"e": "A customer signature isn't required for a cash account (it is for margin and options accounts). Name, address, DOB, TIN, rep name and principal approval are required.",
+"k": "Cash accounts need no customer signature; margin and options accounts require signed agreements.",
+"w": [
+"Date of birth is required customer information on every new account.",
+"A tax ID (SSN) is required on every new account for tax reporting.",
+"",
+"Every account needs principal approval; no principal signature means no account."
+],
+"m": "Cash = no customer signature; margin/options = signed paperwork."
 },
 {
 "id": 122,
@@ -1827,7 +2880,15 @@
 "Is frozen for one year"
 ],
 "a": 1,
-"e": "TIC: the deceased's (possibly unequal) share goes to the estate. JTWROS: it passes to the survivor(s)."
+"e": "TIC: the deceased's (possibly unequal) share goes to the estate. JTWROS: it passes to the survivor(s).",
+"k": "Tenants in common: a deceased owner's share goes to their estate, not the surviving owners.",
+"w": [
+"That describes JTWROS (right of survivorship), not tenants in common.",
+"",
+"No automatic redistribution; TIC shares can be unequal and go to the estate.",
+"No such one-year freeze rule exists for joint accounts."
+],
+"m": "TIC = To Inheritors (estate); JTWROS = to the survivor."
 },
 {
 "id": 123,
@@ -1842,7 +2903,14 @@
 "The custodian may trade on margin to maximize growth"
 ],
 "a": 2,
-"e": "One custodian, one minor; gifts are irrevocable; the minor is the beneficial owner and taxpayer; no margin; the custodian is a fiduciary."
+"e": "One custodian, one minor; gifts are irrevocable; the minor is the beneficial owner and taxpayer; no margin; the custodian is a fiduciary.",
+"k": "UTMA/UGMA: one custodian, one minor, minor's SSN, irrevocable gifts, no margin.",
+"w": [
+"Only one custodian per minor per account is allowed.",
+"Gifts to a minor's account are irrevocable from the moment they're made.",
+"",
+"Margin is prohibited; the custodian is a fiduciary and must invest prudently."
+]
 },
 {
 "id": 124,
@@ -1857,7 +2925,15 @@
 "A signed options agreement"
 ],
 "a": 1,
-"e": "Discretion over security, action or amount requires written trading authorization and principal approval, plus frequent principal review of the account."
+"e": "Discretion over security, action or amount requires written trading authorization and principal approval, plus frequent principal review of the account.",
+"k": "Discretion over asset, action or amount requires written customer authorization plus principal approval.",
+"w": [
+"Oral authority only covers time/price, not choosing which security to buy.",
+"",
+"A trusted contact is for exploitation concerns, not trading authority.",
+"An options agreement is unrelated to granting discretionary authority."
+],
+"m": "Discretion = the 3 A's: Asset, Action, Amount."
 },
 {
 "id": 125,
@@ -1872,7 +2948,20 @@
 "$750"
 ],
 "a": 1,
-"e": "Reg T is 50% ($1,500), but FINRA's $2,000 minimum initial equity applies when the purchase exceeds $2,000. If the purchase were under $2,000, the customer would pay in full."
+"e": "Reg T is 50% ($1,500), but FINRA's $2,000 minimum initial equity applies when the purchase exceeds $2,000. If the purchase were under $2,000, the customer would pay in full.",
+"k": "Initial margin deposit = greater of 50% Reg T or $2,000, but never more than the purchase price.",
+"w": [
+"That's 50% Reg T, but FINRA's $2,000 minimum overrides it here.",
+"",
+"Full payment applies only when the purchase is $2,000 or less.",
+"25% is the maintenance requirement, not the initial deposit."
+],
+"m": "Under $2,000 pay in full; $2,000-$4,000 pay $2,000; over $4,000 pay 50%.",
+"steps": [
+"Reg T: 50% x $3,000 = $1,500",
+"FINRA minimum equity = $2,000",
+"Required deposit = greater of the two = $2,000"
+]
 },
 {
 "id": 126,
@@ -1887,7 +2976,19 @@
 "$4,000"
 ],
 "a": 1,
-"e": "Equity = $3,000. Required = 25% \u00d7 $16,000 = $4,000. Call = $1,000."
+"e": "Equity = $3,000. Required = 25% × $16,000 = $4,000. Call = $1,000.",
+"k": "Long maintenance call = (25% x market value) - (market value - debit balance).",
+"w": [
+"Equity of $3,000 is below the $4,000 required, so a call exists.",
+"",
+"$3,000 is the current equity, not the call amount.",
+"$4,000 is the required equity, not the shortfall."
+],
+"steps": [
+"Equity = $16,000 - $13,000 = $3,000",
+"Required = 25% x $16,000 = $4,000",
+"Call = $4,000 - $3,000 = $1,000"
+]
 },
 {
 "id": 127,
@@ -1902,7 +3003,15 @@
 "Risk disclosure statement"
 ],
 "a": 1,
-"e": "The hypothecation agreement lets the firm pledge (rehypothecate) up to 140% of the debit balance. The optional loan consent allows lending the shares to other customers for short sales."
+"e": "The hypothecation agreement lets the firm pledge (rehypothecate) up to 140% of the debit balance. The optional loan consent allows lending the shares to other customers for short sales.",
+"k": "Hypothecation agreement lets the firm pledge customer margin securities as loan collateral.",
+"w": [
+"The credit agreement discloses interest terms and how margin interest is computed.",
+"",
+"Loan consent lets the firm lend shares for short sales; it's optional.",
+"Risk disclosure explains margin risks; it grants no pledge rights."
+],
+"m": "Hypothecate = pledge as collateral."
 },
 {
 "id": 128,
@@ -1917,7 +3026,15 @@
 "Trade only covered calls"
 ],
 "a": 2,
-"e": "The options agreement must be returned within 15 days of approval; otherwise the account is limited to closing transactions."
+"e": "The options agreement must be returned within 15 days of approval; otherwise the account is limited to closing transactions.",
+"k": "Signed options agreement due within 15 days of approval or the account is closing-only.",
+"w": [
+"Past 15 days without the agreement, normal trading is not allowed.",
+"Principal approval doesn't cure a missing agreement; no new positions at all.",
+"",
+"Covered calls are opening trades, which are prohibited too."
+],
+"m": "No signed agreement by day 15 = closing trades only."
 },
 {
 "id": 129,
@@ -1932,7 +3049,15 @@
 "Losses in commodity futures accounts"
 ],
 "a": 2,
-"e": "SIPC covers missing customer assets when a member firm becomes insolvent \u2014 up to $500,000 per separate customer, including $250,000 cash. It never covers market losses."
+"e": "SIPC covers missing customer assets when a member firm becomes insolvent — up to $500,000 per separate customer, including $250,000 cash. It never covers market losses.",
+"k": "SIPC replaces missing customer cash and securities when a broker-dealer fails; never market losses.",
+"w": [
+"SIPC never protects against declines in market value.",
+"Unsuitable recommendations are handled via arbitration, not SIPC.",
+"",
+"Commodity futures accounts aren't covered by SIPC."
+],
+"m": "SIPC covers a failed firm, not a failed investment."
 },
 {
 "id": 130,
@@ -1947,7 +3072,19 @@
 "$250,000"
 ],
 "a": 0,
-"e": "SIPC covers up to $500,000 per separate customer in total, of which no more than $250,000 may be cash. The $400,000 in securities is fully covered and the first $100,000 of cash fills the remaining room, for a total of $500,000. The other $200,000 of cash becomes a general creditor claim against the firm."
+"e": "SIPC covers up to $500,000 per separate customer in total, of which no more than $250,000 may be cash. The $400,000 in securities is fully covered and the first $100,000 of cash fills the remaining room, for a total of $500,000. The other $200,000 of cash becomes a general creditor claim against the firm.",
+"k": "SIPC covers up to $500,000 per separate customer, with cash capped at $250,000.",
+"w": [
+"",
+"Adds full $250,000 cash to securities, exceeding the $500,000 total cap.",
+"Total account value; coverage can't exceed $500,000 per separate customer.",
+"That's only the cash sublimit, not total coverage."
+],
+"steps": [
+"Securities: $400,000 covered",
+"Remaining room: $500,000 - $400,000 = $100,000 of cash",
+"Total = $500,000; leftover $200,000 cash is a general creditor claim"
+]
 },
 {
 "id": 131,
@@ -1962,7 +3099,15 @@
 "$25,000"
 ],
 "a": 1,
-"e": "SARs are filed within 30 days for suspicious activity of $5,000 or more; the customer must not be told. CTRs are filed for cash transactions over $10,000."
+"e": "SARs are filed within 30 days for suspicious activity of $5,000 or more; the customer must not be told. CTRs are filed for cash transactions over $10,000.",
+"k": "Broker-dealers file a SAR for suspicious activity of $5,000 or more, within 30 days.",
+"w": [
+"$3,000 is the record-keeping threshold for cash-purchased monetary instruments/wires.",
+"",
+"$10,000 is the Currency Transaction Report (CTR) threshold for cash.",
+"No AML filing threshold at $25,000."
+],
+"m": "SAR $5K, CTR over $10K."
 },
 {
 "id": 132,
@@ -1977,7 +3122,15 @@
 "Designate a single emergency contact at FINRA"
 ],
 "a": 1,
-"e": "Firms must review the BCP annually, have senior management approve it, give customers a written summary at account opening (and on request/website), and designate two emergency contacts."
+"e": "Firms must review the BCP annually, have senior management approve it, give customers a written summary at account opening (and on request/website), and designate two emergency contacts.",
+"k": "BCP: annual review, senior management approval, customer summary at opening and online, two emergency contacts.",
+"w": [
+"Firms must disclose a summary to customers, not keep it secret.",
+"",
+"The plan must be reviewed annually, not every five years.",
+"Firms designate two emergency contact persons, not one."
+],
+"m": "BCP: review yearly, disclose summary, two contacts."
 },
 {
 "id": 133,
@@ -1992,7 +3145,14 @@
 "Taxed as a long-term capital gain"
 ],
 "a": 2,
-"e": "Distributions before 59\u00bd without an exception are taxed as ordinary income plus a 10% additional tax."
+"e": "Distributions before 59½ without an exception are taxed as ordinary income plus a 10% additional tax.",
+"k": "Traditional IRA withdrawals before 59½ without an exception: ordinary income plus 10% penalty.",
+"w": [
+"Pre-tax traditional IRA money is always taxable when withdrawn.",
+"Buying a boat isn't an exception, so the 10% penalty also applies.",
+"",
+"Retirement plan distributions are never taxed as capital gains."
+]
 },
 {
 "id": 134,
@@ -2003,11 +3163,19 @@
 "o": [
 "Contributions are tax-deductible",
 "Required minimum distributions begin at age 73",
-"Qualified withdrawals are tax-free after five years and age 59\u00bd",
+"Qualified withdrawals are tax-free after five years and age 59½",
 "Anyone with earned income may contribute regardless of income"
 ],
 "a": 2,
-"e": "Roth contributions are after-tax, there are no lifetime RMDs, income limits apply, and qualified withdrawals (5-year rule + 59\u00bd, death, disability, or first home) are tax-free."
+"e": "Roth contributions are after-tax, there are no lifetime RMDs, income limits apply, and qualified withdrawals (5-year rule + 59½, death, disability, or first home) are tax-free.",
+"k": "Roth IRA: after-tax contributions, no lifetime RMDs, income limits, qualified withdrawals tax-free (5 years + 59½).",
+"w": [
+"That's a traditional IRA feature; Roth contributions are after-tax.",
+"Roth IRAs have no RMDs during the original owner's lifetime.",
+"",
+"Roth contributions are phased out at higher income levels."
+],
+"m": "Roth: tax now, free later."
 },
 {
 "id": 135,
@@ -2022,7 +3190,15 @@
 "The PBGC"
 ],
 "a": 1,
-"e": "The employer promises a specific benefit and must fund it regardless of investment results. In a defined contribution plan the employee bears the risk."
+"e": "The employer promises a specific benefit and must fund it regardless of investment results. In a defined contribution plan the employee bears the risk.",
+"k": "Defined benefit: the employer promises the benefit and bears the investment risk.",
+"w": [
+"Employees bear the risk in defined contribution plans like 401(k)s.",
+"",
+"The trustee administers the plan but doesn't absorb shortfalls.",
+"PBGC insures failed plans; it's a backstop, not the primary risk bearer."
+],
+"m": "Defined BENEFIT = employer's promise, employer's risk."
 },
 {
 "id": 136,
@@ -2037,7 +3213,15 @@
 "One year"
 ],
 "a": 1,
-"e": "Indirect rollovers must be completed within 60 days; 20% is withheld from plan distributions, which she must make up to roll over the full amount. Direct transfers avoid these issues."
+"e": "Indirect rollovers must be completed within 60 days; 20% is withheld from plan distributions, which she must make up to roll over the full amount. Direct transfers avoid these issues.",
+"k": "Indirect (60-day) rollover must be completed within 60 days; plans withhold 20%.",
+"w": [
+"Too short; the IRS allows 60 days.",
+"",
+"Too long; missing 60 days makes it a taxable distribution.",
+"Far beyond the 60-day deadline."
+],
+"m": "Check to you? 60 days and 20% withheld."
 },
 {
 "id": 137,
@@ -2052,7 +3236,15 @@
 "Greater than the CPI"
 ],
 "a": 1,
-"e": "Payments change relative to the AIR: return above the AIR raises the next payment; below lowers it; equal keeps it unchanged."
+"e": "Payments change relative to the AIR: return above the AIR raises the next payment; below lowers it; equal keeps it unchanged.",
+"k": "Annuity payout rises only when separate account return exceeds the AIR.",
+"w": [
+"A positive return below the AIR still lowers the payment.",
+"",
+"Payments compare to the AIR, not the prior month's return.",
+"Inflation (CPI) doesn't determine variable annuity payments."
+],
+"m": "Beat the AIR, payment goes up."
 },
 {
 "id": 138,
@@ -2067,7 +3259,15 @@
 "Unit refund life"
 ],
 "a": 2,
-"e": "Straight life pays only for the annuitant's lifetime with no guarantees to beneficiaries, so the insurer can pay the most per month."
+"e": "Straight life pays only for the annuitant's lifetime with no guarantees to beneficiaries, so the insurer can pay the most per month.",
+"k": "Straight life pays the largest monthly amount because nothing is guaranteed after the annuitant dies.",
+"w": [
+"Period-certain guarantee costs money, reducing the monthly payment.",
+"Covering two lives lowers payments the most.",
+"",
+"Refund guarantee to beneficiaries reduces the monthly payment."
+],
+"m": "Fewer guarantees, bigger checks."
 },
 {
 "id": 139,
@@ -2082,7 +3282,15 @@
 "Long-term capital gain"
 ],
 "a": 1,
-"e": "Annuity withdrawals are LIFO \u2014 earnings come out first and are taxed as ordinary income, with a 10% penalty before 59\u00bd."
+"e": "Annuity withdrawals are LIFO — earnings come out first and are taxed as ordinary income, with a 10% penalty before 59½.",
+"k": "Non-qualified annuity withdrawals are LIFO: earnings out first, taxed as ordinary income, +10% before 59½.",
+"w": [
+"That's FIFO; annuity withdrawals are earnings first, not basis first.",
+"",
+"No pro-rata split on withdrawals; pro-rata (exclusion ratio) applies to annuitized payments.",
+"Annuity earnings are always ordinary income, never capital gains."
+],
+"m": "Withdrawal = LIFO; annuitization = exclusion ratio."
 },
 {
 "id": 140,
@@ -2097,7 +3305,14 @@
 "Withdrawals for any purpose are tax-free after age 18"
 ],
 "a": 2,
-"e": "529 contributions are after-tax federally, have no income limits, the donor/owner keeps control and may change the beneficiary within the family, and non-qualified withdrawals incur tax plus a 10% penalty on earnings."
+"e": "529 contributions are after-tax federally, have no income limits, the donor/owner keeps control and may change the beneficiary within the family, and non-qualified withdrawals incur tax plus a 10% penalty on earnings.",
+"k": "529 plan: after-tax federally, no income limits, owner controls assets and can change beneficiary.",
+"w": [
+"529 contributions aren't federally deductible (some states allow a deduction).",
+"529 plans have no income limits on contributors.",
+"",
+"Only qualified education withdrawals are tax-free; age doesn't matter."
+]
 },
 {
 "id": 141,
@@ -2112,7 +3327,14 @@
 "The premium will never be due"
 ],
 "a": 1,
-"e": "Variable life has a fixed premium and a guaranteed minimum death benefit; the cash value and any additional death benefit vary with separate account performance."
+"e": "Variable life has a fixed premium and a guaranteed minimum death benefit; the cash value and any additional death benefit vary with separate account performance.",
+"k": "Variable life guarantees a minimum death benefit; cash value and returns fluctuate.",
+"w": [
+"Cash value varies with separate account performance; not guaranteed.",
+"",
+"Separate account returns are never guaranteed.",
+"Variable life has fixed scheduled premiums that remain due."
+]
 },
 {
 "id": 142,
@@ -2127,7 +3349,15 @@
 "Self-employed individuals"
 ],
 "a": 2,
-"e": "403(b) tax-sheltered annuity plans serve public education and non-profit employees; investments are limited to annuities and mutual funds."
+"e": "403(b) tax-sheltered annuity plans serve public education and non-profit employees; investments are limited to annuities and mutual funds.",
+"k": "403(b) plans serve public school and 501(c)(3) non-profit employees.",
+"w": [
+"Small corporations use plans like SIMPLE, not 403(b).",
+"State/local governments typically use 457 plans.",
+"",
+"Self-employed people use SEP IRAs or Keogh plans."
+],
+"m": "403(b) = teachers and non-profits."
 },
 {
 "id": 143,
@@ -2142,7 +3372,15 @@
 "Neither, because the attorney did not trade"
 ],
 "a": 2,
-"e": "Tippers are liable even if they don't trade; tippees who trade on MNPI are liable. Civil penalties can reach three times the profit."
+"e": "Tippers are liable even if they don't trade; tippees who trade on MNPI are liable. Civil penalties can reach three times the profit.",
+"k": "Tippers are liable even if they don't trade; tippees who trade on MNPI are liable too.",
+"w": [
+"The tipper who passed the information is liable as well.",
+"The brother traded on MNPI, so he is liable as a tippee.",
+"",
+"Not trading doesn't excuse a tipper from liability."
+],
+"m": "Tip or trade, you're liable."
 },
 {
 "id": 144,
@@ -2157,7 +3395,15 @@
 "Register the activity with the state Administrator"
 ],
 "a": 1,
-"e": "Outside business activities for compensation require prior written notice to the firm (Rule 3270). Private securities transactions require notice and, if compensated, approval (Rule 3280)."
+"e": "Outside business activities for compensation require prior written notice to the firm (Rule 3270). Private securities transactions require notice and, if compensated, approval (Rule 3280).",
+"k": "Paid outside business activities require prior written notice to the member firm (Rule 3270).",
+"w": [
+"Any paid outside work requires notice, even if unrelated to securities.",
+"",
+"FINRA doesn't approve OBAs; the firm receives the notice.",
+"The state Administrator doesn't handle OBA notices."
+],
+"m": "Outside job = tell the firm in writing first."
 },
 {
 "id": 145,
@@ -2168,11 +3414,19 @@
 "o": [
 "$50 per year",
 "$100 per person per year",
-"$250 per person per year",
+"$300 per person per year",
 "$500 per year"
 ],
-"a": 1,
-"e": "The limit is $100 per person per year; business entertainment where the giver attends is excluded."
+"a": 2,
+"e": "The limit is $300 per person per year (FINRA raised it from $100 effective March 30, 2026). Business entertainment where the giver attends is excluded.",
+"k": "FINRA Rule 3220 gift limit: $300 per person per year (raised from $100 in 2026); attended entertainment is excluded.",
+"w": [
+"$50 has never been the limit.",
+"$100 was the old limit, replaced effective March 30, 2026.",
+"",
+"$500 isn't the limit, and it's measured per person."
+],
+"m": "Older prep material still says $100; the current rule is $300."
 },
 {
 "id": 146,
@@ -2187,7 +3441,15 @@
 "A public appearance"
 ],
 "a": 1,
-"e": "Communications to more than 25 retail investors within 30 days are retail communications and must be approved by a registered principal before use. 25 or fewer = correspondence."
+"e": "Communications to more than 25 retail investors within 30 days are retail communications and must be approved by a registered principal before use. 25 or fewer = correspondence.",
+"k": "Over 25 retail investors within 30 days = retail communication requiring prior principal approval.",
+"w": [
+"Correspondence means 25 or fewer retail investors in 30 days.",
+"",
+"Institutional communications go only to institutional investors, not retail.",
+"A public appearance is a live event, not a mailed letter."
+],
+"m": "25 or fewer = correspondence; more = retail communication."
 },
 {
 "id": 147,
@@ -2202,7 +3464,15 @@
 "30 calendar days"
 ],
 "a": 2,
-"e": "FINRA Rule 2165 allows a 15-business-day hold, extendable by 10 business days (and further if a regulator requests), with notification of the trusted contact and an internal review."
+"e": "FINRA Rule 2165 allows a 15-business-day hold, extendable by 10 business days (and further if a regulator requests), with notification of the trusted contact and an internal review.",
+"k": "Rule 2165 temporary hold: up to 15 business days, extendable 10 more (plus 30 if regulator requests).",
+"w": [
+"Too short; the initial hold is 15 business days.",
+"Too short; 10 is the extension, not the initial hold.",
+"",
+"Holds are measured in business days, starting at 15."
+],
+"m": "Senior hold: 15 + 10 (+30)."
 },
 {
 "id": 148,
@@ -2217,7 +3487,15 @@
 "180 days"
 ],
 "a": 3,
-"e": "Waiting periods are 30 days after the first and second failures and 180 days after the third and each subsequent failure."
+"e": "Waiting periods are 30 days after the first and second failures and 180 days after the third and each subsequent failure.",
+"k": "Exam retake waits: 30 days after 1st and 2nd failures, 180 days after third and later.",
+"w": [
+"30 days applies only after the first or second failure.",
+"No 60-day waiting period exists.",
+"No 90-day waiting period exists.",
+""
+],
+"m": "Third strike = six-month wait."
 },
 {
 "id": 149,
@@ -2232,7 +3510,14 @@
 "The life of the firm"
 ],
 "a": 1,
-"e": "Complaints: 4 years. Blotters, ledgers and account records: 6 years. Order tickets, confirms and communications: 3 years. Organizational documents: permanent."
+"e": "Complaints: 4 years. Blotters, ledgers and account records: 6 years. Order tickets, confirms and communications: 3 years. Organizational documents: permanent.",
+"k": "Customer complaint records are kept 4 years.",
+"w": [
+"3 years covers order tickets, confirms and communications.",
+"",
+"6 years covers blotters, ledgers and account records.",
+"Permanent retention is for organizational documents."
+]
 },
 {
 "id": 150,
@@ -2247,7 +3532,15 @@
 "7 am and 10 pm in the called party's time zone"
 ],
 "a": 1,
-"e": "Cold calls are limited to 8:00 am\u20139:00 pm local time of the person called, the caller must identify themselves and the firm, and do-not-call lists must be honored."
+"e": "Cold calls are limited to 8:00 am–9:00 pm local time of the person called, the caller must identify themselves and the firm, and do-not-call lists must be honored.",
+"k": "TCPA cold calls: 8 am to 9 pm in the called party's local time.",
+"w": [
+"Wrong hours and wrong time zone; it's the customer's time.",
+"",
+"Ends at 9 pm and uses the called party's time zone.",
+"Window is 8 am-9 pm, not 7 am-10 pm."
+],
+"m": "8 to 9, their time."
 },
 {
 "ch": 15,
@@ -2262,7 +3555,14 @@
 ],
 "a": 1,
 "e": "FINRA, the exchanges and the MSRB are SROs operating under SEC oversight. The SEC is a government agency; the Fed and FinCEN are government bodies.",
-"id": 151
+"id": 151,
+"k": "SROs (FINRA, exchanges, MSRB) regulate members under SEC oversight; they aren't government agencies.",
+"w": [
+"The SEC is a federal government agency that oversees SROs.",
+"",
+"The Fed is a government central bank, not an SRO.",
+"FinCEN is a Treasury bureau for anti-money laundering."
+]
 },
 {
 "ch": 15,
@@ -2277,7 +3577,15 @@
 ],
 "a": 2,
 "e": "The SIE is a co-requisite; it confers no registration. To do securities business the person must be sponsored by a firm, pass a top-off exam (Series 6, 7, etc.) and be registered on Form U4.",
-"id": 152
+"id": 152,
+"k": "The SIE confers no registration; a firm-sponsored top-off exam and Form U4 are also required.",
+"w": [
+"Opening accounts requires full registration, not just the SIE.",
+"Selling funds requires the Series 6 or 7 and registration.",
+"",
+"IAR status is a state matter requiring the Series 65/66."
+],
+"m": "SIE + top-off + sponsorship = registered rep."
 },
 {
 "ch": 15,
@@ -2292,7 +3600,15 @@
 ],
 "a": 1,
 "e": "Material changes to Form U4 information must be filed within 30 days. Form U5 is also due within 30 days of termination.",
-"id": 153
+"id": 153,
+"k": "Form U4 amendments are due within 30 days of a change; U5 within 30 days of termination.",
+"w": [
+"10 days isn't the U4 amendment deadline.",
+"",
+"60 days is too long.",
+"90 days is too long."
+],
+"m": "U4 and U5: think 30."
 },
 {
 "ch": 15,
@@ -2306,8 +3622,16 @@
 "Is suspended for 30 days"
 ],
 "a": 1,
-"e": "Registration becomes inactive \u2014 no securities business or compensation \u2014 until the Regulatory Element is completed; after two years inactive it is terminated.",
-"id": 154
+"e": "Registration becomes inactive — no securities business or compensation — until the Regulatory Element is completed; after two years inactive it is terminated.",
+"id": 154,
+"k": "Missed Regulatory Element CE makes registration inactive until completed; terminated after two years inactive.",
+"w": [
+"The consequence is inactive status, not a set fine.",
+"",
+"Retaking the SIE isn't the remedy for missed CE.",
+"Inactive status lasts until completion, not a fixed 30 days."
+],
+"m": "No CE, no business, no pay."
 },
 {
 "ch": 15,
@@ -2322,7 +3646,15 @@
 ],
 "a": 1,
 "e": "For its first year a new member files retail communications 10 business days BEFORE first use. Investment company, DPP and CMO material is filed within 10 business days AFTER first use.",
-"id": 155
+"id": 155,
+"k": "New members file retail communications with FINRA 10 business days BEFORE first use for one year.",
+"w": [
+"After-use filing applies to investment company materials, not new members.",
+"",
+"30 days after use isn't the FINRA filing standard.",
+"New-member filing covers all retail communications, not only funds."
+],
+"m": "New firm: file before you use."
 },
 {
 "ch": 15,
@@ -2337,7 +3669,15 @@
 ],
 "a": 1,
 "e": "Six years: blotters, ledgers, stock record, account records. Three years: tickets, confirms, communications. Four years: complaints. Permanent: organizational documents.",
-"id": 156
+"id": 156,
+"k": "Six-year records: blotters, general ledger, stock record and customer account records.",
+"w": [
+"Order tickets and confirms are kept 3 years.",
+"",
+"Complaints are kept 4 years.",
+"Organizational documents are kept for the life of the firm."
+],
+"m": "Big books (blotters, ledgers) = 6 years."
 },
 {
 "ch": 15,
@@ -2352,7 +3692,14 @@
 ],
 "a": 2,
 "e": "The Trust Indenture Act of 1939 applies to public corporate debt (not governments or munis).",
-"id": 157
+"id": 157,
+"k": "Trust Indenture Act of 1939: public corporate debt over $50M needs an indenture and independent trustee.",
+"w": [
+"The 1933 Act governs new-issue registration and disclosure, not trustees.",
+"The 1934 Act regulates secondary markets and exchanges.",
+"",
+"The 1940 Act regulates investment companies."
+]
 },
 {
 "ch": 15,
@@ -2367,7 +3714,15 @@
 ],
 "a": 3,
 "e": "Reg BI's four obligations are disclosure, care, conflict of interest and compliance. It does not impose a continuing duty to monitor unless the firm agrees to one.",
-"id": 158
+"id": 158,
+"k": "Reg BI's four obligations: disclosure, care, conflict of interest, compliance.",
+"w": [
+"Disclosure is one of the four Reg BI obligations.",
+"Care is one of the four Reg BI obligations.",
+"Conflict of interest is one of the four Reg BI obligations.",
+""
+],
+"m": "Reg BI = D-C-C-C: Disclosure, Care, Conflicts, Compliance."
 },
 {
 "ch": 15,
@@ -2381,8 +3736,16 @@
 "The account is discretionary"
 ],
 "a": 1,
-"e": "Sharing requires prior written authorization of the firm (and customer) and must be proportional to the rep's financial contribution \u2014 except with immediate family, where proportionality is waived.",
-"id": 159
+"e": "Sharing requires prior written authorization of the firm (and customer) and must be proportional to the rep's financial contribution — except with immediate family, where proportionality is waived.",
+"id": 159,
+"k": "Profit sharing requires prior written firm approval and must be proportional, except immediate family accounts.",
+"w": [
+"Family waives proportionality only; firm approval is still required.",
+"",
+"Guaranteeing customers against losses is prohibited.",
+"Discretionary authority doesn't permit sharing in profits."
+],
+"m": "Share in proportion to your contribution."
 },
 {
 "ch": 15,
@@ -2396,8 +3759,16 @@
 "Program trading"
 ],
 "a": 2,
-"e": "Coordinated trades designed to create a false appearance of activity or price movement are matched orders (painting the tape) \u2014 manipulation under the 1934 Act.",
-"id": 160
+"e": "Coordinated trades designed to create a false appearance of activity or price movement are matched orders (painting the tape) — manipulation under the 1934 Act.",
+"id": 160,
+"k": "Matched orders/painting the tape: coordinated trades creating false activity or price movement are manipulation.",
+"w": [
+"Arbitrage profits from price differences between markets; it's legal.",
+"Stabilization is permitted price support by an underwriter during an offering.",
+"",
+"Program trading is computerized basket trading, legal by itself."
+],
+"m": "Fake volume = painting the tape."
 },
 {
 "ch": 15,
@@ -2412,7 +3783,15 @@
 ],
 "a": 1,
 "e": "State blue-sky laws, based on the Uniform Securities Act and administered by the state Administrator (coordinated via NASAA), govern state-level registration.",
-"id": 161
+"id": 161,
+"k": "State registration of agents and securities is governed by blue-sky laws based on the Uniform Securities Act.",
+"w": [
+"The 1933 Act is federal registration of new issues.",
+"",
+"FINRA rules govern member conduct, not state registration.",
+"The Maloney Act (1938) created SROs like FINRA."
+],
+"m": "Blue sky = state law."
 },
 {
 "ch": 15,
@@ -2427,6 +3806,14 @@
 ],
 "a": 1,
 "e": "Any felony or securities/money-related misdemeanor conviction within 10 years is a statutory disqualification; the firm must seek FINRA approval via an eligibility proceeding.",
-"id": 162
+"id": 162,
+"k": "Any felony within 10 years is a statutory disqualification requiring FINRA approval to associate.",
+"w": [
+"Passing the SIE doesn't cure statutory disqualification.",
+"",
+"Not automatically permanent; FINRA may approve via eligibility proceeding.",
+"No clerical-only exception; the firm must seek FINRA approval."
+],
+"m": "Felony within 10 years = SD."
 }
 ]

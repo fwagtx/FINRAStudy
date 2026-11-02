@@ -129,7 +129,7 @@ Municipalities issue short-term notes (typically **less than 12 months**, someti
 |---|---|
 | G-17 | Fair dealing; dealers must deal fairly with everyone |
 | G-19 | Suitability |
-| G-20 | Gifts and gratuities — **$100 per person per year** limit (business entertainment excluded) |
+| G-20 | Gifts and gratuities — **$300 per person per year** limit (raised from $100 in 2026 to match FINRA; business entertainment excluded) |
 | G-30 | Fair pricing (markups) |
 | G-32 | Delivery of official statement by settlement |
 | G-37 | **Political contributions / "pay-to-play"** — an MFP may give at most **$250 per election** to a candidate the MFP **is entitled to vote for**; a larger contribution, or any contribution to an official the MFP can't vote for, bars the dealer from negotiated underwriting with that issuer for **two years** |
@@ -178,5 +178,5 @@ Municipalities issue short-term notes (typically **less than 12 months**, someti
 - Notes: TANs, RANs, TRANs, BANs, GANs; VRDOs have a put feature.
 - Exempt from 1933 Act registration — official statement, legal opinion (unqualified is good). MSRB makes rules; FINRA/SEC enforce; EMMA for disclosure.
 - Competitive bid for G.O.s (notice of sale), negotiated for revenue; order priority pre-sale → group net → designated → member.
-- MSRB G-37: $250 limit to candidates you can vote for; otherwise two-year ban. G-20: $100 gift limit.
+- MSRB G-37: $250 limit to candidates you can vote for; otherwise two-year ban. G-20: $300 gift limit.
 - Settlement T+1; 30/360 accrued interest; RTRS trade reporting.

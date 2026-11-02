@@ -1953,12 +1953,12 @@
 
 - A. $50 per year
 - B. $100 per person per year
-- C. $250 per person per year
+- C. $300 per person per year
 - D. $500 per year
 
 <details><summary>Answer</summary>
 
-**B.** The limit is $100 per person per year; business entertainment where the giver attends is excluded.
+**C.** The limit is $300 per person per year (FINRA raised it from $100 effective March 30, 2026). Business entertainment where the giver attends is excluded.
 
 </details>
 

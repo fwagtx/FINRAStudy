@@ -76,7 +76,7 @@ Cooling-off ≥ **20 days**. Prospectus delivery after IPO: **90 days** non-list
 
 ## Municipal
 
-TEY = yield ÷ (1 − bracket). G-37: **$250**/election to candidates you can vote for, else **2-year** ban. G-20 gifts **$100**. G.O. = taxes, voter approval, debt limits; revenue = project, feasibility study, coverage ratio. Notes: TAN, RAN, TRAN, BAN, GAN. Territory bonds triple tax-free. Private activity → AMT. Not for IRAs.
+TEY = yield ÷ (1 − bracket). G-37: **$250**/election to candidates you can vote for, else **2-year** ban. G-20 gifts **$300**. G.O. = taxes, voter approval, debt limits; revenue = project, feasibility study, coverage ratio. Notes: TAN, RAN, TRAN, BAN, GAN. Territory bonds triple tax-free. Private activity → AMT. Not for IRAs.
 
 ## Government
 
@@ -100,7 +100,7 @@ Buy limit & sell stop **below** market; sell limit & buy stop **above** (BLiSS/S
 
 ## Rules & ethics
 
-Insider trading: treble damages; **$5M / 20 years** (firms $25M). Senior hold: **15 + 10** business days; specified adult 65+ or impaired 18+. TCPA: **8 am–9 pm** called party's time; national DNC check every 31 days; 18-month relationship exemption. Gifts **$100**/person/year. OBA: prior written notice. Private securities transactions: notice; approval if paid. Outside accounts: employer consent. Borrowing/lending: family, institution, same-firm rep, personal/business relationship (with procedures). Sharing accounts: written approval + proportional (except family). Never guarantee against loss.
+Insider trading: treble damages; **$5M / 20 years** (firms $25M). Senior hold: **15 + 10** business days; specified adult 65+ or impaired 18+. TCPA: **8 am–9 pm** called party's time; national DNC check every 31 days; 18-month relationship exemption. Gifts **$300**/person/year (was $100 before March 2026). OBA: prior written notice. Private securities transactions: notice; approval if paid. Outside accounts: employer consent. Borrowing/lending: family, institution, same-firm rep, personal/business relationship (with procedures). Sharing accounts: written approval + proportional (except family). Never guarantee against loss.
 Communications: correspondence ≤ 25 retail/30 days; retail > 25 → principal pre-approval; new firm files 10 business days **before** use; fund/VA/DPP/CMO filed within 10 business days **after** first use; institutional → procedures. Performance 1/5/10 yr at max load. Records 3 years.
 Licensing: SIE 18+, no sponsor, 75 Q / 105 min / 70 pass / 4 yrs valid; fails wait 30/30/180. U4 changes 30 days; U5 30 days; lapse after 2 yrs (MQP 5). CE: Regulatory Element annually (inactive if missed); Firm Element annual needs analysis. Statutory disqualification: felony/securities misdemeanor within 10 years.
 Records: permanent (org docs, minutes); **6 yrs** (blotters, ledgers, stock record, account records); **4 yrs** (complaints); **3 yrs** (tickets, confirms, communications, U4/U5 post-termination, gifts, net capital); first 2 years easily accessible.
