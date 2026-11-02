@@ -168,6 +168,19 @@ th{font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--fg-3
 .explain{margin-top:16px;padding:14px 16px;border-radius:8px;background:var(--bg);border:1px solid var(--line);font-size:14px}
 .explain .tag{font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;margin-bottom:6px}
 .explain.ok .tag{color:var(--good)}.explain.no .tag{color:var(--bad)}
+.bd{margin-top:16px;display:flex;flex-direction:column;gap:10px;font-size:14px;line-height:1.55}
+.bd-key{padding:12px 14px;border-radius:8px;background:var(--bg-2);border-left:3px solid var(--accent);font-weight:600;font-size:15px}
+.bd-key .tag,.bd .tag{font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--fg-3);margin-bottom:4px}
+.bd-row{padding:10px 14px;border-radius:8px;background:var(--bg);border:1px solid var(--line)}
+.bd-row.bad{border-left:3px solid var(--bad)}.bd-row.good{border-left:3px solid var(--good)}
+.bd-steps{margin:0;padding:10px 14px 10px 34px;border-radius:8px;background:var(--bg);border:1px solid var(--line);font-family:var(--mono);font-size:13px}
+.bd details{padding:8px 14px;border-radius:8px;border:1px solid var(--line)}.bd summary{cursor:pointer;color:var(--fg-2)}
+.bd details ul{margin:8px 0 2px;padding-left:18px}.bd details li{margin:4px 0}
+.bd-tip{color:var(--fg-2)}
+#catchup{font:inherit;font-size:14px;padding:6px 8px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--fg);max-width:100%}.bd-foot{display:flex;gap:8px;flex-wrap:wrap}
+.plan-row{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--line)}.plan-row:first-of-type{border-top:0}
+.plan-row .n{min-width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--bg-2);font-family:var(--mono);font-size:13px}
+.plan-row .what{flex:1;min-width:0}.plan-row .rule{font-size:14px;margin-top:2px}
 .qfoot{display:flex;gap:10px;align-items:center;margin-top:18px;flex-wrap:wrap}
 .qfoot .grow{flex:1}
 .navgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(38px,1fr));gap:6px;margin-top:16px}
@@ -312,6 +325,22 @@ const chapterByNum = n => CHAPTERS.find(c => c.num === n);
 const allSections = CHAPTERS.flatMap(c => c.sections.map(s => ({...s, ch:c.num})));
 const chRead = n => { const c = chapterByNum(n); const d = c.sections.filter(s => S.read[s.id]).length; return {done:d, total:c.sections.length}; };
 function accuracy(n){ let r=0,w=0; for(const q of QUESTIONS){ if(n && q.ch!==n) continue; const l=S.qlog[q.id]; if(!l) continue; r+=l.r; w+=l.w; } return {r,w,n:r+w,pct:(r+w)?Math.round(100*r/(r+w)):null}; }
+const secTitle = q => (allSections.find(s => s.num === q.sec) || {}).title || "";
+const secBtn = (q, label) => `<button class="btn sm" data-gosec="s${q.sec.replace(/\./g,"-")}" data-ch="${q.ch}">${label || `Review §${esc(q.sec)} ${esc(secTitle(q))}`} →</button>`;
+// the answer breakdown shown after a quiz question and on exam results
+function breakdown(q, picked){
+  const L = "ABCD", missed = picked !== q.a, w = q.w || [];
+  const others = q.o.map((o,j) => ({o,j})).filter(x => x.j !== q.a && x.j !== picked && w[x.j]);
+  return `<div class="bd">
+    ${q.k ? `<div class="bd-key"><div class="tag">The rule to remember</div>${esc(q.k)}</div>` : ""}
+    ${missed && picked !== null && picked !== undefined && w[picked] ? `<div class="bd-row bad"><b>Why not ${L[picked]}:</b> ${esc(w[picked])}</div>` : ""}
+    <div class="bd-row good"><b>Why ${L[q.a]} is right:</b> ${esc(q.e)}</div>
+    ${q.steps ? `<ol class="bd-steps">${q.steps.map(s => `<li>${esc(s)}</li>`).join("")}</ol>` : ""}
+    ${others.length ? `<details><summary>Why the other choices are wrong</summary><ul>${others.map(x => `<li><b>${L[x.j]}.</b> ${esc(w[x.j])}</li>`).join("")}</ul></details>` : ""}
+    ${q.m ? `<div class="bd-tip"><b>Exam tip:</b> ${esc(q.m)}</div>` : ""}
+    <div class="bd-foot">${secBtn(q)}</div></div>`;
+}
+document.addEventListener("click", e => { const b = e.target.closest && e.target.closest("[data-gosec]"); if(b) go("textbook", {chapter:+b.dataset.ch, section:b.dataset.gosec}); });
 function logAnswer(q, correct){ const l = S.qlog[q.id] || (S.qlog[q.id]={r:0,w:0,last:null}); correct?l.r++:l.w++; l.last=correct; }
 function refreshRail(){
   const d = Object.keys(S.read).filter(k=>S.read[k]).length, t = allSections.length, p = Math.round(100*d/t);
@@ -365,6 +394,7 @@ function renderDashboard(){
       <div class="stat"><div class="lbl">Question accuracy</div><div class="val">${acc.pct!==null?acc.pct+"%":"–"}</div><div class="sub">${acc.n} answered</div></div>
     </div>
     <div class="card" style="margin-bottom:14px;display:flex;gap:14px;align-items:center;flex-wrap:wrap"><span class="chip ${avg3===null?"":avg3>=80?"good":avg3>=70?"warn":"bad"}">Readiness</span><span>${ready}</span><span class="grow" style="flex:1"></span><button class="btn primary" id="dash-exam">Start a practice exam</button></div>
+    ${d < t ? `<div class="card" style="margin-bottom:14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap"><span>Already read part of the book?</span><span>Mark chapters 1 through</span><select id="catchup" aria-label="Last chapter read">${CHAPTERS.map(c => `<option value="${c.num}">${c.num}. ${esc(c.name)}</option>`).join("")}</select><button class="btn sm" id="catchup-go">Mark as read</button></div>` : ""}
     <div class="grid2">
       <div class="card"><h2>Exam score history<small>pass line at 70</small></h2>${ex.length?examChart(ex):'<div class="empty">Your scores will chart here after your first practice exam.</div>'}</div>
       <div class="card"><h2>Weakest chapters<small>lowest accuracy, 3+ answered</small></h2>${weak.length?weak.map(x=>`<div style="display:flex;align-items:center;gap:10px;margin:8px 0"><span style="flex:1;min-width:0">${x.c.num}. ${esc(x.c.name)}</span><span class="num muted" style="font-size:12px">${x.a.r}/${x.a.n}</span><span class="chip ${x.a.pct<65?"bad":x.a.pct<80?"warn":"good"}">${x.a.pct}%</span><button class="btn sm" data-quiz="${x.c.num}">Quiz</button></div>`).join(""):'<div class="empty">Answer some quiz or exam questions and your weak spots will show up here.</div>'}</div>
@@ -379,6 +409,7 @@ function renderDashboard(){
       <textarea class="io" id="io" placeholder="Export appears here, or paste a previous export to import." aria-label="Progress data"></textarea></div>
   </div>`;
   $("#dash-exam").onclick = () => go("exams");
+  const cu = $("#catchup-go"); if(cu) cu.onclick = () => { const upto = +$("#catchup").value; CHAPTERS.filter(c => c.num <= upto).forEach(c => c.sections.forEach(s => S.read[s.id] = true)); save(); toast(`Chapters 1–${upto} marked as read`); renderDashboard(); };
   view.querySelectorAll("[data-quiz]").forEach(b => b.onclick = () => go("quizzes",{chapter:+b.dataset.quiz}));
   view.querySelectorAll("[data-read]").forEach(b => b.onclick = () => go("textbook",{chapter:+b.dataset.read}));
   $("#exp").onclick = () => { $("#io").value = JSON.stringify(S); $("#io").select(); navigator.clipboard?.writeText($("#io").value).then(()=>toast("Copied to clipboard")).catch(()=>toast("Select the text and copy it")); };
@@ -483,7 +514,7 @@ function startQuiz(ch){
     $("#check").onclick = () => {
       const ok = picked===q.a; if(ok) right++; logAnswer(q, ok); save();
       opts.forEach(x => { x.disabled = true; const k=+x.dataset.k; if(k===q.a) x.classList.add("right"); else if(k===picked) x.classList.add("wrong"); });
-      $("#ex").innerHTML = `<div class="explain ${ok?"ok":"no"}"><div class="tag">${ok?"Correct":"Incorrect — the answer is "+"ABCD"[q.a]}</div>${esc(q.e)}</div>`;
+      $("#ex").innerHTML = `<div class="explain ${ok?"ok":"no"}" style="padding:10px 14px"><div class="tag" style="margin:0">${ok?"Correct":"Incorrect — the answer is "+"ABCD"[q.a]}</div></div>${breakdown(q, picked)}`;
       const c = $("#check"); c.textContent = i+1<qs.length ? "Next question →" : "See results"; c.onclick = () => { i++; render(); }; c.focus();
     };
     view.scrollTop = 0;
@@ -552,14 +583,23 @@ function startExam(n, secs, resume){
     const pct = Math.round(100*right/qs.length);
     const d = new Date(), date = d.toLocaleDateString(undefined,{month:"short",day:"numeric"})+" "+d.toLocaleTimeString(undefined,{hour:"numeric",minute:"2-digit"});
     S.exams.push({ts: Date.now(), date, n:qs.length, right, pct, secs:secsUsed, fs, ch}); save();
-    let showWrong = false;
+    const misses = qs.map((q,k) => ({q,k})).filter(x => ans[x.k] !== x.q.a);
+    let showWrong = misses.length > 0;
+    // group misses by textbook section, biggest gaps first
+    const groups = []; const gi = {};
+    for(const x of misses){ let g = gi[x.q.sec]; if(!g){ g = gi[x.q.sec] = {q:x.q, ks:[], rules:[]}; groups.push(g); } g.ks.push(x.k+1); if(x.q.k && !g.rules.includes(x.q.k)) g.rules.push(x.q.k); }
+    const secOrder = s => s.split(".").map(n => n.padStart(3,"0")).join(".");
+    groups.sort((a,b) => b.ks.length - a.ks.length || secOrder(a.q.sec).localeCompare(secOrder(b.q.sec)));
+    const plan = groups.length ? `<div class="qcard" style="margin-bottom:14px"><h2 style="margin:0 0 4px">Your fix-it plan</h2><p class="hint" style="margin:0 0 8px">${misses.length} missed across ${groups.length} section${groups.length>1?"s":""}. Read each rule, then open the section if it doesn't click. Biggest gaps first.</p>
+      ${groups.map(g => `<div class="plan-row"><span class="n">${g.ks.length}</span><div class="what"><div><b>§${esc(g.q.sec)} ${esc(secTitle(g.q))}</b> <span class="muted" style="font-size:12px">${esc(chapterByNum(g.q.ch).name)} · Q${g.ks.join(", Q")}</span></div>${g.rules.map(r => `<div class="rule">${esc(r)}</div>`).join("")}</div>${secBtn(g.q, "Review")}</div>`).join("")}</div>` : "";
     const renderResults = () => {
       const list = qs.map((q,k)=>({q,k,ok:ans[k]===q.a})).filter(x => !showWrong || !x.ok);
       view.innerHTML = `<div class="qwrap"><div class="qcard" style="margin-bottom:14px"><div class="score"><div class="big ${pct>=70?"pass":"fail"}">${pct}%</div><div><div style="font-weight:600;font-size:18px">${pct>=70?"Pass":"Below the 70% pass mark"} — ${right} of ${qs.length} correct${timedOut?" (time expired)":""}</div><div class="muted">Time used ${fmtTime(secsUsed)} of ${fmtTime(secs)}</div></div></div>
         <div class="tablewrap"><table><thead><tr><th>FINRA section</th><th>Correct</th><th></th></tr></thead><tbody>${[1,2,3,4].filter(f=>fs[f]).map(f=>{const p=Math.round(100*fs[f].r/fs[f].n);return `<tr><td>${f}. ${esc(FS_NAMES[f])}</td><td class="num">${fs[f].r}/${fs[f].n}</td><td style="min-width:140px"><div style="display:flex;align-items:center;gap:8px"><div class="bar ${p>=80?"good":p>=65?"warn":"bad"}" style="flex:1"><i style="width:${p}%"></i></div><span class="num muted" style="font-size:12px">${p}%</span></div></td></tr>`}).join("")}</tbody></table></div>
         <div class="tablewrap" style="margin-top:12px"><table><thead><tr><th>Chapter</th><th>Correct</th></tr></thead><tbody>${Object.keys(ch).map(Number).sort((a,b)=>a-b).map(c=>`<tr><td>${c}. ${esc(chapterByNum(c).name)}</td><td class="num">${ch[c].r}/${ch[c].n} ${ch[c].r<ch[c].n?`<button class="btn sm" data-quiz="${c}" style="margin-left:8px">Quiz</button>`:""}</td></tr>`).join("")}</tbody></table></div>
         <div class="qfoot"><button class="btn primary" id="again">Take another</button><button class="btn" id="dash">Dashboard</button><span class="grow"></span><label class="toggle"><input type="checkbox" id="onlywrong" ${showWrong?"checked":""}> Show only missed questions</label></div></div>
-        ${list.map(({q,k,ok})=>`<div class="qcard" style="margin-bottom:12px"><div class="qn"><span>Q${k+1}</span><span>§${esc(q.sec)} · ${esc(chapterByNum(q.ch).name)}</span>${flags.has(k)?'<span class="chip warn">Flagged</span>':""}<span class="chip ${ok?"good":"bad"}">${ok?"Correct":ans[k]===null?"Unanswered":"Incorrect"}</span></div><div class="qtext" style="font-size:15px">${esc(q.q)}</div><div class="opts">${q.o.map((o,j)=>`<div class="opt ${j===q.a?"right":j===ans[k]?"wrong":""}"><span class="let">${"ABCD"[j]}</span><span>${esc(o)}</span></div>`).join("")}</div><div class="explain ${ok?"ok":"no"}"><div class="tag">Explanation</div>${esc(q.e)}</div></div>`).join("")}
+        ${plan}
+        ${list.map(({q,k,ok})=>`<div class="qcard" style="margin-bottom:12px"><div class="qn"><span>Q${k+1}</span><span>§${esc(q.sec)} · ${esc(chapterByNum(q.ch).name)}</span>${flags.has(k)?'<span class="chip warn">Flagged</span>':""}<span class="chip ${ok?"good":"bad"}">${ok?"Correct":ans[k]===null?"Unanswered":"Incorrect"}</span></div><div class="qtext" style="font-size:15px">${esc(q.q)}</div><div class="opts">${q.o.map((o,j)=>`<div class="opt ${j===q.a?"right":j===ans[k]?"wrong":""}"><span class="let">${"ABCD"[j]}</span><span>${esc(o)}</span></div>`).join("")}</div>${ok ? (q.k ? `<div class="bd"><div class="bd-key"><div class="tag">The rule to remember</div>${esc(q.k)}</div></div>` : "") : breakdown(q, ans[k])}</div>`).join("")}
         ${list.length?"":'<div class="empty">You got every question right.</div>'}</div>`;
       $("#again").onclick = () => renderExams(); $("#dash").onclick = () => go("dashboard");
       $("#onlywrong").onchange = e => { showWrong = e.target.checked; renderResults(); };
