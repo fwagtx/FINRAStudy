@@ -1,6 +1,6 @@
 # FINRA SIE Exam — Complete Study Guide
 
-An original, comprehensive study guide for the **Securities Industry Essentials (SIE)** exam, organized to mirror a standard 15-chapter textbook structure, with a numbers/formulas cheat sheet, a 150-question practice bank, and a dark-theme study app (`app/index.html`) with a progress-tracking dashboard, chapter reader, chapter quizzes and full-length timed practice exams.
+An original, comprehensive study guide for the **Securities Industry Essentials (SIE)** exam, organized to mirror a standard 15-chapter textbook structure, with a numbers/formulas cheat sheet, a 700+ question practice bank, and a dark-theme study app (`app/index.html`) with a progress-tracking dashboard, chapter reader, chapter quizzes and full-length timed practice exams.
 
 > **How to use this with Claude Code:** drop this whole folder into a project and ask Claude Code to quiz you from `questions/question-bank.json`, explain any section in `chapters/`, generate new questions in the same JSON schema, or extend the app. Everything is plain markdown/JSON/HTML.
 
@@ -55,7 +55,7 @@ sie-study-guide/
 │   ├── 14-retirement-and-education-plans.md
 │   └── 15-rules-and-ethics.md
 ├── questions/
-│   ├── question-bank.json        ← 150 original questions with explanations, tagged by chapter & FINRA section
+│   ├── question-bank.json        ← 700+ original questions with explanations, tagged by chapter & FINRA section
 │   └── question-bank.md          ← the same questions in readable form
 └── app/
     └── index.html                ← self-contained study app (reader + dashboard + quizzes + timed exams)
