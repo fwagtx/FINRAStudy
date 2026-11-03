@@ -341,7 +341,7 @@ function breakdown(q, picked){
     <div class="bd-foot">${secBtn(q)}</div></div>`;
 }
 document.addEventListener("click", e => { const b = e.target.closest && e.target.closest("[data-gosec]"); if(b) go("textbook", {chapter:+b.dataset.ch, section:b.dataset.gosec}); });
-function logAnswer(q, correct){ const l = S.qlog[q.id] || (S.qlog[q.id]={r:0,w:0,last:null}); correct?l.r++:l.w++; l.last=correct; }
+function logAnswer(q, correct){ const l = S.qlog[q.id] || (S.qlog[q.id]={r:0,w:0,last:null}); correct?l.r++:l.w++; l.last=correct; l.t=Date.now(); }
 function refreshRail(){
   const d = Object.keys(S.read).filter(k=>S.read[k]).length, t = allSections.length, p = Math.round(100*d/t);
   $("#railbar").style.width = p+"%"; $("#railpct").textContent = p+"%";
@@ -487,18 +487,30 @@ function syncToc(reopen){
 
 /* ---------- quizzes ---------- */
 function shuffle(a){ a=[...a]; for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+// pick n questions: never-seen first, then ones missed last time, then the longest since last seen
+function pickFresh(pool, n){
+  const tier = q => { const l = S.qlog[q.id]; return !l ? 0 : l.last === false ? 1 : 2; };
+  const when = q => (S.qlog[q.id] && S.qlog[q.id].t) || 0;
+  return shuffle(pool).sort((a,b) => tier(a) - tier(b) || when(a) - when(b)).slice(0, n);
+}
+// show options in a different order each time (same order for a given seed, so a resumed exam matches)
+const FIXED_ORDER = /^(I|II|III|IV)\b[ ,]|of the above|\b[A-D] and [A-D]\b/;
+function shuffleQ(q, seed){
+  if(q.o.some(o => FIXED_ORDER.test(o))) return q;
+  let s = (seed ^ Math.imul(q.id, 2654435761)) >>> 0; const r = () => (s = (Math.imul(s, 1664525) + 1013904223) >>> 0) / 4294967296;
+  const idx = [0,1,2,3]; for(let i=3;i>0;i--){ const j = Math.floor(r()*(i+1)); [idx[i],idx[j]] = [idx[j],idx[i]]; }
+  return {...q, o: idx.map(i => q.o[i]), w: q.w ? idx.map(i => q.w[i]) : q.w, a: idx.indexOf(q.a)};
+}
 function renderQuizzes(opts={}){
   if(opts.chapter) return startQuiz(opts.chapter);
-  view.innerHTML = `<div class="pad"><p class="hint">Pick a chapter. Each quiz shows the explanation right after you answer, and every answer feeds the accuracy numbers on your dashboard. Questions you missed before are weighted to come up again.</p><div class="chgrid">${CHAPTERS.map(c=>{const n=QUESTIONS.filter(q=>q.ch===c.num).length,a=accuracy(c.num);return `<button class="chbtn" data-ch="${c.num}"><span class="t">${c.num}. ${esc(c.name)}</span><span class="s"><span>${n} questions</span>${a.n?`<span>· ${a.pct}% accuracy</span>`:""}</span><div class="bar ${a.pct===null?"":a.pct>=80?"good":a.pct>=65?"warn":"bad"}"><i style="width:${a.pct??0}%"></i></div></button>`}).join("")}
+  view.innerHTML = `<div class="pad"><p class="hint">Pick a chapter. Each quiz shows the explanation right after you answer, and every answer feeds the accuracy numbers on your dashboard. Each quiz is 15 questions (20 for mixed review): ones you haven't seen come first, then ones you missed.</p><div class="chgrid">${CHAPTERS.map(c=>{const n=QUESTIONS.filter(q=>q.ch===c.num).length,a=accuracy(c.num);return `<button class="chbtn" data-ch="${c.num}"><span class="t">${c.num}. ${esc(c.name)}</span><span class="s"><span>${n} questions</span>${a.n?`<span>· ${a.pct}% accuracy</span>`:""}</span><div class="bar ${a.pct===null?"":a.pct>=80?"good":a.pct>=65?"warn":"bad"}"><i style="width:${a.pct??0}%"></i></div></button>`}).join("")}
     <button class="chbtn" data-ch="0"><span class="t">Mixed review</span><span class="s"><span>20 random questions across all chapters</span></span><div class="bar"><i style="width:0"></i></div></button></div></div>`;
   view.querySelectorAll(".chbtn").forEach(b => b.onclick = () => startQuiz(+b.dataset.ch));
 }
 function startQuiz(ch){
   let pool = ch ? QUESTIONS.filter(q=>q.ch===ch) : QUESTIONS;
-  // weight previously-missed questions first
-  const missed = pool.filter(q => S.qlog[q.id] && S.qlog[q.id].last===false), rest = pool.filter(q => !missed.includes(q));
-  let qs = [...shuffle(missed), ...shuffle(rest)];
-  if(!ch) qs = qs.slice(0,20);
+  const seed = Date.now() >>> 0;
+  const qs = pickFresh(pool, ch ? 15 : 20).map(q => shuffleQ(q, seed));
   const name = ch ? `${ch}. ${chapterByNum(ch).name}` : "Mixed review";
   let i = 0, right = 0;
   const render = () => {
@@ -525,9 +537,9 @@ function startQuiz(ch){
 /* ---------- exams ---------- */
 function buildExam(n){
   const scale = n/75, qs = [];
-  for(const f of [1,2,3,4]){ const want = Math.round(FS_WEIGHTS[f]*scale); qs.push(...shuffle(QUESTIONS.filter(q=>q.fs===f)).slice(0,want)); }
+  for(const f of [1,2,3,4]){ const want = Math.round(FS_WEIGHTS[f]*scale); qs.push(...pickFresh(QUESTIONS.filter(q=>q.fs===f), want)); }
   const ids = new Set(qs.map(q=>q.id));
-  for(const q of shuffle(QUESTIONS)){ if(qs.length>=n) break; if(!ids.has(q.id)){ qs.push(q); ids.add(q.id); } }
+  qs.push(...pickFresh(QUESTIONS.filter(q => !ids.has(q.id)), n - qs.length));
   return shuffle(qs).slice(0,n);
 }
 function renderExams(){
@@ -543,12 +555,13 @@ function renderExams(){
 }
 function startExam(n, secs, resume){
   const byId = new Map(QUESTIONS.map(q => [q.id, q]));
-  const qs = resume ? resume.ids.map(id => byId.get(id)).filter(Boolean) : buildExam(n);
+  const seed = resume ? (resume.seed || 0) : (Date.now() >>> 0) || 1; // 0 = an exam saved before options were shuffled
+  const qs = (resume ? resume.ids.map(id => byId.get(id)).filter(Boolean) : buildExam(n)).map(q => seed ? shuffleQ(q, seed) : q);
   const ans = resume ? resume.ans.slice(0, qs.length) : new Array(qs.length).fill(null), flags = new Set(resume ? resume.flags : []);
   let i = resume ? Math.min(resume.i, qs.length-1) : 0, left = resume ? resume.left : secs, timer = null;
   // the clock only runs while the exam is open, so closing the page pauses it
   activeExam = {qs};
-  const persist = () => { S.inExam = {ids: qs.map(q=>q.id), ans: ans.slice(), flags: [...flags], i, left: Math.max(0,left), secs, savedAt: Date.now()}; save(); };
+  const persist = () => { S.inExam = {ids: qs.map(q=>q.id), seed, ans: ans.slice(), flags: [...flags], i, left: Math.max(0,left), secs, savedAt: Date.now()}; save(); };
   const onHide = () => { if(document.visibilityState === "hidden" && activeExam){ persist(); cloudWrite(); } };
   document.addEventListener("visibilitychange", onHide); window.addEventListener("pagehide", onHide);
   const stopExam = () => { clearInterval(timer); activeExam = null; document.removeEventListener("visibilitychange", onHide); window.removeEventListener("pagehide", onHide); };
