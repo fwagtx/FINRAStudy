@@ -43,6 +43,12 @@ def build_chapter(path):
 
 chapters = [build_chapter(p) for p in sorted(CH_DIR.glob("*.md"))]
 questions = json.loads((ROOT / "questions" / "question-bank.json").read_text())
+exam_sets_path = ROOT / "questions" / "exams.json"
+exam_sets = json.loads(exam_sets_path.read_text()) if exam_sets_path.exists() else []
+_ids = {q["id"] for q in questions}
+for _s in exam_sets:
+    _missing = [i for i in _s["ids"] if i not in _ids]
+    assert not _missing, f"exam {_s['id']} references missing questions {_missing}"
 cheat = MD((ROOT / "CHEAT-SHEET.md").read_text())
 
 def embed(obj):
@@ -50,6 +56,7 @@ def embed(obj):
 
 page = (TEMPLATE.replace("/*CHAPTERS*/", embed(chapters))
         .replace("/*QUESTIONS*/", embed(questions))
+        .replace("/*EXAMS*/", embed(exam_sets))
         .replace("<!--CHEAT-->", cheat))
 
 (ROOT / "app" / "artifact-body.html").write_text(page)

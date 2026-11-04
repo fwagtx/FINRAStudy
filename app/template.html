@@ -258,6 +258,10 @@ textarea.io{width:100%;min-height:110px;font-family:var(--mono);font-size:12px;b
 <script>
 const CHAPTERS = /*CHAPTERS*/;
 const QUESTIONS = /*QUESTIONS*/;
+const EXAM_SETS = /*EXAMS*/; // fixed full-length exams; their questions stay out of random draws until that exam is taken
+const setTaken = id => S.exams.some(e => e.set === id);
+const reservedIds = () => new Set(EXAM_SETS.filter(s => !setTaken(s.id)).flatMap(s => s.ids));
+const drawPool = () => { const r = reservedIds(); return QUESTIONS.filter(q => !r.has(q.id)); };
 const FS_NAMES = {1:"Knowledge of Capital Markets",2:"Products and Their Risks",3:"Trading, Customer Accounts & Prohibited Activities",4:"Regulatory Framework"};
 const FS_WEIGHTS = {1:12,2:33,3:23,4:7}; // per 75 questions, from the FINRA outline (16/44/31/9%)
 const EXAM_MIN = 105;
@@ -508,7 +512,7 @@ function renderQuizzes(opts={}){
   view.querySelectorAll(".chbtn").forEach(b => b.onclick = () => startQuiz(+b.dataset.ch));
 }
 function startQuiz(ch){
-  let pool = ch ? QUESTIONS.filter(q=>q.ch===ch) : QUESTIONS;
+  let pool = ch ? drawPool().filter(q=>q.ch===ch) : drawPool();
   const seed = Date.now() >>> 0;
   const qs = pickFresh(pool, ch ? 15 : 20).map(q => shuffleQ(q, seed));
   const name = ch ? `${ch}. ${chapterByNum(ch).name}` : "Mixed review";
@@ -536,10 +540,11 @@ function startQuiz(ch){
 
 /* ---------- exams ---------- */
 function buildExam(n){
+  const POOL = drawPool();
   const scale = n/75, qs = [];
-  for(const f of [1,2,3,4]){ const want = Math.round(FS_WEIGHTS[f]*scale); qs.push(...pickFresh(QUESTIONS.filter(q=>q.fs===f), want)); }
+  for(const f of [1,2,3,4]){ const want = Math.round(FS_WEIGHTS[f]*scale); qs.push(...pickFresh(POOL.filter(q=>q.fs===f), want)); }
   const ids = new Set(qs.map(q=>q.id));
-  qs.push(...pickFresh(QUESTIONS.filter(q => !ids.has(q.id)), n - qs.length));
+  qs.push(...pickFresh(POOL.filter(q => !ids.has(q.id)), n - qs.length));
   return shuffle(qs).slice(0,n);
 }
 function renderExams(){
@@ -548,20 +553,23 @@ function renderExams(){
   view.innerHTML = `<div class="pad">${ie?`<div class="card" style="margin-bottom:14px;display:flex;gap:14px;align-items:center;flex-wrap:wrap"><span class="chip warn">In progress</span><span class="grow">You have an unfinished ${ie.ids.length}-question exam: ${ie.ans.filter(a=>a!==null).length} answered, ${fmtTime(Math.max(0,ie.left))} left on the clock.</span><button class="btn primary" id="resume">Resume exam</button><button class="btn sm danger" id="discard">Discard</button></div>`:""}<div class="grid2">
     <div class="card"><h2>Full-length practice exam</h2><p class="hint">75 questions in 105 minutes, mirroring the real SIE: 12 on capital markets, 33 on products, 23 on trading/accounts/prohibited activities, 7 on the regulatory framework. No feedback until you submit. Flag questions to revisit. Passing is 70%.</p><button class="btn primary" id="full">Start full exam</button></div>
     <div class="card"><h2>Short exam</h2><p class="hint">25 questions, 35 minutes, same section weighting. Good for a daily check-in.</p><button class="btn" id="short">Start short exam</button></div></div>
-    <div class="card"><h2>History</h2>${ex.length?`<div class="tablewrap"><table><thead><tr><th>#</th><th>Date</th><th>Questions</th><th>Score</th><th>Time</th></tr></thead><tbody>${ex.map((e,i)=>`<tr><td class="num">${i+1}</td><td class="num">${esc(e.date)}</td><td>${e.n}</td><td><span class="chip ${e.pct>=70?"good":"bad"}">${e.pct}%</span></td><td class="num">${fmtTime(e.secs)}</td></tr>`).join("")}</tbody></table></div>`:'<div class="empty">No exams yet. The question pool has '+QUESTIONS.length+' questions, so each exam is a fresh random draw.</div>'}</div></div>`;
+    ${EXAM_SETS.length ? `<div class="card" style="margin-bottom:14px"><h2>Named practice exams<small>a fixed set of questions you won't see anywhere else until you take it</small></h2>${EXAM_SETS.map(s => { const tries = ex.filter(e => e.set === s.id), best = tries.length ? Math.max(...tries.map(e => e.pct)) : null; return `<div class="plan-row" style="align-items:center"><div class="what"><b>${esc(s.name)}</b> <span class="muted" style="font-size:12px">${s.ids.length} questions · ${Math.round(s.ids.length*EXAM_MIN/75)} min</span></div>${best!==null?`<span class="chip ${best>=70?"good":"bad"}">Best ${best}%</span>`:'<span class="chip">Not taken</span>'}<button class="btn sm ${best===null?"primary":""}" data-set="${esc(s.id)}">${best===null?"Start":"Retake"}</button></div>`; }).join("")}</div>` : ""}
+    <div class="card"><h2>History</h2>${ex.length?`<div class="tablewrap"><table><thead><tr><th>#</th><th>Date</th><th>Exam</th><th>Score</th><th>Time</th></tr></thead><tbody>${ex.map((e,i)=>`<tr><td class="num">${i+1}</td><td class="num">${esc(e.date)}</td><td>${e.set ? esc((EXAM_SETS.find(s => s.id === e.set)||{name:"Exam "+e.set}).name) : e.n+" random"}</td><td><span class="chip ${e.pct>=70?"good":"bad"}">${e.pct}%</span></td><td class="num">${fmtTime(e.secs)}</td></tr>`).join("")}</tbody></table></div>`:'<div class="empty">No exams yet. The question pool has '+QUESTIONS.length+' questions, so each exam is a fresh random draw.</div>'}</div></div>`;
+  view.querySelectorAll("[data-set]").forEach(b => b.onclick = () => { const s = EXAM_SETS.find(x => x.id === b.dataset.set); startExam(s.ids.length, Math.round(s.ids.length*EXAM_MIN/75)*60, null, s); });
   if(ie){ $("#resume").onclick = () => startExam(ie.ids.length, ie.secs, ie); $("#discard").onclick = () => { S.inExam = null; save(); renderExams(); }; }
   $("#full").onclick = () => startExam(75, EXAM_MIN*60);
   $("#short").onclick = () => startExam(25, 35*60);
 }
-function startExam(n, secs, resume){
+function startExam(n, secs, resume, set){
+  const setId = resume ? resume.set || null : set ? set.id : null;
   const byId = new Map(QUESTIONS.map(q => [q.id, q]));
   const seed = resume ? (resume.seed || 0) : (Date.now() >>> 0) || 1; // 0 = an exam saved before options were shuffled
-  const qs = (resume ? resume.ids.map(id => byId.get(id)).filter(Boolean) : buildExam(n)).map(q => seed ? shuffleQ(q, seed) : q);
+  const qs = (resume ? resume.ids.map(id => byId.get(id)).filter(Boolean) : set ? set.ids.map(id => byId.get(id)).filter(Boolean) : buildExam(n)).map(q => seed ? shuffleQ(q, seed) : q);
   const ans = resume ? resume.ans.slice(0, qs.length) : new Array(qs.length).fill(null), flags = new Set(resume ? resume.flags : []);
   let i = resume ? Math.min(resume.i, qs.length-1) : 0, left = resume ? resume.left : secs, timer = null;
   // the clock only runs while the exam is open, so closing the page pauses it
   activeExam = {qs};
-  const persist = () => { S.inExam = {ids: qs.map(q=>q.id), seed, ans: ans.slice(), flags: [...flags], i, left: Math.max(0,left), secs, savedAt: Date.now()}; save(); };
+  const persist = () => { S.inExam = {ids: qs.map(q=>q.id), seed, set: setId, ans: ans.slice(), flags: [...flags], i, left: Math.max(0,left), secs, savedAt: Date.now()}; save(); };
   const onHide = () => { if(document.visibilityState === "hidden" && activeExam){ persist(); cloudWrite(); } };
   document.addEventListener("visibilitychange", onHide); window.addEventListener("pagehide", onHide);
   const stopExam = () => { clearInterval(timer); activeExam = null; document.removeEventListener("visibilitychange", onHide); window.removeEventListener("pagehide", onHide); };
@@ -595,7 +603,7 @@ function startExam(n, secs, resume){
     qs.forEach((q,k) => { const ok = ans[k]===q.a; if(ok) right++; logAnswer(q, ok); fs[q.fs]=fs[q.fs]||{r:0,n:0}; fs[q.fs].n++; if(ok) fs[q.fs].r++; ch[q.ch]=ch[q.ch]||{r:0,n:0}; ch[q.ch].n++; if(ok) ch[q.ch].r++; });
     const pct = Math.round(100*right/qs.length);
     const d = new Date(), date = d.toLocaleDateString(undefined,{month:"short",day:"numeric"})+" "+d.toLocaleTimeString(undefined,{hour:"numeric",minute:"2-digit"});
-    S.exams.push({ts: Date.now(), date, n:qs.length, right, pct, secs:secsUsed, fs, ch}); save();
+    S.exams.push({ts: Date.now(), set: setId || undefined, date, n:qs.length, right, pct, secs:secsUsed, fs, ch}); save();
     const misses = qs.map((q,k) => ({q,k})).filter(x => ans[x.k] !== x.q.a);
     let showWrong = misses.length > 0;
     // group misses by textbook section, biggest gaps first
