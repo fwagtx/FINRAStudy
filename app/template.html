@@ -177,6 +177,9 @@ th{font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--fg-3
 .bd details{padding:8px 14px;border-radius:8px;border:1px solid var(--line)}.bd summary{cursor:pointer;color:var(--fg-2)}
 .bd details ul{margin:8px 0 2px;padding-left:18px}.bd details li{margin:4px 0}
 .bd-tip{color:var(--fg-2)}
+.article.ess blockquote{margin:0 0 18px;padding:12px 16px;border-left:3px solid var(--accent);background:var(--bg-2);border-radius:8px;font-size:16px}
+.article.ess blockquote p{margin:0}
+.article.ess h2{margin-top:30px}
 #catchup{font:inherit;font-size:14px;padding:6px 8px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--fg);max-width:100%}.bd-foot{display:flex;gap:8px;flex-wrap:wrap}
 .plan-row{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--line)}.plan-row:first-of-type{border-top:0}
 .plan-row .n{min-width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--bg-2);font-family:var(--mono);font-size:13px}
@@ -231,6 +234,7 @@ textarea.io{width:100%;min-height:110px;font-family:var(--mono);font-size:12px;b
     <div class="brand"><span class="logo">SIE</span><span>SIE Study Hub</span></div>
     <div class="exam-tag">FINRA Securities Industry Essentials</div>
     <button class="navbtn" data-view="dashboard"><svg viewBox="0 0 24 24"><path d="M4 19V11M10 19V5M16 19v-8M22 19H2"/></svg>Dashboard</button>
+    <button class="navbtn" data-view="essentials"><svg viewBox="0 0 24 24"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg>Must-knows</button>
     <button class="navbtn" data-view="textbook"><svg viewBox="0 0 24 24"><path d="M4 4h6a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H4zM20 4h-6a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h7z"/></svg>Textbook</button>
     <button class="navbtn" data-view="quizzes"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Chapter quizzes</button>
     <button class="navbtn" data-view="exams"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Practice exams</button>
@@ -258,17 +262,19 @@ textarea.io{width:100%;min-height:110px;font-family:var(--mono);font-size:12px;b
 <script>
 const CHAPTERS = /*CHAPTERS*/;
 const QUESTIONS = /*QUESTIONS*/;
-const EXAM_SETS = /*EXAMS*/; // fixed full-length exams; their questions stay out of random draws until that exam is taken
+const EXAM_SETS = /*EXAMS*/;
+const ESSENTIALS = /*ESSENTIALS*/; // condensed must-know pages, one per chapter, each with a fixed 12-question check // fixed full-length exams; their questions stay out of random draws until that exam is taken
 const setTaken = id => S.exams.some(e => e.set === id);
 const reservedIds = () => new Set(EXAM_SETS.filter(s => !setTaken(s.id)).flatMap(s => s.ids));
-const drawPool = () => { const r = reservedIds(); return QUESTIONS.filter(q => !r.has(q.id)); };
+// essentials-check questions join the general pool once that chapter's check has been taken
+const drawPool = () => { const r = reservedIds(); return QUESTIONS.filter(q => !r.has(q.id) && (!q.ess || (S.ess[q.ess] && S.ess[q.ess].best !== undefined))); };
 const FS_NAMES = {1:"Knowledge of Capital Markets",2:"Products and Their Risks",3:"Trading, Customer Accounts & Prohibited Activities",4:"Regulatory Framework"};
 const FS_WEIGHTS = {1:12,2:33,3:23,4:7}; // per 75 questions, from the FINRA outline (16/44/31/9%)
 const EXAM_MIN = 105;
 
 /* ---------- state ---------- */
 const KEY = "sie-study-hub-v1";
-let S = {read:{}, qlog:{}, exams:[], lastView:"dashboard", lastChapter:1, inExam:null, updatedAt:0};
+let S = {read:{}, qlog:{}, exams:[], ess:{}, lastView:"dashboard", lastChapter:1, inExam:null, updatedAt:0};
 function load(){ try{ const raw = localStorage.getItem(KEY); if(raw){ S = Object.assign(S, JSON.parse(raw)); } }catch(e){} }
 function save(){ S.updatedAt = Date.now(); try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} refreshRail(); cloudQueue(); }
 load();
@@ -295,6 +301,7 @@ function mergeState(a, b){
   for(const e of [...(a.exams||[]), ...(b.exams||[])]){ const k = key(e); if(!seen.has(k)){ seen.add(k); out.exams.push(e); } }
   out.exams.sort((x,y) => (x.ts||0) - (y.ts||0));
   const ia = a.inExam, ib = b.inExam; out.inExam = ia && ib ? ((ib.savedAt||0) > (ia.savedAt||0) ? ib : ia) : (ia || ib || null);
+  out.ess = Object.assign({}, a.ess); for(const k in (b.ess||{})){ const x = out.ess[k] || {}, y = b.ess[k]; out.ess[k] = {read: !!(x.read || y.read), best: Math.max(x.best ?? -1, y.best ?? -1), last: (y.ts||0) > (x.ts||0) ? y.last : x.last, ts: Math.max(x.ts||0, y.ts||0)}; if(out.ess[k].best < 0) delete out.ess[k].best; }
   out.updatedAt = Math.max(a.updatedAt||0, b.updatedAt||0);
   return out;
 }
@@ -353,7 +360,7 @@ function refreshRail(){
 }
 
 /* ---------- routing ---------- */
-const VIEWS = {dashboard:"Dashboard", textbook:"Textbook", quizzes:"Chapter quizzes", exams:"Practice exams", cheatsheet:"Cheat sheet"};
+const VIEWS = {dashboard:"Dashboard", essentials:"Must-knows", textbook:"Textbook", quizzes:"Chapter quizzes", exams:"Practice exams", cheatsheet:"Cheat sheet"};
 let activeExam = null; // guards leaving mid-exam
 function go(v, opts={}){
   if(!VIEWS[v]) v = "dashboard";
@@ -363,7 +370,7 @@ function go(v, opts={}){
   viewTitle.textContent = VIEWS[v]; topchip.hidden = true; $("#tocbtn").hidden = v!=="textbook";
   $("#rail").classList.remove("open");
   if(location.hash.replace("#","") !== v) history.replaceState(null,"","#"+v);
-  ({dashboard:renderDashboard, textbook:renderTextbook, quizzes:renderQuizzes, exams:renderExams, cheatsheet:renderCheat})[v](opts);
+  ({dashboard:renderDashboard, essentials:renderEssentials, textbook:renderTextbook, quizzes:renderQuizzes, exams:renderExams, cheatsheet:renderCheat})[v](opts);
   view.scrollTop = 0;
 }
 document.querySelectorAll(".navbtn").forEach(b => b.addEventListener("click", () => go(b.dataset.view)));
@@ -398,6 +405,7 @@ function renderDashboard(){
       <div class="stat"><div class="lbl">Question accuracy</div><div class="val">${acc.pct!==null?acc.pct+"%":"–"}</div><div class="sub">${acc.n} answered</div></div>
     </div>
     <div class="card" style="margin-bottom:14px;display:flex;gap:14px;align-items:center;flex-wrap:wrap"><span class="chip ${avg3===null?"":avg3>=80?"good":avg3>=70?"warn":"bad"}">Readiness</span><span>${ready}</span><span class="grow" style="flex:1"></span><button class="btn primary" id="dash-exam">Start a practice exam</button></div>
+    ${ESSENTIALS.length ? `<div class="card" style="margin-bottom:14px;display:flex;gap:12px;align-items:center;flex-wrap:wrap"><span class="chip accent">Final review</span><span>Must-knows: ${ESSENTIALS.filter(x => (S.ess[x.num]||{}).best >= 85).length} of ${ESSENTIALS.length} chapter checks at 85%+</span><span class="grow" style="flex:1"></span><button class="btn" id="dash-ess">Open must-knows</button></div>` : ""}
     ${d < t ? `<div class="card" style="margin-bottom:14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap"><span>Already read part of the book?</span><span>Mark chapters 1 through</span><select id="catchup" aria-label="Last chapter read">${CHAPTERS.map(c => `<option value="${c.num}">${c.num}. ${esc(c.name)}</option>`).join("")}</select><button class="btn sm" id="catchup-go">Mark as read</button></div>` : ""}
     <div class="grid2">
       <div class="card"><h2>Exam score history<small>pass line at 70</small></h2>${ex.length?examChart(ex):'<div class="empty">Your scores will chart here after your first practice exam.</div>'}</div>
@@ -413,14 +421,15 @@ function renderDashboard(){
       <textarea class="io" id="io" placeholder="Export appears here, or paste a previous export to import." aria-label="Progress data"></textarea></div>
   </div>`;
   $("#dash-exam").onclick = () => go("exams");
+  const de = $("#dash-ess"); if(de) de.onclick = () => go("essentials");
   const cu = $("#catchup-go"); if(cu) cu.onclick = () => { const upto = +$("#catchup").value; CHAPTERS.filter(c => c.num <= upto).forEach(c => c.sections.forEach(s => S.read[s.id] = true)); save(); toast(`Chapters 1–${upto} marked as read`); renderDashboard(); };
   view.querySelectorAll("[data-quiz]").forEach(b => b.onclick = () => go("quizzes",{chapter:+b.dataset.quiz}));
   view.querySelectorAll("[data-read]").forEach(b => b.onclick = () => go("textbook",{chapter:+b.dataset.read}));
   $("#exp").onclick = () => { $("#io").value = JSON.stringify(S); $("#io").select(); navigator.clipboard?.writeText($("#io").value).then(()=>toast("Copied to clipboard")).catch(()=>toast("Select the text and copy it")); };
-  $("#imp").onclick = () => { try{ const o = JSON.parse($("#io").value); if(!o.read||!o.exams) throw 0; S = Object.assign({read:{},qlog:{},exams:[]}, o); save(); toast("Progress imported"); renderDashboard(); }catch(e){ toast("That isn't a valid export"); } };
+  $("#imp").onclick = () => { try{ const o = JSON.parse($("#io").value); if(!o.read||!o.exams) throw 0; S = Object.assign({read:{},qlog:{},exams:[],ess:{}}, o); save(); toast("Progress imported"); renderDashboard(); }catch(e){ toast("That isn't a valid export"); } };
   $("#reset").onclick = () => $("#resetconfirm").hidden = false;
   $("#reset-no").onclick = () => $("#resetconfirm").hidden = true;
-  $("#reset-yes").onclick = () => { S = {read:{},qlog:{},exams:[],lastView:"dashboard",lastChapter:1}; save(); toast("Progress reset"); renderDashboard(); };
+  $("#reset-yes").onclick = () => { S = {read:{},qlog:{},exams:[],ess:{},lastView:"dashboard",lastChapter:1}; save(); toast("Progress reset"); renderDashboard(); };
 }
 function examChart(ex){
   const W=520,H=190,pl=36,pr=12,pt=14,pb=28, n=ex.length;
@@ -511,13 +520,18 @@ function renderQuizzes(opts={}){
     <button class="chbtn" data-ch="0"><span class="t">Mixed review</span><span class="s"><span>20 random questions across all chapters</span></span><div class="bar"><i style="width:0"></i></div></button></div></div>`;
   view.querySelectorAll(".chbtn").forEach(b => b.onclick = () => startQuiz(+b.dataset.ch));
 }
-function startQuiz(ch){
+function startQuiz(ch, ess){
   let pool = ch ? drawPool().filter(q=>q.ch===ch) : drawPool();
   const seed = Date.now() >>> 0;
-  const qs = pickFresh(pool, ch ? 15 : 20).map(q => shuffleQ(q, seed));
-  const name = ch ? `${ch}. ${chapterByNum(ch).name}` : "Mixed review";
+  const qs = ess ? shuffle(QUESTIONS.filter(q => q.ess === ch)).map(q => shuffleQ(q, seed)) : pickFresh(pool, ch ? 15 : 20).map(q => shuffleQ(q, seed));
+  const name = ess ? `Must-knows check: ${ch}. ${chapterByNum(ch).name}` : ch ? `${ch}. ${chapterByNum(ch).name}` : "Mixed review";
   let i = 0, right = 0;
   const render = () => {
+    if(i >= qs.length && ess){
+      const pct = Math.round(100*right/qs.length), e = S.ess[ch] || (S.ess[ch] = {}); e.read = true; e.last = pct; e.best = Math.max(e.best ?? 0, pct); e.ts = Date.now(); save();
+      const nxt = ESSENTIALS.find(x => x.num > ch);
+      view.innerHTML = `<div class="qwrap"><div class="qcard"><div class="score"><div class="big ${pct>=70?"pass":"fail"}">${pct}%</div><div><div style="font-weight:600;font-size:17px">${esc(name)} — ${right} of ${qs.length}</div><div class="muted">${pct>=85?"You've got this chapter. Move on.":pct>=70?"Close. Re-read the exam traps and numbers table, then retake.":"Re-read the must-knows page once more, then retake the check."}</div></div></div><div class="qfoot"><button class="btn ${pct>=85&&nxt?"":"primary"}" id="again">Retake check</button><button class="btn" id="essback">Back to the page</button>${nxt?`<button class="btn ${pct>=85?"primary":""}" id="essnext">Next: ${nxt.num}. ${esc(nxt.name)} →</button>`:""}</div></div></div>`;
+      $("#again").onclick = () => startQuiz(ch, true); $("#essback").onclick = () => go("essentials", {chapter: ch}); const n = $("#essnext"); if(n) n.onclick = () => go("essentials", {chapter: nxt.num}); return; }
     if(i >= qs.length){ view.innerHTML = `<div class="qwrap"><div class="qcard"><div class="score"><div class="big ${right/qs.length>=.7?"pass":"fail"}">${Math.round(100*right/qs.length)}%</div><div><div style="font-weight:600;font-size:17px">${esc(name)} — ${right} of ${qs.length} correct</div><div class="muted">${right/qs.length>=.8?"Strong. Move on to the next chapter.":right/qs.length>=.7?"Passing level, but review the ones you missed.":"Re-read the chapter's quick review, then retake this quiz."}</div></div></div><div class="qfoot"><button class="btn primary" id="again">Retake</button>${ch?`<button class="btn" id="readch">Read chapter ${ch}</button>`:""}<button class="btn" id="back">All quizzes</button></div></div></div>`;
       $("#again").onclick = () => startQuiz(ch); $("#back").onclick = () => renderQuizzes(); const rc=$("#readch"); if(rc) rc.onclick = () => go("textbook",{chapter:ch}); return; }
     const q = qs[i]; let picked = null;
@@ -526,7 +540,7 @@ function startQuiz(ch){
       <div class="qfoot"><button class="btn" id="quit">Quit</button><span class="grow"></span><button class="btn primary" id="check" disabled>Check answer</button></div></div></div>`;
     const opts = view.querySelectorAll(".opt");
     opts.forEach(b => b.onclick = () => { if(picked!==null && $("#check").hidden) return; picked = +b.dataset.k; opts.forEach(x=>x.classList.toggle("sel", x===b)); $("#check").disabled=false; });
-    $("#quit").onclick = () => renderQuizzes();
+    $("#quit").onclick = () => ess ? go("essentials", {chapter: ch}) : renderQuizzes();
     $("#check").onclick = () => {
       const ok = picked===q.a; if(ok) right++; logAnswer(q, ok); save();
       opts.forEach(x => { x.disabled = true; const k=+x.dataset.k; if(k===q.a) x.classList.add("right"); else if(k===picked) x.classList.add("wrong"); });
@@ -631,6 +645,29 @@ function startExam(n, secs, resume, set){
   };
   if(left<=0){ finish(true); return; }
   render();
+}
+
+/* ---------- must-knows ---------- */
+function essStatus(n){ const e = S.ess[n]; return !e ? {label:"Not started", cls:""} : e.best === undefined ? {label:"Read", cls:""} : e.best >= 85 ? {label:`Check ${e.best}%`, cls:"good"} : e.best >= 70 ? {label:`Check ${e.best}%`, cls:"warn"} : {label:`Check ${e.best}%`, cls:"bad"}; }
+function renderEssentials(opts={}){
+  if(opts.chapter && ESSENTIALS.some(x => x.num === opts.chapter)) return showEssential(opts.chapter);
+  const done = ESSENTIALS.filter(x => (S.ess[x.num]||{}).best >= 85).length, mins = ESSENTIALS.reduce((s,x) => s + x.minutes, 0);
+  view.innerHTML = `<div class="pad"><p class="hint">The absolute must-knows from each chapter on one short page (about ${mins} minutes for all ${ESSENTIALS.length}), each followed by a 12-question check on exactly what's on that page. Aim for 85%+ on every check. ${done} of ${ESSENTIALS.length} mastered so far.</p>
+    <div class="chgrid">${ESSENTIALS.map(x => { const s = essStatus(x.num), b = (S.ess[x.num]||{}).best; return `<button class="chbtn" data-ess="${x.num}"><span class="t">${x.num}. ${esc(x.name)}</span><span class="s"><span>${x.minutes} min read</span> <span class="chip ${s.cls}" style="margin-left:6px">${s.label}</span></span><div class="bar ${b===undefined?"":b>=85?"good":b>=70?"warn":"bad"}"><i style="width:${b??0}%"></i></div></button>`; }).join("")}</div></div>`;
+  view.querySelectorAll("[data-ess]").forEach(b => b.onclick = () => showEssential(+b.dataset.ess));
+}
+function showEssential(n){
+  const x = ESSENTIALS.find(e => e.num === n), i = ESSENTIALS.indexOf(x), s = essStatus(n), nq = QUESTIONS.filter(q => q.ess === n).length;
+  S.lastView = "essentials"; const e = S.ess[n] || (S.ess[n] = {}); if(!e.read){ e.read = true; save(); }
+  view.innerHTML = `<article class="article ess"><h1 class="ct">${esc(x.name)}</h1><div class="meta"><span>Must-knows · chapter ${x.num} of ${CHAPTERS.length}</span><span>${x.minutes} min read</span><span class="chip ${s.cls}">${s.label}</span><span class="grow" style="flex:1"></span><button class="btn sm" id="fullch">Full chapter</button></div>
+    ${x.html}
+    <div class="card" style="margin-top:28px;display:flex;gap:12px;align-items:center;flex-wrap:wrap"><div style="flex:1;min-width:200px"><b>Check yourself</b><div class="muted" style="font-size:13px">${nq} questions on exactly this page, with an answer breakdown after each.</div></div><button class="btn primary" id="esscheck">Take the ${nq}-question check</button></div>
+    <div class="endnav">${i>0?`<button class="btn" data-essgo="${ESSENTIALS[i-1].num}">← ${ESSENTIALS[i-1].num}. ${esc(ESSENTIALS[i-1].name)}</button>`:"<span></span>"}<button class="btn" id="essall">All must-knows</button>${i<ESSENTIALS.length-1?`<button class="btn" data-essgo="${ESSENTIALS[i+1].num}">${ESSENTIALS[i+1].num}. ${esc(ESSENTIALS[i+1].name)} →</button>`:"<span></span>"}</div></article>`;
+  $("#esscheck").onclick = () => startQuiz(n, true);
+  $("#fullch").onclick = () => go("textbook", {chapter: n});
+  $("#essall").onclick = () => renderEssentials();
+  view.querySelectorAll("[data-essgo]").forEach(b => b.onclick = () => showEssential(+b.dataset.essgo));
+  view.scrollTop = 0;
 }
 
 /* ---------- cheat sheet ---------- */

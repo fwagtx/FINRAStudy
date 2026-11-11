@@ -42,6 +42,17 @@ def build_chapter(path):
             "sections": sections, "html": body}
 
 chapters = [build_chapter(p) for p in sorted(CH_DIR.glob("*.md"))]
+
+def build_essential(path):
+    text = path.read_text()
+    title = re.match(r"#\s+(.*)", text).group(1).strip()
+    num = int(re.match(r"Chapter (\d+)", title).group(1))
+    body = re.sub(r"<h1>.*?</h1>", "", MD(text), count=1)
+    words = len(re.findall(r"\w+", text))
+    return {"num": num, "name": title.split(":", 1)[1].strip(), "minutes": max(2, round(words / 200)), "html": body}
+
+ESS_DIR = ROOT / "essentials"
+essentials = [build_essential(p) for p in sorted(ESS_DIR.glob("*.md"))] if ESS_DIR.exists() else []
 questions = json.loads((ROOT / "questions" / "question-bank.json").read_text())
 exam_sets_path = ROOT / "questions" / "exams.json"
 exam_sets = json.loads(exam_sets_path.read_text()) if exam_sets_path.exists() else []
@@ -57,6 +68,7 @@ def embed(obj):
 page = (TEMPLATE.replace("/*CHAPTERS*/", embed(chapters))
         .replace("/*QUESTIONS*/", embed(questions))
         .replace("/*EXAMS*/", embed(exam_sets))
+        .replace("/*ESSENTIALS*/", embed(essentials))
         .replace("<!--CHEAT-->", cheat))
 
 (ROOT / "app" / "artifact-body.html").write_text(page)
