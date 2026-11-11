@@ -19,7 +19,7 @@
 - **Investment profile** — sought, but customer may refuse; account can still open.
 - **Trusted contact** — firm must *attempt* to get one; no account authority.
 - **Employee of another member** — prior written notice to the employer.
-- **AML** — SAR for suspicious $5,000+ within 30 days (don't tip off); CTR for cash over $10,000; placement → layering → integration.
+- **AML** — SAR for suspicious $5,000+ within 30 days (don't tip off); CTR for cash over $10,000; placement → layering → integration; **structuring** (splitting cash to dodge CTRs) is illegal.
 
 ### Registrations
 | | **JTWROS** | **Tenants in common** |
@@ -41,7 +41,7 @@
 
 ### Options and SIPC
 - **Options account** — ODD at or before approval → ROP approves → agreement signed within 15 days, else closing trades only.
-- **SIPC** — non-government; per **separate customer** (individual, joint, IRA, custodial each separate; two individual accounts in one name combine).
+- **SIPC** — non-government; missing assets valued at the filing date; per **separate customer** (individual, joint, IRA, custodial each separate; two individual accounts in one name combine).
 - **Not covered** — market losses, commodities/futures, fixed annuities. **FDIC** covers bank deposits.
 - **BCP** — annual review, summary disclosed at opening.
 

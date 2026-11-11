@@ -35,7 +35,7 @@
 | First | Listed | On the exchange |
 | Second | Unlisted | OTC |
 | Third | Listed | OTC by non-members |
-| Fourth | Any | Institution-to-institution via ECNs |
+| Fourth | Large blocks | Institution-to-institution via ECNs |
 
 - **NYSE** — auction market; **DMM** keeps a fair and orderly market, sets opening/closing prices, handles the book.
 - **Nasdaq** — exchange with competing market makers (no DMM). Level 1 = inside quote; Level 2 = every market maker's quote; Level 3 = market makers enter quotes.

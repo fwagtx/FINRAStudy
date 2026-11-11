@@ -52,7 +52,7 @@
 | **Account at another BD** (3210) | Employer's prior written **consent**; duplicates on request |
 
 - **Gifts (3220)** — $300 per person per year; entertainment excluded if the giver attends.
-- **Reg BI** — Disclosure, Care, Conflict of interest, Compliance; Form CRS by the earliest of recommendation, order or account opening; eliminate sales contests on specific securities.
+- **Reg BI** — covers recommendations (including rollovers) to retail customers, not unsolicited trades or institutions; Disclosure, Care, Conflict of interest, Compliance; Form CRS by the earliest of recommendation, order or account opening; eliminate sales contests on specific securities.
 
 ### Communications (Rule 2210)
 | Type | Audience | Approval |
@@ -62,7 +62,7 @@
 | **Institutional** | Institutions only | Written procedures |
 
 - **Filing** — new firm: 10 business days **before** first use (first year); funds/VAs/options/DPPs: within 10 business days **after**.
-- **Content** — fair and balanced; no predictions or guarantees; fund returns for 1, 5, 10 years.
+- **Content** — fair and balanced; no predictions or guarantees; fund returns for 1, 5, 10 years at the maximum sales charge.
 - **TCPA** — 8 a.m.–9 p.m. **called party's** time; firm do-not-call list kept 5 years.
 - **Proxies** — firm forwards (issuer pays); uninstructed shares voted only on routine matters.
 
