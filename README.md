@@ -38,6 +38,7 @@ Products are nearly half the exam. Bonds (Chapters 3–6) and investment compani
 sie-study-guide/
 ├── README.md                     ← this file
 ├── CHEAT-SHEET.md                ← every number, formula and date on one page
+├── essentials/                   ← 15 condensed must-know pages (one per chapter), each with a 12-question check in the app
 ├── chapters/
 │   ├── 01-common-stock.md
 │   ├── 02-preferred-stock.md

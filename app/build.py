@@ -13,7 +13,9 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 CH_DIR = ROOT / "chapters"
 TEMPLATE = (ROOT / "app" / "template.html").read_text()
 
-MD = lambda text: markdown.markdown(text, extensions=["tables", "fenced_code", "sane_lists"])
+# wide tables scroll inside their own box instead of widening the page on phones
+MD = lambda text: (markdown.markdown(text, extensions=["tables", "fenced_code", "sane_lists"])
+                   .replace("<table>", '<div class="tablewrap"><table>').replace("</table>", "</table></div>"))
 
 def slug(s):
     return re.sub(r"[^a-z0-9]+", "-", s.lower()).strip("-")
